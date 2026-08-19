@@ -1,9 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Java Complete Fundamentals Presentation</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Java Complete Fundamentals Presentation — Large Screen</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:#e9eef4;color:#132033;font-family:"Segoe UI",Arial,sans-serif}
@@ -125,48 +126,219 @@ body.sidebar-open{overflow:hidden}
 .topic-btn[data-topic-key^="quiz:"].active{background:#ed9b22;color:#fff}
 .topic-btn[data-topic-key^="quiz:"].active .topic-num{background:rgba(255,255,255,.22);color:#fff}
 </style>
-</head>
+<style>
+.creator-details{
+  position:relative;
+  z-index:2;
+}
+</style><style>
+/* Enhanced classroom concept slides */
+.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4vw;margin-top:4vh}
+.concept-card{background:#fff;border:1px solid #dfe8f0;border-radius:22px;padding:1.7vw;box-shadow:0 10px 28px rgba(28,55,80,.08)}
+.concept-card .num{display:flex;width:42px;height:42px;border-radius:12px;background:#eaf4fb;color:#1265a8;align-items:center;justify-content:center;font-weight:900;font-size:17px;margin-bottom:1.2vh}
+.concept-card h3{font-size:clamp(21px,1.7vw,31px);margin:.4vh 0 .8vh;color:#132033}
+.concept-card p{font-size:clamp(16px,1.25vw,22px);line-height:1.42;color:#526277;margin:0}
+.flow-wrap{display:flex;align-items:center;justify-content:center;gap:1vw;margin:5vh auto;max-width:1250px;flex-wrap:wrap}
+.flow-step{min-width:190px;padding:1.4vw 1.2vw;background:#fff;border:2px solid #dbe7f0;border-radius:20px;text-align:center;box-shadow:0 9px 25px rgba(28,55,80,.08)}
+.flow-step strong{display:block;font-size:clamp(19px,1.5vw,27px);color:#132033}
+.flow-step small{display:block;margin-top:.6vh;font-size:clamp(14px,1.05vw,18px);color:#64758a}
+.flow-arrow{font-size:30px;font-weight:900;color:#1265a8}
+.note-strip{margin-top:3vh;padding:1.2vw 1.5vw;border-left:6px solid #1265a8;background:#eef7fd;border-radius:0 15px 15px 0;font-size:clamp(17px,1.3vw,23px);color:#34475d}
+@media(max-width:800px){.concept-grid{grid-template-columns:1fr}.flow-wrap{flex-direction:column}.flow-arrow{transform:rotate(90deg)}}
+@media print{.concept-card,.flow-step,.note-strip{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style><style>
+.syntax-card{max-width:1150px;margin:4vh auto 0;background:#132033;border-radius:22px;padding:2vw;box-shadow:0 14px 36px rgba(10,25,42,.18)}
+.syntax-card pre{margin:0;white-space:pre-wrap;font-family:"Consolas","JetBrains Mono",monospace;font-size:clamp(18px,1.55vw,29px);line-height:1.55;color:#eef6ff}
+.syntax-label{font-size:clamp(15px,1vw,19px);font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#6ec8ff;margin-bottom:1vh}
+</style><style>
+/* ===== DATA TYPE LEARNING TABLES ===== */
+.learning-table-wrap{max-width:1180px;margin:3.5vh auto 0;background:#fff;border:1px solid #dce7ef;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(25,55,80,.08)}
+.learning-table{width:100%;border-collapse:collapse;font-size:clamp(15px,1.18vw,22px)}
+.learning-table th{background:#132033;color:#fff;text-align:left;padding:14px 18px;font-weight:900}
+.learning-table td{padding:13px 18px;border-bottom:1px solid #e5edf3;color:#34475d;vertical-align:top}
+.learning-table tr:last-child td{border-bottom:0}
+.learning-table .type-name{font-weight:900;color:#1265a8}
+.learning-table .example{font-family:"Consolas","JetBrains Mono",monospace;font-weight:700}
+.learning-table-note{max-width:1180px;margin:2vh auto 0;font-size:clamp(16px,1.2vw,22px);color:#607187}
+</style><style>
+/* ===== TYPE INFERENCE & TYPE CASTING ===== */
+.var-callout{max-width:1120px;margin:3.5vh auto 0;padding:1.8vw 2vw;background:#132033;border-radius:22px;color:#fff;box-shadow:0 14px 34px rgba(10,25,42,.18)}
+.var-callout .big{font-family:"Consolas","JetBrains Mono",monospace;font-size:clamp(24px,2vw,38px);font-weight:900;color:#70c6ff}
+.var-callout p{font-size:clamp(17px,1.25vw,23px);line-height:1.45;margin:.8vh 0;color:#eaf3fb}
+.cast-table-wrap{max-width:1180px;margin:3.5vh auto 0;background:#fff;border:1px solid #dce7ef;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(25,55,80,.08)}
+.cast-table{width:100%;border-collapse:collapse;font-size:clamp(15px,1.15vw,21px)}
+.cast-table th{background:#132033;color:#fff;text-align:left;padding:13px 17px}
+.cast-table td{padding:12px 17px;border-bottom:1px solid #e5edf3;color:#34475d}
+.cast-table tr:last-child td{border-bottom:0}
+.cast-code{font-family:"Consolas","JetBrains Mono",monospace;font-weight:800;color:#1265a8}
+</style><style>
+/* ============================================================
+   LARGE-SCREEN CLASSROOM READABILITY — FINAL
+   Designed for projector / lecture-hall viewing.
+   ============================================================ */
+
+/* Concept cards: the previous 16–22px body text was too small. */
+.slide .concept-card{
+  padding:2.0vw 1.9vw;
+}
+.slide .concept-card .num{
+  width:50px;height:50px;border-radius:14px;
+  font-size:22px;margin-bottom:1.5vh;
+}
+.slide .concept-card h3{
+  font-size:clamp(28px,2.15vw,38px);
+  line-height:1.12;
+  margin:.5vh 0 1.1vh;
+}
+.slide .concept-card p{
+  font-size:clamp(24px,1.85vw,32px);
+  line-height:1.35;
+}
+
+/* Flow diagrams must be readable from the back of a classroom. */
+.slide .flow-step{
+  min-width:220px;
+  padding:1.7vw 1.5vw;
+}
+.slide .flow-step strong{
+  font-size:clamp(25px,1.9vw,34px);
+  line-height:1.15;
+}
+.slide .flow-step small{
+  font-size:clamp(19px,1.4vw,25px);
+  line-height:1.3;
+}
+.slide .flow-arrow{
+  font-size:38px;
+}
+
+/* Syntax/code: make the actual Java statement the visual focus. */
+.slide .syntax-card{
+  max-width:1220px;
+  padding:2.4vw 2.6vw;
+  border-radius:24px;
+}
+.slide .syntax-card .syntax-label{
+  font-size:clamp(20px,1.35vw,25px);
+  margin-bottom:1.5vh;
+}
+.slide .syntax-card pre{
+  font-size:clamp(29px,2.35vw,42px);
+  line-height:1.45;
+}
+
+/* Explanatory strips / callouts. */
+.slide .note-strip{
+  font-size:clamp(23px,1.7vw,30px);
+  line-height:1.35;
+  padding:1.35vw 1.7vw;
+}
+.slide .learning-table-note{
+  font-size:clamp(22px,1.6vw,28px);
+  line-height:1.35;
+}
+
+/* Tables: readable headers and cells from projector distance. */
+.slide .learning-table{
+  font-size:clamp(21px,1.55vw,28px);
+}
+.slide .learning-table th{
+  padding:17px 20px;
+  font-size:clamp(22px,1.6vw,29px);
+}
+.slide .learning-table td{
+  padding:16px 20px;
+  line-height:1.3;
+}
+
+/* Existing generic cards. */
+.slide .card h3{
+  font-size:clamp(28px,2.15vw,38px);
+}
+.slide .card p{
+  font-size:clamp(23px,1.7vw,30px);
+  line-height:1.35;
+}
+
+/* Variable/type callouts. */
+.slide .var-callout .big{
+  font-size:clamp(30px,2.5vw,44px);
+}
+.slide .var-callout p{
+  font-size:clamp(23px,1.7vw,30px);
+}
+
+/* Subtitle / definition support text. */
+.slide .subtitle{
+  font-size:clamp(26px,2.15vw,36px);
+}
+
+/* Keep bullets strong and projector-safe. */
+.slide .bullet{
+  font-size:clamp(27px,2.2vw,38px);
+  line-height:1.38;
+}
+
+/* On narrower displays, stack cards rather than shrinking text. */
+@media(max-width:1000px){
+  .slide .concept-grid,
+  .slide .cards{
+    grid-template-columns:1fr;
+  }
+}
+
+/* Print / PDF retains the enlarged typography. */
+@media print{
+  .slide .concept-card,
+  .slide .flow-step,
+  .slide .syntax-card,
+  .slide .learning-table-wrap,
+  .slide .note-strip{
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+}
+</style></head>
 <body>
 <button id="presentButton" title="Start slide presentation">▶ Present</button>
-<button id="topicToggle" aria-label="Open topics sidebar" title="Open topics">☰</button>
+<button aria-label="Open topics sidebar" id="topicToggle" title="Open topics">☰</button>
 <div id="topicBackdrop"></div>
-<aside id="topicSidebar" aria-label="Presentation topics">
+<aside aria-label="Presentation topics" id="topicSidebar">
 <div class="sidebar-head"><div class="mini-title">Object Oriented Programming with Java</div><h3>Presentation Topics</h3></div>
 <nav id="topicList"></nav>
 </aside>
-
-<section class="slide center cover"><div class="kicker">Object Oriented Programming with Java</div><div class="title">JAVA PROGRAMMING</div><p class="subtitle">From Java fundamentals to Strings & StringBuilder</p><div class="accent"></div></section><section class="slide"><div class="kicker">Module Overview</div>
-    <h2>What We Will Learn</h2><p class="definition">A structured journey from the origin of Java to variables, arrays, operators, control flow, and string handling.</p></section><section class="slide center cover"><div class="kicker">01 · Introduction to Java</div><div class="title">INTRODUCTION
+<section class="slide center cover"><div class="kicker">Object Oriented Programming with Java</div><div class="title">JAVA PROGRAMMING</div><p class="subtitle">From Java fundamentals to Strings &amp; StringBuilder</p><div class="accent"></div><div class="creator-details" style="margin-top:5vh; text-align:center; font-size:clamp(18px,1.35vw,27px); line-height:1.5; color:#526277;"><div style="font-weight:900; text-transform:uppercase; letter-spacing:.12em; font-size:clamp(14px,1vw,19px); color:#1265a8; margin-bottom:.8vh;">Prepared by:</div><div style="font-weight:900; font-size:clamp(25px,2vw,38px); color:#132033; margin-bottom:.5vh;">Prof. Mohammed Siraj B</div><div>Asst Professor Stage-III,</div><div>School of Engineering,</div><div>St Aloysius (Deemed to be University), Mangalore</div></div></section><section class="slide"><div class="kicker">Module Overview</div>
+<h2>What We Will Learn</h2><p class="definition">A structured journey from the origin of Java to variables, arrays, operators, control flow, and string handling.</p></section><section class="slide center cover"><div class="kicker">01 · Introduction to Java</div><div class="title">INTRODUCTION
 TO JAVA</div><div class="accent"></div></section><section class="slide"><div class="kicker">01 · Introduction to Java</div>
-    <h2>Definition</h2><p class="definition">Java is a high-level, class-based, object-oriented programming language designed to be portable, robust, and widely applicable.</p></section><section class="slide"><div class="kicker">01 · Introduction to Java</div>
-    <h2>In Simple Words</h2><div class="bullet"><span>•</span> Java lets us write programs using classes and objects.</div><div class="bullet"><span>•</span> Java source code is compiled into bytecode.</div><div class="bullet"><span>•</span> Bytecode can run on a Java Virtual Machine (JVM).</div><div class="bullet"><span>•</span> This supports the idea: <strong>Write Once, Run Anywhere.</strong></div></section><section class="slide"><div class="kicker">01 · Introduction to Java</div><h2>Why Learn Java?</h2><div class="cards"><div class="card"><h3>Object-Oriented</h3><p>Programs are organized around classes and objects.</p></div><div class="card"><h3>Platform Independent</h3><p>Java bytecode runs on systems with a compatible JVM.</p></div><div class="card"><h3>Robust</h3><p>Strong type checking and runtime features support reliable programs.</p></div><div class="card"><h3>Widely Used</h3><p>Java is used in enterprise software, backend systems, Android history, tools, and education.</p></div></div></section><section class="slide"><div class="kicker">01 · Introduction to Java</div>
-    <h2>Key Idea</h2><p class="definition"><strong>Source Code → Compiler → Bytecode → JVM → Execution</strong></p></section><section class="slide"><div class="kicker">01 · Introduction to Java</div>
-    <h2>First Java Program</h2><pre class="code">public class HelloJava {
+<h2>Java in One Definition</h2><p class="definition">Java is a high-level, class-based, object-oriented programming language designed to be portable, robust, and widely applicable.</p></section><section class="slide"><div class="kicker">01 · Introduction to Java</div>
+<h2>In Simple Words</h2><div class="bullet"><span>•</span> Java lets us write programs using classes and objects.</div><div class="bullet"><span>•</span> Java source code is compiled into bytecode.</div><div class="bullet"><span>•</span> Bytecode can run on a Java Virtual Machine (JVM).</div><div class="bullet"><span>•</span> This supports the idea: <strong>Write Once, Run Anywhere.</strong></div></section><section class="slide"><div class="kicker">01 · Introduction to Java</div><h2>Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>High-Level</h3><p>Readable syntax makes Java easier to learn and maintain.</p></div><div class="concept-card"><div class="num">02</div><h3>Object-Oriented</h3><p>Programs are organized using classes and objects.</p></div><div class="concept-card"><div class="num">03</div><h3>Portable</h3><p>Bytecode runs through a compatible JVM.</p></div></div></section><section class="slide"><div class="kicker">01 · Introduction to Java</div><h2>Why Learn Java?</h2><div class="cards"><div class="card"><h3>Object-Oriented</h3><p>Programs are organized around classes and objects.</p></div><div class="card"><h3>Platform Independent</h3><p>Java bytecode runs on systems with a compatible JVM.</p></div><div class="card"><h3>Robust</h3><p>Strong type checking and runtime features support reliable programs.</p></div><div class="card"><h3>Widely Used</h3><p>Java is used in enterprise software, backend systems, Android history, tools, and education.</p></div></div></section><section class="slide"><div class="kicker">01 · Introduction to Java</div>
+<h2>Key Idea</h2><p class="definition"><strong>Source Code → Compiler → Bytecode → JVM → Execution</strong></p></section><section class="slide"><div class="kicker">01 · Introduction to Java</div>
+<h2>First Java Program</h2><pre class="code">public class HelloJava {
     public static void main(String[] args) {
-        System.out.println(&quot;Hello, Java!&quot;);
+        System.out.println("Hello, Java!");
     }
 }</pre></section><section class="slide center"><div class="kicker">01 · Introduction to Java</div>
-    <h2>Program Output</h2><div class="output">Hello, Java!</div></section><section class="slide"><div class="kicker">01 · Introduction to Java</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Write a program to print your name.</div><div class="exercise"><b>2.</b> Print the name of your university.</div><div class="exercise"><b>3.</b> Print three lines describing yourself.</div><div class="exercise"><b>4.</b> Print "I am learning Java".</div><div class="exercise"><b>5.</b> Print a simple welcome message for your class.</div></section><section class="slide center cover"><div class="kicker">02 · History of Java</div><div class="title">HISTORY
+<h2>Program Output</h2><div class="output">Hello, Java!</div></section><section class="slide"><div class="kicker">01 · Introduction to Java</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Write a program to print your name.</div><div class="exercise"><b>2.</b> Print the name of your university.</div><div class="exercise"><b>3.</b> Print three lines describing yourself.</div><div class="exercise"><b>4.</b> Print "I am learning Java".</div><div class="exercise"><b>5.</b> Print a simple welcome message for your class.</div></section><section class="slide center cover"><div class="kicker">02 · History of Java</div><div class="title">HISTORY
 OF JAVA</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · History of Java</div>
-    <h2>Java&#x27;s Beginning</h2><p class="definition">The history of Java explains how the language evolved from an early project into a widely used programming platform.</p></section><section class="slide"><div class="kicker">02 · History of Java</div><h2>The Early Beginning</h2><div class="cards"><div class="card"><h3>1991</h3><p>The Green Project began at Sun Microsystems.</p></div><div class="card"><h3>James Gosling</h3><p>A key figure in the development of Java.</p></div><div class="card"><h3>Original Name</h3><p>The language was initially called Oak.</p></div><div class="card"><h3>Java</h3><p>The name Java was later adopted.</p></div></div></section><section class="slide"><div class="kicker">02 · History of Java</div><h2>Important Milestones</h2><div class="cards"><div class="card"><h3>1995</h3><p>Java was publicly introduced.</p></div><div class="card"><h3>1996</h3><p>The first major Java Development Kit (JDK 1.0) was released.</p></div><div class="card"><h3>2006</h3><p>Sun began releasing much of Java as open source.</p></div><div class="card"><h3>2010</h3><p>Oracle acquired Sun Microsystems.</p></div></div></section><section class="slide"><div class="kicker">02 · History of Java</div>
-    <h2>Why Java Became Popular</h2><p class="definition">Java combined object-oriented programming, automatic memory management, portability through the JVM, and a growing standard library and ecosystem.</p></section><section class="slide"><div class="kicker">02 · History of Java</div><h2>Java's Core Idea</h2><div class="cards"><div class="card"><h3>Write</h3><p>Develop Java source code.</p></div><div class="card"><h3>Compile</h3><p>Convert source code into bytecode.</p></div><div class="card"><h3>Run</h3><p>Execute bytecode using a JVM.</p></div></div></section><section class="slide center cover"><div class="kicker">03 · JDK</div><div class="title">JDK</div><div class="accent"></div></section><section class="slide"><div class="kicker">03 · JDK</div>
-    <h2>What Is the JDK?</h2><p class="definition">JDK stands for <strong>Java Development Kit</strong>. It provides the tools required to develop, compile, test, and run Java programs.</p></section><section class="slide"><div class="kicker">03 · JDK</div>
-    <h2>In Simple Words</h2><div class="bullet"><span>•</span> JDK is mainly for <strong>developers</strong>.</div><div class="bullet"><span>•</span> It includes the Java compiler and other development tools.</div><div class="bullet"><span>•</span> A JDK installation provides the components needed to build Java applications.</div></section><section class="slide"><div class="kicker">03 · JDK</div><h2>Important JDK Components</h2><div class="cards"><div class="card"><h3>javac</h3><p>Java compiler: converts source code into bytecode.</p></div><div class="card"><h3>java</h3><p>Launches a Java application.</p></div><div class="card"><h3>javadoc</h3><p>Generates API documentation from source comments.</p></div><div class="card"><h3>jar</h3><p>Creates and manages Java archive files.</p></div></div></section><section class="slide"><div class="kicker">03 · JDK</div>
-    <h2>Typical Development Flow</h2><pre class="code">Hello.java
+<h2>Java's Beginning</h2><p class="definition">The history of Java explains how the language evolved from an early project into a widely used programming platform.</p></section><section class="slide"><div class="kicker">02 · History of Java</div><h2>The Early Beginning</h2><div class="cards"><div class="card"><h3>1991</h3><p>The Green Project began at Sun Microsystems.</p></div><div class="card"><h3>James Gosling</h3><p>A key figure in the development of Java.</p></div><div class="card"><h3>Original Name</h3><p>The language was initially called Oak.</p></div><div class="card"><h3>Java</h3><p>The name Java was later adopted.</p></div></div></section><section class="slide"><div class="kicker">02 · History of Java</div><h2>Important Milestones</h2><div class="cards"><div class="card"><h3>1995</h3><p>Java was publicly introduced.</p></div><div class="card"><h3>1996</h3><p>The first major Java Development Kit (JDK 1.0) was released.</p></div><div class="card"><h3>2006</h3><p>Sun began releasing much of Java as open source.</p></div><div class="card"><h3>2010</h3><p>Oracle acquired Sun Microsystems.</p></div></div></section><section class="slide"><div class="kicker">02 · History of Java</div>
+<h2>Why Java Became Popular</h2><p class="definition">Java combined object-oriented programming, automatic memory management, portability through the JVM, and a growing standard library and ecosystem.</p></section><section class="slide"><div class="kicker">02 · History of Java</div><h2>Java's Core Idea</h2><div class="cards"><div class="card"><h3>Write</h3><p>Develop Java source code.</p></div><div class="card"><h3>Compile</h3><p>Convert source code into bytecode.</p></div><div class="card"><h3>Run</h3><p>Execute bytecode using a JVM.</p></div></div></section><section class="slide"><div class="kicker">02 · History of Java</div><h2>What Students Should Remember</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>1991</h3><p>The Green Project began at Sun Microsystems.</p></div><div class="concept-card"><div class="num">02</div><h3>1995</h3><p>Java was publicly introduced after evolving from Oak.</p></div><div class="concept-card"><div class="num">03</div><h3>Today</h3><p>Java continues as a major general-purpose platform.</p></div></div></section><section class="slide center cover"><div class="kicker">03 · JDK</div><div class="title">JDK</div><div class="accent"></div></section><section class="slide"><div class="kicker">03 · JDK</div>
+<h2>What Is the JDK?</h2><p class="definition">JDK stands for <strong>Java Development Kit</strong>. It provides the tools required to develop, compile, test, and run Java programs.</p></section><section class="slide"><div class="kicker">03 · JDK</div><h2>JDK — In Three Points</h2><div class="bullet"><span>•</span><strong>Development kit:</strong> tools for creating Java programs.</div><div class="bullet"><span>•</span><strong>Compiler:</strong> javac converts source code into bytecode.</div><div class="bullet"><span>•</span><strong>Utilities:</strong> includes tools used to compile, run, debug and package programs.</div></section><section class="slide"><div class="kicker">03 · JDK</div>
+<h2>In Simple Words</h2><div class="bullet"><span>•</span> JDK is mainly for <strong>developers</strong>.</div><div class="bullet"><span>•</span> It includes the Java compiler and other development tools.</div><div class="bullet"><span>•</span> A JDK installation provides the components needed to build Java applications.</div></section><section class="slide"><div class="kicker">03 · JDK</div><h2>JDK — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Develop</h3><p>Provides tools to create Java programs.</p></div><div class="concept-card"><div class="num">02</div><h3>Compile</h3><p>javac converts .java source into bytecode.</p></div><div class="concept-card"><div class="num">03</div><h3>Test &amp; Run</h3><p>Supports the complete development workflow.</p></div></div></section><section class="slide"><div class="kicker">03 · JDK</div><h2>Important JDK Components</h2><div class="cards"><div class="card"><h3>javac</h3><p>Java compiler: converts source code into bytecode.</p></div><div class="card"><h3>java</h3><p>Launches a Java application.</p></div><div class="card"><h3>javadoc</h3><p>Generates API documentation from source comments.</p></div><div class="card"><h3>jar</h3><p>Creates and manages Java archive files.</p></div></div></section><section class="slide"><div class="kicker">03 · JDK</div>
+<h2>Typical Development Flow</h2><pre class="code">Hello.java
    ↓
 javac Hello.java
    ↓
 Hello.class
    ↓
 java Hello</pre></section><section class="slide center"><div class="kicker">03 · JDK</div>
-    <h2>Key Point</h2><div class="output">JDK = Tools to DEVELOP Java programs</div></section><section class="slide center cover"><div class="kicker">04 · JRE</div><div class="title">JRE</div><div class="accent"></div></section><section class="slide"><div class="kicker">04 · JRE</div>
-    <h2>What Is the JRE?</h2><p class="definition">JRE stands for <strong>Java Runtime Environment</strong>. It provides the environment required to run Java applications.</p></section><section class="slide"><div class="kicker">04 · JRE</div>
-    <h2>In Simple Words</h2><div class="bullet"><span>•</span> JRE is mainly associated with <strong>running</strong> Java applications.</div><div class="bullet"><span>•</span> It includes the JVM and required runtime libraries.</div><div class="bullet"><span>•</span> It does not provide the full set of development tools found in the JDK.</div></section><section class="slide"><div class="kicker">04 · JRE</div><h2>Think of It This Way</h2><div class="cards"><div class="card"><h3>JDK</h3><p>Build the program.</p></div><div class="card"><h3>JRE</h3><p>Provide the runtime environment.</p></div><div class="card"><h3>JVM</h3><p>Execute the bytecode.</p></div></div></section><section class="slide center"><div class="kicker">04 · JRE</div>
-    <h2>Key Point</h2><div class="output">JRE = Environment to RUN Java programs</div></section><section class="slide center cover"><div class="kicker">05 · JVM</div><div class="title">JVM</div><div class="accent"></div></section><section class="slide"><div class="kicker">05 · JVM</div>
-    <h2>What Is the JVM?</h2><p class="definition">JVM stands for <strong>Java Virtual Machine</strong>. It is the runtime engine that executes Java bytecode.</p></section><section class="slide"><div class="kicker">05 · JVM</div>
-    <h2>In Simple Words</h2><div class="bullet"><span>•</span> The Java compiler produces bytecode.</div><div class="bullet"><span>•</span> The JVM loads and executes that bytecode.</div><div class="bullet"><span>•</span> Different operating systems can have different JVM implementations.</div><div class="bullet"><span>•</span> This is a major reason Java programs can be portable.</div></section><section class="slide"><div class="kicker">05 · JVM</div><h2>JVM at a Glance</h2><div class="cards"><div class="card"><h3>Class Loader</h3><p>Loads Java class files into memory.</p></div><div class="card"><h3>Bytecode Verifier</h3><p>Checks bytecode for structural and safety constraints.</p></div><div class="card"><h3>Execution Engine</h3><p>Executes bytecode, including through JIT compilation.</p></div><div class="card"><h3>Runtime Areas</h3><p>Provide memory areas used during execution.</p></div></div></section><section class="slide"><div class="kicker">05 · JVM</div>
-    <h2>Java Execution Model</h2><pre class="code">Java Source Code
+<h2>Key Point</h2><div class="output">JDK = Tools to DEVELOP Java programs</div></section><section class="slide center cover"><div class="kicker">04 · JRE</div><div class="title">JRE</div><div class="accent"></div></section><section class="slide"><div class="kicker">04 · JRE</div>
+<h2>What Is the JRE?</h2><p class="definition">JRE stands for <strong>Java Runtime Environment</strong>. It provides the environment required to run Java applications.</p></section><section class="slide"><div class="kicker">04 · JRE</div><h2>JRE — In Three Points</h2><div class="bullet"><span>•</span><strong>Runtime environment:</strong> provides what a Java application needs to run.</div><div class="bullet"><span>•</span><strong>Includes JVM:</strong> the JVM executes Java bytecode.</div><div class="bullet"><span>•</span><strong>Includes libraries:</strong> supplies standard runtime classes.</div></section><section class="slide"><div class="kicker">04 · JRE</div>
+<h2>In Simple Words</h2><div class="bullet"><span>•</span> JRE is mainly associated with <strong>running</strong> Java applications.</div><div class="bullet"><span>•</span> It includes the JVM and required runtime libraries.</div><div class="bullet"><span>•</span> It does not provide the full set of development tools found in the JDK.</div></section><section class="slide"><div class="kicker">04 · JRE</div><h2>JRE — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Runtime</h3><p>Provides what is needed to run Java applications.</p></div><div class="concept-card"><div class="num">02</div><h3>JVM Included</h3><p>The JRE contains the JVM and runtime libraries.</p></div><div class="concept-card"><div class="num">03</div><h3>Purpose</h3><p>It is mainly for running applications.</p></div></div></section><section class="slide"><div class="kicker">04 · JRE</div><h2>Think of It This Way</h2><div class="cards"><div class="card"><h3>JDK</h3><p>Build the program.</p></div><div class="card"><h3>JRE</h3><p>Provide the runtime environment.</p></div><div class="card"><h3>JVM</h3><p>Execute the bytecode.</p></div></div></section><section class="slide center"><div class="kicker">04 · JRE</div>
+<h2>Key Point</h2><div class="output">JRE = Environment to RUN Java programs</div></section><section class="slide center cover"><div class="kicker">05 · JVM</div><div class="title">JVM</div><div class="accent"></div></section><section class="slide"><div class="kicker">05 · JVM</div>
+<h2>What Is the JVM?</h2><p class="definition">JVM stands for <strong>Java Virtual Machine</strong>. It is the runtime engine that executes Java bytecode.</p></section><section class="slide"><div class="kicker">05 · JVM</div><h2>JVM — In Three Points</h2><div class="bullet"><span>•</span><strong>Loads</strong> Java bytecode.</div><div class="bullet"><span>•</span><strong>Verifies</strong> bytecode for safe execution.</div><div class="bullet"><span>•</span><strong>Executes</strong> bytecode on the host system.</div></section><section class="slide"><div class="kicker">05 · JVM</div>
+<h2>In Simple Words</h2><div class="bullet"><span>•</span> The Java compiler produces bytecode.</div><div class="bullet"><span>•</span> The JVM loads and executes that bytecode.</div><div class="bullet"><span>•</span> Different operating systems can have different JVM implementations.</div><div class="bullet"><span>•</span> This is a major reason Java programs can be portable.</div></section><section class="slide"><div class="kicker">05 · JVM</div><h2>JVM — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Load</h3><p>Loads Java bytecode into memory.</p></div><div class="concept-card"><div class="num">02</div><h3>Verify</h3><p>Checks bytecode before execution.</p></div><div class="concept-card"><div class="num">03</div><h3>Execute</h3><p>Runs bytecode using the JVM execution engine.</p></div></div></section><section class="slide"><div class="kicker">05 · JVM</div><h2>JVM at a Glance</h2><div class="cards"><div class="card"><h3>Class Loader</h3><p>Loads Java class files into memory.</p></div><div class="card"><h3>Bytecode Verifier</h3><p>Checks bytecode for structural and safety constraints.</p></div><div class="card"><h3>Execution Engine</h3><p>Executes bytecode, including through JIT compilation.</p></div><div class="card"><h3>Runtime Areas</h3><p>Provide memory areas used during execution.</p></div></div></section><section class="slide"><div class="kicker">05 · JVM</div>
+<h2>Java Execution Model</h2><pre class="code">Java Source Code
        ↓
      javac
        ↓
@@ -175,15 +347,14 @@ java Hello</pre></section><section class="slide center"><div class="kicker">03 �
       JVM
        ↓
    Machine Execution</pre></section><section class="slide"><div class="kicker">05 · JDK • JRE • JVM</div><h2>Relationship</h2><div class="cards"><div class="card"><h3>JDK</h3><p>JRE + development tools</p></div><div class="card"><h3>JRE</h3><p>JVM + runtime libraries</p></div><div class="card"><h3>JVM</h3><p>Executes Java bytecode</p></div></div></section><section class="slide"><div class="kicker">05 · JDK • JRE • JVM</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Explain the difference between JDK, JRE, and JVM.</div><div class="exercise"><b>2.</b> Identify which component a programmer uses to compile Java code.</div><div class="exercise"><b>3.</b> Identify which component executes bytecode.</div><div class="exercise"><b>4.</b> Draw the JDK → JRE → JVM relationship.</div><div class="exercise"><b>5.</b> Explain why Java is called platform independent.</div></section><section class="slide center cover"><div class="kicker">06 · Data Types</div><div class="title">DATA
-TYPES</div><div class="accent"></div></section><section class="slide mcq-slide">
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Explain the difference between JDK, JRE, and JVM.</div><div class="exercise"><b>2.</b> Identify which component a programmer uses to compile Java code.</div><div class="exercise"><b>3.</b> Identify which component executes bytecode.</div><div class="exercise"><b>4.</b> Draw the JDK → JRE → JVM relationship.</div><div class="exercise"><b>5.</b> Explain why Java is called platform independent.</div></section><section class="slide"><div class="kicker">Classroom Transition</div><h2>Knowledge Check 1</h2><p class="definition">Java Foundations Complete</p><p class="definition">Pause • Think • Discuss • Then answer</p></section><section class="slide mcq-slide">
 <div class="kicker">Classroom Check · 01–05 · Java Foundations</div>
 <h2>5-Question Concept Check</h2>
 <p class="definition">After Introduction, History, JDK, JRE &amp; JVM</p>
 <p class="definition" style="font-size:clamp(19px,1.6vw,28px);color:#617087">Try every question before opening the answer slides.</p>
 </section><section class="slide mcq-slide">
 <div class="kicker">Classroom Quiz · 01–05 · Java Foundations · Q1</div>
-<div class="mcq-question">Which statement best describes Java&#x27;s platform independence?</div>
+<div class="mcq-question">Which statement best describes Java's platform independence?</div>
 <div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>Java source code never needs compilation.</div><div class="mcq-option"><span class="mcq-letter">B</span>Java bytecode can run on a compatible JVM on different platforms.</div><div class="mcq-option"><span class="mcq-letter">C</span>Java programs can run only on Windows.</div><div class="mcq-option"><span class="mcq-letter">D</span>Java programs are converted directly into machine code by the editor.</div></div>
 </section><section class="slide mcq-slide">
 <div class="kicker">Classroom Quiz · 01–05 · Java Foundations · Q2</div>
@@ -204,403 +375,407 @@ TYPES</div><div class="accent"></div></section><section class="slide mcq-slide">
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 01–05 · Java Foundations · Q1</div>
 <h2>Correct Answer</h2>
-<div class="mcq-question">Which statement best describes Java&#x27;s platform independence?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>Java source code never needs compilation.</div><div class="mcq-option correct"><span class="mcq-letter">B</span>Java bytecode can run on a compatible JVM on different platforms.</div><div class="mcq-option "><span class="mcq-letter">C</span>Java programs can run only on Windows.</div><div class="mcq-option "><span class="mcq-letter">D</span>Java programs are converted directly into machine code by the editor.</div></div>
+<div class="mcq-question">Which statement best describes Java's platform independence?</div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>Java source code never needs compilation.</div><div class="mcq-option correct"><span class="mcq-letter">B</span>Java bytecode can run on a compatible JVM on different platforms.</div><div class="mcq-option"><span class="mcq-letter">C</span>Java programs can run only on Windows.</div><div class="mcq-option"><span class="mcq-letter">D</span>Java programs are converted directly into machine code by the editor.</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> Java source is compiled to bytecode, and a compatible JVM executes that bytecode on different platforms.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 01–05 · Java Foundations · Q2</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which event happened in 1995?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>The Green Project began.</div><div class="mcq-option "><span class="mcq-letter">B</span>JDK 1.0 was released.</div><div class="mcq-option correct"><span class="mcq-letter">C</span>Java was publicly introduced.</div><div class="mcq-option "><span class="mcq-letter">D</span>Oracle acquired Sun Microsystems.</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>The Green Project began.</div><div class="mcq-option"><span class="mcq-letter">B</span>JDK 1.0 was released.</div><div class="mcq-option correct"><span class="mcq-letter">C</span>Java was publicly introduced.</div><div class="mcq-option"><span class="mcq-letter">D</span>Oracle acquired Sun Microsystems.</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> Java was publicly introduced in 1995; the Green Project began earlier and Oracle acquired Sun much later.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 01–05 · Java Foundations · Q3</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which component is primarily used to develop and compile Java programs?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>JRE</div><div class="mcq-option "><span class="mcq-letter">B</span>JVM</div><div class="mcq-option correct"><span class="mcq-letter">C</span>JDK</div><div class="mcq-option "><span class="mcq-letter">D</span>String class</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>JRE</div><div class="mcq-option"><span class="mcq-letter">B</span>JVM</div><div class="mcq-option correct"><span class="mcq-letter">C</span>JDK</div><div class="mcq-option"><span class="mcq-letter">D</span>String class</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> The JDK provides development tools, including the Java compiler.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 01–05 · Java Foundations · Q4</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which component executes Java bytecode?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>JDK</div><div class="mcq-option "><span class="mcq-letter">B</span>JRE</div><div class="mcq-option correct"><span class="mcq-letter">C</span>JVM</div><div class="mcq-option "><span class="mcq-letter">D</span>javac</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>JDK</div><div class="mcq-option"><span class="mcq-letter">B</span>JRE</div><div class="mcq-option correct"><span class="mcq-letter">C</span>JVM</div><div class="mcq-option"><span class="mcq-letter">D</span>javac</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> The JVM is the runtime engine that loads and executes Java bytecode.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 01–05 · Java Foundations · Q5</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which relationship is correct?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>JVM contains the JDK.</div><div class="mcq-option "><span class="mcq-letter">B</span>JRE contains the JDK.</div><div class="mcq-option correct"><span class="mcq-letter">C</span>JDK provides development tools and includes the runtime components.</div><div class="mcq-option "><span class="mcq-letter">D</span>JDK and JVM are exactly the same thing.</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>JVM contains the JDK.</div><div class="mcq-option"><span class="mcq-letter">B</span>JRE contains the JDK.</div><div class="mcq-option correct"><span class="mcq-letter">C</span>JDK provides development tools and includes the runtime components.</div><div class="mcq-option"><span class="mcq-letter">D</span>JDK and JVM are exactly the same thing.</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> The JDK is the development kit and includes the runtime environment needed to develop and run Java applications.</div>
-</section><section class="slide"><div class="kicker">06 · Data Types</div>
-    <h2>What Are Data Types?</h2><p class="definition">A data type tells Java what kind of value a variable can store and how that value is represented.</p></section><section class="slide"><div class="kicker">06 · Data Types</div><h2>Two Main Categories</h2><div class="cards"><div class="card"><h3>Primitive</h3><p>Built-in basic data types such as int, double, char and boolean.</p></div><div class="card"><h3>Reference</h3><p>Types that refer to objects, such as String, arrays and user-defined classes.</p></div></div></section><section class="slide"><div class="kicker">06 · Primitive Data Types</div><h2>Primitive Types</h2><div class="cards"><div class="card"><h3>byte</h3><p>8-bit signed integer</p></div><div class="card"><h3>short</h3><p>16-bit signed integer</p></div><div class="card"><h3>int</h3><p>32-bit signed integer</p></div><div class="card"><h3>long</h3><p>64-bit signed integer</p></div><div class="card"><h3>float</h3><p>32-bit floating-point</p></div><div class="card"><h3>double</h3><p>64-bit floating-point</p></div><div class="card"><h3>char</h3><p>16-bit Unicode character</p></div><div class="card"><h3>boolean</h3><p>true or false</p></div></div></section><section class="slide"><div class="kicker">06 · Data Types</div>
-    <h2>Choosing a Data Type</h2><p class="definition">Choose a type based on the kind of data you need to represent and the range/precision required.</p></section><section class="slide"><div class="kicker">06 · Data Types</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int age = 20;
+</section><section class="slide center cover"><div class="kicker">06 · Data Types</div><div class="title">DATA
+TYPES</div><div class="accent"></div></section><section class="slide"><div class="kicker">06 · Data Types</div>
+<h2>What Are Data Types?</h2><p class="definition">A data type tells Java what kind of value a variable can store and how that value is represented.</p></section><section class="slide"><div class="kicker">06 · Data Types</div><h2>Data Types — Key Points</h2><div class="bullet"><span>•</span><strong>They define the kind of value</strong> a variable can store.</div><div class="bullet"><span>•</span><strong>They help Java use memory correctly</strong> for the stored value.</div><div class="bullet"><span>•</span><strong>They determine valid operations</strong> and how Java interprets the value.</div><div class="note-strip">Two broad groups are used in Java: <strong>Primitive types</strong> and <strong>Reference types</strong>.</div></section><section class="slide"><div class="kicker">06 · Data Types</div><h2>Two Main Categories</h2><div class="cards"><div class="card"><h3>Primitive</h3><p>Built-in basic data types such as int, double, char and boolean.</p></div><div class="card"><h3>Reference</h3><p>Types that refer to objects, such as String, arrays and user-defined classes.</p></div></div></section><section class="slide"><div class="kicker">06 · Primitive Data Types</div><h2>Primitive Types — At a Glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Type</th><th>What it stores</th><th>Key idea</th><th>Example</th></tr></thead><tbody><tr><td><span class="type-name">byte</span></td><td>8-bit integer</td><td><span class="example">-128 to 127</span></td><td>byte age = 25;</td></tr><tr><td><span class="type-name">short</span></td><td>16-bit integer</td><td><span class="example">-32,768 to 32,767</span></td><td>short year = 2026;</td></tr><tr><td><span class="type-name">int</span></td><td>32-bit integer</td><td><span class="example">about ±2.1 billion</span></td><td>int marks = 85;</td></tr><tr><td><span class="type-name">long</span></td><td>64-bit integer</td><td><span class="example">very large integers</span></td><td>long population = 1400000000L;</td></tr><tr><td><span class="type-name">float</span></td><td>32-bit decimal</td><td><span class="example">single precision</span></td><td>float price = 99.5f;</td></tr><tr><td><span class="type-name">double</span></td><td>64-bit decimal</td><td><span class="example">double precision</span></td><td>double pi = 3.14159;</td></tr><tr><td><span class="type-name">char</span></td><td>16-bit character</td><td><span class="example">one Unicode character</span></td><td>char grade = 'A';</td></tr><tr><td><span class="type-name">boolean</span></td><td>logical value</td><td><span class="example">true or false</span></td><td>boolean pass = true;</td></tr></tbody></table></div><div class="learning-table-note">Primitive types store <strong>simple values directly</strong>. Java has 8 primitive data types.</div></section><section class="slide"><div class="kicker">06 · Reference Data Types</div><h2>Non-Primitive / Reference Types</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Type</th><th>Example</th><th>Key idea</th><th>Sample</th></tr></thead><tbody><tr><td><span class="type-name">String</span></td><td>Text objects</td><td><span class="example">Sequence of characters</span></td><td>String name = "Java";</td></tr><tr><td><span class="type-name">Array</span></td><td>Multiple values</td><td><span class="example">Fixed-size collection</span></td><td>int[] marks = {80, 90, 85};</td></tr><tr><td><span class="type-name">Class/Object</span></td><td>User-defined objects</td><td><span class="example">State + behavior</span></td><td>Student s = new Student();</td></tr><tr><td><span class="type-name">Interface</span></td><td>Reference contract</td><td><span class="example">Defines required behavior</span></td><td>Runnable r;</td></tr></tbody></table></div><div class="learning-table-note">Reference variables store a <strong>reference to an object</strong>, not the object value itself.</div></section><section class="slide"><div class="kicker">06 · Data Types</div><h2>Primitive vs Reference — Quick Comparison</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Feature</th><th>Primitive</th><th>Reference</th></tr></thead><tbody><tr><td><span class="type-name">Stores</span></td><td>Simple value</td><td><span class="example">Reference to an object</span></td></tr><tr><td><span class="type-name">Examples</span></td><td>int, double, char, boolean</td><td><span class="example">String, arrays, classes</span></td></tr><tr><td><span class="type-name">Created by</span></td><td>Language-defined types</td><td><span class="example">Classes / arrays / interfaces</span></td></tr><tr><td><span class="type-name">Default value</span></td><td>Depends on primitive type</td><td><span class="example">Usually null for object references</span></td></tr></tbody></table></div><div class="learning-table-note">Remember: <strong>Primitive = value</strong> • <strong>Reference = reference to an object</strong></div></section><section class="slide"><div class="kicker">06 · Data Types</div>
+<h2>Choosing a Data Type</h2><p class="definition">Choose a type based on the kind of data you need to represent and the range/precision required.</p></section><section class="slide"><div class="kicker">06 · Data Types</div><h2>Choosing a Type</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>What?</h3><p>Ask what kind of information must be stored.</p></div><div class="concept-card"><div class="num">02</div><h3>Range?</h3><p>Choose a type with enough range and precision.</p></div><div class="concept-card"><div class="num">03</div><h3>Example</h3><p>age → int • price → double • passed → boolean</p></div></div></section><section class="slide"><div class="kicker">06 · Data Types</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int age = 20;
 double salary = 45000.50;
-char grade = &#x27;A&#x27;;
+char grade = 'A';
 boolean passed = true;
 
 System.out.println(age);
 System.out.println(salary);
 System.out.println(grade);
 System.out.println(passed);</pre></section><section class="slide center"><div class="kicker">06 · Data Types</div>
-    <h2>Example 1 · Output</h2><div class="output">20
+<h2>Example 1 · Output</h2><div class="output">20
 45000.5
 A
 true</div></section><section class="slide"><div class="kicker">06 · Data Types</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">byte count = 10;
+<h2>See It in Action · Example 2</h2><pre class="code">byte count = 10;
 long population = 1400000000L;
 float price = 25.5f;
-char section = &#x27;B&#x27;;
+char section = 'B';
 
 System.out.println(count);
 System.out.println(population);
 System.out.println(price);
 System.out.println(section);</pre></section><section class="slide center"><div class="kicker">06 · Data Types</div>
-    <h2>Example 2 · Output</h2><div class="output">10
+<h2>Example 2 · Output</h2><div class="output">10
 1400000000
 25.5
 B</div></section><section class="slide"><div class="kicker">06 · Data Types</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Declare variables for age, height, grade and pass status.</div><div class="exercise"><b>2.</b> Store the population of a city using a suitable integer type.</div><div class="exercise"><b>3.</b> Store the price of a product using a suitable floating-point type.</div><div class="exercise"><b>4.</b> Declare a character variable for a section.</div><div class="exercise"><b>5.</b> Create one example for each primitive data type.</div></section><section class="slide center cover"><div class="kicker">07 · Variables</div><div class="title">VARIABLES</div><div class="accent"></div></section><section class="slide"><div class="kicker">07 · Variables</div>
-    <h2>What Is a Variable?</h2><p class="definition">A variable is a named memory location used to store a value that can be used by a Java program.</p></section><section class="slide"><div class="kicker">07 · Variables</div>
-    <h2>In Simple Words</h2><div class="bullet"><span>•</span> A variable has a <strong>name</strong>.</div><div class="bullet"><span>•</span> It has a <strong>data type</strong>.</div><div class="bullet"><span>•</span> It stores a <strong>value</strong>.</div><div class="bullet"><span>•</span> Its value can change during program execution, unless declared final.</div></section><section class="slide "><div class="kicker">07 · Variables</div><div class="title">General Syntax</div><pre class="code">dataType variableName = value;</pre></section><section class="slide"><div class="kicker">07 · Variables</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> <code>dataType</code> → specifies what kind of value is stored.</div><div class="bullet"><span>•</span> <code>variableName</code> → identifies the variable.</div><div class="bullet"><span>•</span> <code>=</code> → assignment operator.</div><div class="bullet"><span>•</span> <code>value</code> → initial value assigned to the variable.</div></section><section class="slide"><div class="kicker">07 · Variables</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int marks = 85;
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Declare variables for age, height, grade and pass status.</div><div class="exercise"><b>2.</b> Store the population of a city using a suitable integer type.</div><div class="exercise"><b>3.</b> Store the price of a product using a suitable floating-point type.</div><div class="exercise"><b>4.</b> Declare a character variable for a section.</div><div class="exercise"><b>5.</b> Create one example for each primitive data type.</div></section><section class="slide"><div class="kicker">06A · Type Inference</div><h2>What Is Type Inference?</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Meaning</h3><p>Java can infer a local variable's type from its initializer.</p></div><div class="concept-card"><div class="num">02</div><h3>Keyword</h3><p>Use the var keyword.</p></div><div class="concept-card"><div class="num">03</div><h3>Important</h3><p>The type is still fixed after compilation; var is not dynamic typing.</p></div></div></section><section class="slide"><div class="kicker">06A · Type Inference</div><h2>var — Key Points</h2><div class="bullet"><span>•</span><strong>Local variables only:</strong> commonly used inside methods, blocks and loops.</div><div class="bullet"><span>•</span><strong>Initializer required:</strong> Java needs a value from which to infer the type.</div><div class="bullet"><span>•</span><strong>Cannot mean 'any type':</strong> after inference, the variable has a specific compile-time type.</div><div class="note-strip">Think: <strong>var removes repeated type spelling</strong>; it does not remove Java's static typing.</div></section><section class="slide"><div class="kicker">06A · Type Inference</div><h2>General Syntax</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>var variableName = value;</pre></div><div class="note-strip">Example: <strong>var marks = 85;</strong> → Java infers <strong>int</strong>.</div></section><section class="slide"><div class="kicker">06A · Type Inference</div><h2>How var Is Inferred</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Source</h3><p>var marks = 85;</p></div><div class="concept-card"><div class="num">02</div><h3>Compiler</h3><p>Sees the initializer 85.</p></div><div class="concept-card"><div class="num">03</div><h3>Inferred Type</h3><p>marks becomes an int variable.</p></div></div></section><section class="slide"><div class="kicker">06A · Type Inference</div><h2>See It in Action · Example</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>var name = "Java";
+var marks = 85;
+var passed = true;</pre></div><div class="note-strip">Java infers <strong>String</strong>, <strong>int</strong> and <strong>boolean</strong>.</div></section><section class="slide"><div class="kicker">06A · Type Inference</div><h2>When var Cannot Be Used</h2><div class="bullet"><span>•</span><strong>No initializer:</strong> var x; is invalid.</div><div class="bullet"><span>•</span><strong>Fields:</strong> var cannot be used for instance or class fields.</div><div class="bullet"><span>•</span><strong>Method parameters / return types:</strong> use explicit types.</div></section><section class="slide"><div class="kicker">06A · Type Inference</div><h2>Practice</h2><div class="bullet"><span>•</span>Declare a student's name using <strong>var</strong>.</div><div class="bullet"><span>•</span>Declare a price using <strong>var</strong> and a decimal value.</div><div class="bullet"><span>•</span>Write one example where <strong>var</strong> is invalid and explain why.</div></section><section class="slide"><div class="kicker">06B · Type Casting</div><h2>What Is Type Casting?</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Meaning</h3><p>Converting a value from one data type to another compatible type.</p></div><div class="concept-card"><div class="num">02</div><h3>Two Directions</h3><p>Widening conversion and narrowing conversion.</p></div><div class="concept-card"><div class="num">03</div><h3>Why?</h3><p>Useful when different numeric types must work together.</p></div></div></section><section class="slide"><div class="kicker">06B · Type Casting</div><h2>Type Casting — Key Points</h2><div class="bullet"><span>•</span><strong>Widening:</strong> smaller compatible numeric type → larger type; usually automatic.</div><div class="bullet"><span>•</span><strong>Narrowing:</strong> larger numeric type → smaller type; requires explicit casting.</div><div class="bullet"><span>•</span><strong>Risk:</strong> narrowing can lose fractional data or range.</div></section><section class="slide"><div class="kicker">06B · Type Casting</div><h2>General Syntax</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>targetType variable = (targetType) value;</pre></div><div class="note-strip">Example: <strong>int x = (int) 12.8;</strong> → x becomes 12.</div></section><section class="slide"><div class="kicker">06B · Type Casting</div><h2>Widening Conversion</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>int marks = 85;
+double score = marks;</pre></div><div class="note-strip">The int value is safely promoted to double. This is an <strong>implicit</strong> conversion.</div></section><section class="slide"><div class="kicker">06B · Type Casting</div><h2>Narrowing Conversion</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>double price = 99.75;
+int amount = (int) price;</pre></div><div class="note-strip">The cast is explicit. The fractional part is discarded, so amount becomes <strong>99</strong>.</div></section><section class="slide"><div class="kicker">06B · Type Casting</div><h2>Casting — Quick Comparison</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Widening</h3><p>Automatic in compatible cases • int → long → float → double</p></div><div class="concept-card"><div class="num">02</div><h3>Narrowing</h3><p>Explicit cast required • double → int</p></div><div class="concept-card"><div class="num">03</div><h3>Remember</h3><p>Check for possible loss of information.</p></div></div></section><section class="slide"><div class="kicker">06B · Type Casting</div><h2>Practice</h2><div class="bullet"><span>•</span>Convert an <strong>int</strong> value to <strong>double</strong> without an explicit cast.</div><div class="bullet"><span>•</span>Convert a <strong>double</strong> value to <strong>int</strong> using an explicit cast.</div><div class="bullet"><span>•</span>Predict the result of <strong>(int) 45.99</strong> before running the program.</div></section><section class="slide center cover"><div class="kicker">07 · Variables</div><div class="title">VARIABLES</div><div class="accent"></div></section><section class="slide"><div class="kicker">07 · Variables</div>
+<h2>What Is a Variable?</h2><p class="definition">A variable is a named memory location used to store a value that can be used by a Java program.</p></section><section class="slide"><div class="kicker">07 · Variables</div><h2>Variable — Remember This</h2><div class="bullet"><span>•</span><strong>Type:</strong> what kind of value is stored.</div><div class="bullet"><span>•</span><strong>Name:</strong> how the program refers to it.</div><div class="bullet"><span>•</span><strong>Value:</strong> the data currently stored.</div></section><section class="slide"><div class="kicker">07 · Variables</div>
+<h2>In Simple Words</h2><div class="bullet"><span>•</span> A variable has a <strong>name</strong>.</div><div class="bullet"><span>•</span> It has a <strong>data type</strong>.</div><div class="bullet"><span>•</span> It stores a <strong>value</strong>.</div><div class="bullet"><span>•</span> Its value can change during program execution, unless declared final.</div></section><section class="slide"><div class="kicker">07 · Variables</div><h2>Variable — 3 Things to Remember</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Declaration</h3><p>Tell Java the type and variable name.</p></div><div class="concept-card"><div class="num">02</div><h3>Initialization</h3><p>Give the variable its first value.</p></div><div class="concept-card"><div class="num">03</div><h3>Assignment</h3><p>Change the stored value when required.</p></div></div></section><section class="slide"><div class="kicker">07 · Variables</div><div class="title">General Syntax</div><pre class="code">dataType variableName = value;</pre></section><section class="slide"><div class="kicker">07 · Variables</div>
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> <code>dataType</code> → specifies what kind of value is stored.</div><div class="bullet"><span>•</span> <code>variableName</code> → identifies the variable.</div><div class="bullet"><span>•</span> <code>=</code> → assignment operator.</div><div class="bullet"><span>•</span> <code>value</code> → initial value assigned to the variable.</div></section><section class="slide"><div class="kicker">07 · Variables</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int marks = 85;
 System.out.println(marks);</pre></section><section class="slide center"><div class="kicker">07 · Variables</div>
-    <h2>Example 1 · Output</h2><div class="output">85</div></section><section class="slide"><div class="kicker">07 · Variables</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">String name = &quot;Asha&quot;;
+<h2>Example 1 · Output</h2><div class="output">85</div></section><section class="slide"><div class="kicker">07 · Variables</div>
+<h2>See It in Action · Example 2</h2><pre class="code">String name = "Asha";
 int age = 19;
 
 System.out.println(name);
 System.out.println(age);</pre></section><section class="slide center"><div class="kicker">07 · Variables</div>
-    <h2>Example 2 · Output</h2><div class="output">Asha
+<h2>Example 2 · Output</h2><div class="output">Asha
 19</div></section><section class="slide"><div class="kicker">07 · Variables</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Create variables for your name, age and branch.</div><div class="exercise"><b>2.</b> Create variables for five subject marks.</div><div class="exercise"><b>3.</b> Create a variable for the price of a product and update it.</div><div class="exercise"><b>4.</b> Swap the values of two integer variables.</div><div class="exercise"><b>5.</b> Calculate the area of a rectangle using variables.</div></section><section class="slide center cover"><div class="kicker">08 · Arrays</div><div class="title">ARRAYS</div><div class="accent"></div></section><section class="slide"><div class="kicker">08 · Arrays</div>
-    <h2>What Is an Array?</h2><p class="definition">An array is a fixed-size collection of elements of the same data type stored under one variable name.</p></section><section class="slide"><div class="kicker">08 · Arrays</div>
-    <h2>In Simple Words</h2><div class="bullet"><span>•</span> Arrays store multiple values of the same type.</div><div class="bullet"><span>•</span> Each element is accessed using an index.</div><div class="bullet"><span>•</span> Java array indexing starts at <strong>0</strong>.</div><div class="bullet"><span>•</span> The array length is available through the <code>length</code> property.</div></section><section class="slide "><div class="kicker">08 · Arrays</div><div class="title">1D Array</div><div class="card center"><h3>One-Dimensional Array</h3><p>Values arranged in a single line.</p><div class="indexrow"><span>0</span><span>1</span><span>2</span><span>3</span></div></div></section><section class="slide "><div class="kicker">08 · Arrays</div><div class="title">1D Array · General Syntax</div><pre class="code">dataType[] arrayName = new dataType[size];</pre></section><section class="slide"><div class="kicker">08 · Arrays</div>
-    <h2>1D Array · Syntax Explanation</h2><div class="bullet"><span>•</span> <code>dataType[]</code> → type of every element.</div><div class="bullet"><span>•</span> <code>arrayName</code> → name of the array.</div><div class="bullet"><span>•</span> <code>new</code> → creates the array object.</div><div class="bullet"><span>•</span> <code>size</code> → number of elements.</div></section><section class="slide"><div class="kicker">08 · 1D Array</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int[] marks = {70, 80, 90};
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Create variables for your name, age and branch.</div><div class="exercise"><b>2.</b> Create variables for five subject marks.</div><div class="exercise"><b>3.</b> Create a variable for the price of a product and update it.</div><div class="exercise"><b>4.</b> Swap the values of two integer variables.</div><div class="exercise"><b>5.</b> Calculate the area of a rectangle using variables.</div></section><section class="slide center cover"><div class="kicker">08 · Arrays</div><div class="title">ARRAYS</div><div class="accent"></div></section><section class="slide"><div class="kicker">08 · Arrays</div>
+<h2>What Is an Array?</h2><p class="definition">An array is a fixed-size collection of elements of the same data type stored under one variable name.</p></section><section class="slide"><div class="kicker">08 · Arrays</div><h2>Array — Remember This</h2><div class="bullet"><span>•</span><strong>Same type:</strong> elements belong to the same array type.</div><div class="bullet"><span>•</span><strong>Index:</strong> access starts from index 0.</div><div class="bullet"><span>•</span><strong>Length:</strong> fixed after the array is created.</div></section><section class="slide"><div class="kicker">08 · Arrays</div>
+<h2>In Simple Words</h2><div class="bullet"><span>•</span> Arrays store multiple values of the same type.</div><div class="bullet"><span>•</span> Each element is accessed using an index.</div><div class="bullet"><span>•</span> Java array indexing starts at <strong>0</strong>.</div><div class="bullet"><span>•</span> The array length is available through the <code>length</code> property.</div></section><section class="slide"><div class="kicker">08 · Arrays</div><h2>Array — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Same Type</h3><p>Elements normally share the same data type.</p></div><div class="concept-card"><div class="num">02</div><h3>Fixed Size</h3><p>The length is fixed after creation.</p></div><div class="concept-card"><div class="num">03</div><h3>Index Based</h3><p>Indexes start at 0.</p></div></div></section><section class="slide"><div class="kicker">08 · Arrays</div><div class="title">1D Array</div><div class="card center"><h3>One-Dimensional Array</h3><p>Values arranged in a single line.</p><div class="indexrow"><span>0</span><span>1</span><span>2</span><span>3</span></div></div></section><section class="slide"><div class="kicker">08 · Arrays</div><div class="title">1D Array · General Syntax</div><pre class="code">dataType[] arrayName = new dataType[size];</pre></section><section class="slide"><div class="kicker">08 · Arrays</div>
+<h2>1D Array · Syntax Explanation</h2><div class="bullet"><span>•</span> <code>dataType[]</code> → type of every element.</div><div class="bullet"><span>•</span> <code>arrayName</code> → name of the array.</div><div class="bullet"><span>•</span> <code>new</code> → creates the array object.</div><div class="bullet"><span>•</span> <code>size</code> → number of elements.</div></section><section class="slide"><div class="kicker">08 · 1D Array</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int[] marks = {70, 80, 90};
 
 System.out.println(marks[0]);
 System.out.println(marks[2]);</pre></section><section class="slide center"><div class="kicker">08 · 1D Array</div>
-    <h2>Example 1 · Output</h2><div class="output">70
+<h2>Example 1 · Output</h2><div class="output">70
 90</div></section><section class="slide"><div class="kicker">08 · 1D Array</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int[] numbers = {10, 20, 30, 40};
+<h2>See It in Action · Example 2</h2><pre class="code">int[] numbers = {10, 20, 30, 40};
 
 for (int i = 0; i &lt; numbers.length; i++) {
     System.out.println(numbers[i]);
 }</pre></section><section class="slide center"><div class="kicker">08 · 1D Array</div>
-    <h2>Example 2 · Output</h2><div class="output">10
+<h2>Example 2 · Output</h2><div class="output">10
 20
 30
 40</div></section><section class="slide"><div class="kicker">08 · 1D Array</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Store and print five student marks.</div><div class="exercise"><b>2.</b> Find the sum of all elements in an integer array.</div><div class="exercise"><b>3.</b> Find the largest element in an array.</div><div class="exercise"><b>4.</b> Print an array in reverse order.</div><div class="exercise"><b>5.</b> Count how many even numbers are present in an array.</div></section><section class="slide "><div class="kicker">08 · Arrays</div><div class="title">2D Array</div><div class="card center"><h3>Two-Dimensional Array</h3><p>Values arranged in rows and columns — like a table.</p><div class="matrix">[ 10  20  30 ]<br>[ 40  50  60 ]</div></div></section><section class="slide "><div class="kicker">08 · Arrays</div><div class="title">2D Array · General Syntax</div><pre class="code">dataType[][] arrayName = new dataType[rows][columns];</pre></section><section class="slide"><div class="kicker">08 · Arrays</div>
-    <h2>2D Array · Syntax Explanation</h2><div class="bullet"><span>•</span> The first index represents the <strong>row</strong>.</div><div class="bullet"><span>•</span> The second index represents the <strong>column</strong>.</div><div class="bullet"><span>•</span> Example: <code>marks[1][2]</code> means row 1, column 2.</div></section><section class="slide"><div class="kicker">08 · 2D Array</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int[][] marks = {
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Store and print five student marks.</div><div class="exercise"><b>2.</b> Find the sum of all elements in an integer array.</div><div class="exercise"><b>3.</b> Find the largest element in an array.</div><div class="exercise"><b>4.</b> Print an array in reverse order.</div><div class="exercise"><b>5.</b> Count how many even numbers are present in an array.</div></section><section class="slide"><div class="kicker">08 · Arrays</div><div class="title">2D Array</div><div class="card center"><h3>Two-Dimensional Array</h3><p>Values arranged in rows and columns — like a table.</p><div class="matrix">[ 10  20  30 ]<br/>[ 40  50  60 ]</div></div></section><section class="slide"><div class="kicker">08 · Arrays</div><div class="title">2D Array · General Syntax</div><pre class="code">dataType[][] arrayName = new dataType[rows][columns];</pre></section><section class="slide"><div class="kicker">08 · Arrays</div>
+<h2>2D Array · Syntax Explanation</h2><div class="bullet"><span>•</span> The first index represents the <strong>row</strong>.</div><div class="bullet"><span>•</span> The second index represents the <strong>column</strong>.</div><div class="bullet"><span>•</span> Example: <code>marks[1][2]</code> means row 1, column 2.</div></section><section class="slide"><div class="kicker">08 · 2D Array</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int[][] marks = {
     {70, 80, 90},
     {60, 75, 85}
 };
 
 System.out.println(marks[0][1]);</pre></section><section class="slide center"><div class="kicker">08 · 2D Array</div>
-    <h2>Example 1 · Output</h2><div class="output">80</div></section><section class="slide"><div class="kicker">08 · 2D Array</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int[][] a = {
+<h2>Example 1 · Output</h2><div class="output">80</div></section><section class="slide"><div class="kicker">08 · 2D Array</div>
+<h2>See It in Action · Example 2</h2><pre class="code">int[][] a = {
     {1, 2},
     {3, 4}
 };
 
 for (int i = 0; i &lt; a.length; i++) {
     for (int j = 0; j &lt; a[i].length; j++) {
-        System.out.print(a[i][j] + &quot; &quot;);
+        System.out.print(a[i][j] + " ");
     }
     System.out.println();
 }</pre></section><section class="slide center"><div class="kicker">08 · 2D Array</div>
-    <h2>Example 2 · Output</h2><div class="output">1 2
+<h2>Example 2 · Output</h2><div class="output">1 2
 3 4</div></section><section class="slide"><div class="kicker">08 · 2D Array</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Create a 2×2 matrix and print all elements.</div><div class="exercise"><b>2.</b> Create a 3×3 matrix and find its sum.</div><div class="exercise"><b>3.</b> Print the elements of a 2D array row by row.</div><div class="exercise"><b>4.</b> Find the largest element in a 2D array.</div><div class="exercise"><b>5.</b> Add two 2D matrices.</div></section><section class="slide center cover"><div class="kicker">09 · Control Statements</div><div class="title">CONTROL
-STATEMENTS</div><div class="accent"></div></section><section class="slide mcq-slide">
-<div class="kicker">Classroom Check · 06–08 · Data, Variables &amp; Arrays</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Create a 2×2 matrix and print all elements.</div><div class="exercise"><b>2.</b> Create a 3×3 matrix and find its sum.</div><div class="exercise"><b>3.</b> Print the elements of a 2D array row by row.</div><div class="exercise"><b>4.</b> Find the largest element in a 2D array.</div><div class="exercise"><b>5.</b> Add two 2D matrices.</div></section><section class="slide"><div class="kicker">Classroom Transition</div><h2>Knowledge Check 2</h2><p class="definition">Data Types, Variables &amp; Arrays Complete</p><p class="definition">Pause • Think • Discuss • Then answer</p></section><section class="slide mcq-slide">
+<div class="kicker">Classroom Check · 06–08 · Data Types, Type Inference, Type Casting, Variables &amp; Arrays</div>
 <h2>5-Question Concept Check</h2>
 <p class="definition">After Data Types, Variables &amp; Arrays</p>
 <p class="definition" style="font-size:clamp(19px,1.6vw,28px);color:#617087">Try every question before opening the answer slides.</p>
 </section><section class="slide mcq-slide">
-<div class="kicker">Classroom Quiz · 06–08 · Data, Variables &amp; Arrays · Q1</div>
+<div class="kicker">Classroom Quiz · 06–08 · Data Types, Type Inference, Type Casting, Variables &amp; Arrays · Q1</div>
 <div class="mcq-question">Which Java type is designed to store true or false?</div>
 <div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>int</div><div class="mcq-option"><span class="mcq-letter">B</span>char</div><div class="mcq-option"><span class="mcq-letter">C</span>boolean</div><div class="mcq-option"><span class="mcq-letter">D</span>double</div></div>
 </section><section class="slide mcq-slide">
-<div class="kicker">Classroom Quiz · 06–08 · Data, Variables &amp; Arrays · Q2</div>
-<div class="mcq-question">Which declaration correctly creates an integer variable named marks with value 85?</div>
-<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>integer marks = 85;</div><div class="mcq-option"><span class="mcq-letter">B</span>int marks = 85;</div><div class="mcq-option"><span class="mcq-letter">C</span>marks int = 85;</div><div class="mcq-option"><span class="mcq-letter">D</span>number marks = 85;</div></div>
+<div class="kicker">Classroom Quiz · 06–08 · Data Types, Type Inference, Type Casting, Variables &amp; Arrays · Q2</div>
+<div class="mcq-question">Which statement about var is correct?</div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>It makes Java dynamically typed.</div><div class="mcq-option"><span class="mcq-letter">B</span>It can be used for every variable, including fields and parameters.</div><div class="mcq-option"><span class="mcq-letter">C</span>It lets Java infer a local variable's compile-time type from its initializer.</div><div class="mcq-option"><span class="mcq-letter">D</span>It can be declared without an initializer.</div></div>
 </section><section class="slide mcq-slide">
-<div class="kicker">Classroom Quiz · 06–08 · Data, Variables &amp; Arrays · Q3</div>
+<div class="kicker">Classroom Quiz · 06–08 · Data Types, Type Inference, Type Casting, Variables &amp; Arrays · Q3</div>
+<div class="mcq-question">Which statement correctly shows narrowing conversion?</div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>double d = 10;</div><div class="mcq-option"><span class="mcq-letter">B</span>int x = (int) 10.8;</div><div class="mcq-option"><span class="mcq-letter">C</span>double d = (double) 10;</div><div class="mcq-option"><span class="mcq-letter">D</span>long n = 25;</div></div>
+</section><section class="slide mcq-slide">
+<div class="kicker">Classroom Quiz · 06–08 · Data Types, Type Inference, Type Casting, Variables &amp; Arrays · Q4</div>
 <div class="mcq-question">What is the first valid index of a Java array?</div>
 <div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>0</div><div class="mcq-option"><span class="mcq-letter">B</span>1</div><div class="mcq-option"><span class="mcq-letter">C</span>-1</div><div class="mcq-option"><span class="mcq-letter">D</span>The array length</div></div>
 </section><section class="slide mcq-slide">
-<div class="kicker">Classroom Quiz · 06–08 · Data, Variables &amp; Arrays · Q4</div>
-<div class="mcq-question">Which expression gives the number of elements in an array named numbers?</div>
-<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>numbers.size()</div><div class="mcq-option"><span class="mcq-letter">B</span>numbers.count</div><div class="mcq-option"><span class="mcq-letter">C</span>numbers.length</div><div class="mcq-option"><span class="mcq-letter">D</span>length(numbers)</div></div>
-</section><section class="slide mcq-slide">
-<div class="kicker">Classroom Quiz · 06–08 · Data, Variables &amp; Arrays · Q5</div>
+<div class="kicker">Classroom Quiz · 06–08 · Data Types, Type Inference, Type Casting, Variables &amp; Arrays · Q5</div>
 <div class="mcq-question">In int[][] marks, what does marks[1][2] identify?</div>
 <div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>Row 1, column 2 using zero-based indexing</div><div class="mcq-option"><span class="mcq-letter">B</span>Row 2, column 3 using zero-based indexing</div><div class="mcq-option"><span class="mcq-letter">C</span>The second array only</div><div class="mcq-option"><span class="mcq-letter">D</span>The third row and second column</div></div>
 </section><section class="slide mcq-answer-slide">
-<div class="kicker">Answer · 06–08 · Data, Variables &amp; Arrays · Q1</div>
+<div class="kicker">Answer · 06–08 · Data Types, Type Inference, Type Casting, Variables &amp; Arrays · Q1</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which Java type is designed to store true or false?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>int</div><div class="mcq-option "><span class="mcq-letter">B</span>char</div><div class="mcq-option correct"><span class="mcq-letter">C</span>boolean</div><div class="mcq-option "><span class="mcq-letter">D</span>double</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>int</div><div class="mcq-option"><span class="mcq-letter">B</span>char</div><div class="mcq-option correct"><span class="mcq-letter">C</span>boolean</div><div class="mcq-option"><span class="mcq-letter">D</span>double</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> boolean represents the logical values true and false.</div>
 </section><section class="slide mcq-answer-slide">
-<div class="kicker">Answer · 06–08 · Data, Variables &amp; Arrays · Q2</div>
+<div class="kicker">Answer · 06–08 · Data Types, Type Inference, Type Casting, Variables &amp; Arrays · Q2</div>
 <h2>Correct Answer</h2>
-<div class="mcq-question">Which declaration correctly creates an integer variable named marks with value 85?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>integer marks = 85;</div><div class="mcq-option correct"><span class="mcq-letter">B</span>int marks = 85;</div><div class="mcq-option "><span class="mcq-letter">C</span>marks int = 85;</div><div class="mcq-option "><span class="mcq-letter">D</span>number marks = 85;</div></div>
-<div class="mcq-answer-note"><strong>Why?</strong> int is the Java primitive type for a 32-bit signed integer, and marks is the variable name.</div>
+<div class="mcq-question">Which statement about var is correct?</div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>It makes Java dynamically typed.</div><div class="mcq-option"><span class="mcq-letter">B</span>It can be used for every variable, including fields and parameters.</div><div class="mcq-option correct"><span class="mcq-letter">C</span>It lets Java infer a local variable's compile-time type from its initializer.</div><div class="mcq-option"><span class="mcq-letter">D</span>It can be declared without an initializer.</div></div>
+<div class="mcq-answer-note"><strong>Why?</strong> var is local variable type inference. Java infers a specific compile-time type from the initializer.</div>
 </section><section class="slide mcq-answer-slide">
-<div class="kicker">Answer · 06–08 · Data, Variables &amp; Arrays · Q3</div>
+<div class="kicker">Answer · 06–08 · Data Types, Type Inference, Type Casting, Variables &amp; Arrays · Q3</div>
+<h2>Correct Answer</h2>
+<div class="mcq-question">Which statement correctly shows narrowing conversion?</div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>double d = 10;</div><div class="mcq-option correct"><span class="mcq-letter">B</span>int x = (int) 10.8;</div><div class="mcq-option"><span class="mcq-letter">C</span>double d = (double) 10;</div><div class="mcq-option"><span class="mcq-letter">D</span>long n = 25;</div></div>
+<div class="mcq-answer-note"><strong>Why?</strong> Narrowing from double to int requires an explicit cast such as (int) 10.8.</div>
+</section><section class="slide mcq-answer-slide">
+<div class="kicker">Answer · 06–08 · Data Types, Type Inference, Type Casting, Variables &amp; Arrays · Q4</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">What is the first valid index of a Java array?</div>
-<div class="mcq-options"><div class="mcq-option correct"><span class="mcq-letter">A</span>0</div><div class="mcq-option "><span class="mcq-letter">B</span>1</div><div class="mcq-option "><span class="mcq-letter">C</span>-1</div><div class="mcq-option "><span class="mcq-letter">D</span>The array length</div></div>
+<div class="mcq-options"><div class="mcq-option correct"><span class="mcq-letter">A</span>0</div><div class="mcq-option"><span class="mcq-letter">B</span>1</div><div class="mcq-option"><span class="mcq-letter">C</span>-1</div><div class="mcq-option"><span class="mcq-letter">D</span>The array length</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> Java array indexing starts at 0.</div>
 </section><section class="slide mcq-answer-slide">
-<div class="kicker">Answer · 06–08 · Data, Variables &amp; Arrays · Q4</div>
-<h2>Correct Answer</h2>
-<div class="mcq-question">Which expression gives the number of elements in an array named numbers?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>numbers.size()</div><div class="mcq-option "><span class="mcq-letter">B</span>numbers.count</div><div class="mcq-option correct"><span class="mcq-letter">C</span>numbers.length</div><div class="mcq-option "><span class="mcq-letter">D</span>length(numbers)</div></div>
-<div class="mcq-answer-note"><strong>Why?</strong> The length field of an array gives its number of elements.</div>
-</section><section class="slide mcq-answer-slide">
-<div class="kicker">Answer · 06–08 · Data, Variables &amp; Arrays · Q5</div>
+<div class="kicker">Answer · 06–08 · Data Types, Type Inference, Type Casting, Variables &amp; Arrays · Q5</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">In int[][] marks, what does marks[1][2] identify?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>Row 1, column 2 using zero-based indexing</div><div class="mcq-option correct"><span class="mcq-letter">B</span>Row 2, column 3 using zero-based indexing</div><div class="mcq-option "><span class="mcq-letter">C</span>The second array only</div><div class="mcq-option "><span class="mcq-letter">D</span>The third row and second column</div></div>
-<div class="mcq-answer-note"><strong>Why?</strong> The first index is the row and the second is the column; both are zero-based, so [1][2] is row 2, column 3 in human counting.</div>
-</section><section class="slide"><div class="kicker">09 · Control Statements</div>
-    <h2>What Are Control Statements?</h2><p class="definition">Control statements control the order in which statements are executed in a Java program.</p></section><section class="slide"><div class="kicker">09 · Control Statements</div><h2>Different Control Statements</h2><div class="cards"><div class="card"><h3>Decision</h3><p>if • if-else • else-if • switch</p></div><div class="card"><h3>Looping</h3><p>for • while • do-while</p></div><div class="card"><h3>Jump</h3><p>break • continue</p></div></div></section><section class="slide center cover"><div class="kicker">09A · Control Statements</div><div class="title">IF STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09A · if Statement</div>
-    <h2>What Is an if Statement?</h2><p class="definition">Executes a block only when a condition is true.</p></section><section class="slide "><div class="kicker">09A · if Statement</div><div class="title">General Syntax</div><pre class="code">if (condition) {
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>Row 1, column 2 using zero-based indexing</div><div class="mcq-option correct"><span class="mcq-letter">B</span>Row 2, column 3 using zero-based indexing</div><div class="mcq-option"><span class="mcq-letter">C</span>The second array only</div><div class="mcq-option"><span class="mcq-letter">D</span>The third row and second column</div></div>
+<div class="mcq-answer-note"><strong>Why?</strong> Both indexes are zero-based, so [1][2] means the second row and third column in human counting.</div>
+</section><section class="slide center cover"><div class="kicker">09 · Control Statements</div><div class="title">CONTROL
+STATEMENTS</div><div class="accent"></div></section><section class="slide"><div class="kicker">09 · Control Statements</div>
+<h2>What Are Control Statements?</h2><p class="definition">Control statements control the order in which statements are executed in a Java program.</p></section><section class="slide"><div class="kicker">09 · Control Statements</div><h2>Different Control Statements</h2><div class="cards"><div class="card"><h3>Decision</h3><p>if • if-else • else-if • switch</p></div><div class="card"><h3>Looping</h3><p>for • while • do-while</p></div><div class="card"><h3>Jump</h3><p>break • continue</p></div></div></section><section class="slide"><div class="kicker">09 · Control Statements</div><h2>Think About Control Flow</h2><div class="flow-wrap"><div class="flow-step"><strong>Sequence</strong><small>Run in order</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Decision</strong><small>Choose a path</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Loop</strong><small>Repeat a block</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Jump</strong><small>Change normal flow</small></div></div><div class="note-strip">Control statements answer: <strong>What should execute next?</strong></div></section><section class="slide center cover"><div class="kicker">09A · Control Statements</div><div class="title">IF STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09A · if Statement</div>
+<h2>What Is an if Statement?</h2><p class="definition">Executes a block only when a condition is true.</p></section><section class="slide"><div class="kicker">09A · if Statement</div><h2>What an if Statement Does</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Condition</h3><p>Checks a boolean expression.</p></div><div class="concept-card"><div class="num">02</div><h3>True</h3><p>Runs the if block when the condition is true.</p></div><div class="concept-card"><div class="num">03</div><h3>False</h3><p>If false, the block is skipped.</p></div></div></section><section class="slide"><div class="kicker">09A · if Statement</div><h2>General Syntax</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>if (condition) {
     // statements
-}</pre></section><section class="slide"><div class="kicker">09A · if Statement</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09A · if Statement</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int marks = 75;
+}</pre></div><div class="note-strip">The <strong>condition</strong> must produce true or false. The block runs only when the condition is true.</div></section><section class="slide"><div class="kicker">09A · if Statement</div>
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09A · if Statement</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int marks = 75;
 if (marks &gt;= 40) {
-    System.out.println(&quot;Pass&quot;);
+    System.out.println("Pass");
 }</pre></section><section class="slide center"><div class="kicker">09A · if Statement</div>
-    <h2>Example 1 · Output</h2><div class="output">Pass</div></section><section class="slide"><div class="kicker">09A · if Statement</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int age = 20;
+<h2>Example 1 · Output</h2><div class="output">Pass</div></section><section class="slide"><div class="kicker">09A · if Statement</div>
+<h2>See It in Action · Example 2</h2><pre class="code">int age = 20;
 if (age &gt;= 18) {
-    System.out.println(&quot;Adult&quot;);
+    System.out.println("Adult");
 }</pre></section><section class="slide center"><div class="kicker">09A · if Statement</div>
-    <h2>Example 2 · Output</h2><div class="output">Adult</div></section><section class="slide"><div class="kicker">09A · if Statement</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check whether marks are at least 40.</div><div class="exercise"><b>2.</b> Check whether a number is positive.</div><div class="exercise"><b>3.</b> Check whether a number is even.</div><div class="exercise"><b>4.</b> Check whether age is 18 or above.</div><div class="exercise"><b>5.</b> Print a message if a number is greater than 100.</div></section><section class="slide center cover"><div class="kicker">09B · Control Statements</div><div class="title">IF-ELSE STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
-    <h2>What Is if-else?</h2><p class="definition">Chooses between two possible paths.</p></section><section class="slide "><div class="kicker">09B · if-else Statement</div><div class="title">General Syntax</div><pre class="code">if (condition) {
-    // true
+<h2>Example 2 · Output</h2><div class="output">Adult</div></section><section class="slide"><div class="kicker">09A · if Statement</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check whether marks are at least 40.</div><div class="exercise"><b>2.</b> Check whether a number is positive.</div><div class="exercise"><b>3.</b> Check whether a number is even.</div><div class="exercise"><b>4.</b> Check whether age is 18 or above.</div><div class="exercise"><b>5.</b> Print a message if a number is greater than 100.</div></section><section class="slide center cover"><div class="kicker">09B · Control Statements</div><div class="title">IF-ELSE STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
+<h2>What Is if-else?</h2><p class="definition">Chooses between two possible paths.</p></section><section class="slide"><div class="kicker">09B · if-else Statement</div><h2>if-else — Two Paths</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Check</h3><p>Evaluate the condition.</p></div><div class="concept-card"><div class="num">02</div><h3>True Path</h3><p>Execute the if block.</p></div><div class="concept-card"><div class="num">03</div><h3>False Path</h3><p>Execute the else block.</p></div></div></section><section class="slide"><div class="kicker">09B · if-else Statement</div><h2>General Syntax</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>if (condition) {
+    // true block
 } else {
-    // false
-}</pre></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int marks = 35;
+    // false block
+}</pre></div><div class="note-strip">Exactly one of the two blocks executes.</div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int marks = 35;
 if (marks &gt;= 40)
-    System.out.println(&quot;Pass&quot;);
+    System.out.println("Pass");
 else
-    System.out.println(&quot;Fail&quot;);</pre></section><section class="slide center"><div class="kicker">09B · if-else Statement</div>
-    <h2>Example 1 · Output</h2><div class="output">Fail</div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int n = 8;
+    System.out.println("Fail");</pre></section><section class="slide center"><div class="kicker">09B · if-else Statement</div>
+<h2>Example 1 · Output</h2><div class="output">Fail</div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
+<h2>See It in Action · Example 2</h2><pre class="code">int n = 8;
 if (n % 2 == 0)
-    System.out.println(&quot;Even&quot;);
+    System.out.println("Even");
 else
-    System.out.println(&quot;Odd&quot;);</pre></section><section class="slide center"><div class="kicker">09B · if-else Statement</div>
-    <h2>Example 2 · Output</h2><div class="output">Even</div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check Adult or Minor.</div><div class="exercise"><b>2.</b> Check Positive or Negative.</div><div class="exercise"><b>3.</b> Check Pass or Fail.</div><div class="exercise"><b>4.</b> Check divisible by 5.</div><div class="exercise"><b>5.</b> Check whether two numbers are equal.</div></section><section class="slide center cover"><div class="kicker">09C · Control Statements</div><div class="title">ELSE-IF LADDER</div><div class="accent"></div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
-    <h2>What Is an else-if Ladder?</h2><p class="definition">Checks multiple conditions in sequence.</p></section><section class="slide "><div class="kicker">09C · else-if Ladder</div><div class="title">General Syntax</div><pre class="code">if (condition1) {
+    System.out.println("Odd");</pre></section><section class="slide center"><div class="kicker">09B · if-else Statement</div>
+<h2>Example 2 · Output</h2><div class="output">Even</div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check Adult or Minor.</div><div class="exercise"><b>2.</b> Check Positive or Negative.</div><div class="exercise"><b>3.</b> Check Pass or Fail.</div><div class="exercise"><b>4.</b> Check divisible by 5.</div><div class="exercise"><b>5.</b> Check whether two numbers are equal.</div></section><section class="slide center cover"><div class="kicker">09C · Control Statements</div><div class="title">ELSE-IF LADDER</div><div class="accent"></div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
+<h2>What Is an else-if Ladder?</h2><p class="definition">Checks multiple conditions in sequence.</p></section><section class="slide"><div class="kicker">09C · else-if Ladder</div><h2>else-if — Multiple Choices</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Order</h3><p>Conditions are checked from top to bottom.</p></div><div class="concept-card"><div class="num">02</div><h3>First Match</h3><p>The first true condition executes.</p></div><div class="concept-card"><div class="num">03</div><h3>Else</h3><p>A final else can handle remaining cases.</p></div></div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div><div class="title">General Syntax</div><pre class="code">if (condition1) {
 } else if (condition2) {
 } else {
 }</pre></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int marks = 82;
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int marks = 82;
 if (marks &gt;= 90)
-    System.out.println(&quot;A+&quot;);
+    System.out.println("A+");
 else if (marks &gt;= 75)
-    System.out.println(&quot;A&quot;);
+    System.out.println("A");
 else
-    System.out.println(&quot;B&quot;);</pre></section><section class="slide center"><div class="kicker">09C · else-if Ladder</div>
-    <h2>Example 1 · Output</h2><div class="output">A</div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int n = -5;
+    System.out.println("B");</pre></section><section class="slide center"><div class="kicker">09C · else-if Ladder</div>
+<h2>Example 1 · Output</h2><div class="output">A</div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
+<h2>See It in Action · Example 2</h2><pre class="code">int n = -5;
 if (n &gt; 0)
-    System.out.println(&quot;Positive&quot;);
+    System.out.println("Positive");
 else if (n &lt; 0)
-    System.out.println(&quot;Negative&quot;);
+    System.out.println("Negative");
 else
-    System.out.println(&quot;Zero&quot;);</pre></section><section class="slide center"><div class="kicker">09C · else-if Ladder</div>
-    <h2>Example 2 · Output</h2><div class="output">Negative</div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Display A/B/C/Fail based on marks.</div><div class="exercise"><b>2.</b> Classify a number as positive, negative or zero.</div><div class="exercise"><b>3.</b> Classify age into categories.</div><div class="exercise"><b>4.</b> Find the largest of three numbers.</div><div class="exercise"><b>5.</b> Display a performance message based on marks.</div></section><section class="slide center cover"><div class="kicker">09D · Control Statements</div><div class="title">SWITCH STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
-    <h2>What Is switch?</h2><p class="definition">Selects a block based on the value of an expression.</p></section><section class="slide "><div class="kicker">09D · switch Statement</div><div class="title">General Syntax</div><pre class="code">switch (expression) {
+    System.out.println("Zero");</pre></section><section class="slide center"><div class="kicker">09C · else-if Ladder</div>
+<h2>Example 2 · Output</h2><div class="output">Negative</div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Display A/B/C/Fail based on marks.</div><div class="exercise"><b>2.</b> Classify a number as positive, negative or zero.</div><div class="exercise"><b>3.</b> Classify age into categories.</div><div class="exercise"><b>4.</b> Find the largest of three numbers.</div><div class="exercise"><b>5.</b> Display a performance message based on marks.</div></section><section class="slide center cover"><div class="kicker">09D · Control Statements</div><div class="title">SWITCH STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
+<h2>What Is switch?</h2><p class="definition">Selects a block based on the value of an expression.</p></section><section class="slide"><div class="kicker">09D · switch Statement</div><h2>switch — Fixed Choices</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Expression</h3><p>Evaluate one value.</p></div><div class="concept-card"><div class="num">02</div><h3>case</h3><p>Match one of the available choices.</p></div><div class="concept-card"><div class="num">03</div><h3>break</h3><p>Usually prevents unwanted fall-through.</p></div></div></section><section class="slide"><div class="kicker">09D · switch Statement</div><div class="title">General Syntax</div><pre class="code">switch (expression) {
     case value:
         // statements
         break;
     default:
         // statements
 }</pre></section><section class="slide"><div class="kicker">09D · switch Statement</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int day = 2;
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int day = 2;
 switch (day) {
-    case 1: System.out.println(&quot;Mon&quot;); break;
-    case 2: System.out.println(&quot;Tue&quot;); break;
-    default: System.out.println(&quot;Invalid&quot;);
+    case 1: System.out.println("Mon"); break;
+    case 2: System.out.println("Tue"); break;
+    default: System.out.println("Invalid");
 }</pre></section><section class="slide center"><div class="kicker">09D · switch Statement</div>
-    <h2>Example 1 · Output</h2><div class="output">Tue</div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int choice = 1;
+<h2>Example 1 · Output</h2><div class="output">Tue</div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
+<h2>See It in Action · Example 2</h2><pre class="code">int choice = 1;
 switch (choice) {
-    case 1: System.out.println(&quot;Add&quot;); break;
-    case 2: System.out.println(&quot;Exit&quot;); break;
-    default: System.out.println(&quot;Invalid&quot;);
+    case 1: System.out.println("Add"); break;
+    case 2: System.out.println("Exit"); break;
+    default: System.out.println("Invalid");
 }</pre></section><section class="slide center"><div class="kicker">09D · switch Statement</div>
-    <h2>Example 2 · Output</h2><div class="output">Add</div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Display weekdays using 1–7.</div><div class="exercise"><b>2.</b> Create a calculator menu.</div><div class="exercise"><b>3.</b> Display month names using 1–12.</div><div class="exercise"><b>4.</b> Create a simple student menu.</div><div class="exercise"><b>5.</b> Remove break and observe the behavior.</div></section><section class="slide center cover"><div class="kicker">09E · Control Statements</div><div class="title">FOR LOOP</div><div class="accent"></div></section><section class="slide"><div class="kicker">09E · for Loop</div>
-    <h2>What Is a for Loop?</h2><p class="definition">Repeats a block, commonly when the repetition count is known.</p></section><section class="slide "><div class="kicker">09E · for Loop</div><div class="title">General Syntax</div><pre class="code">for (initialization; condition; update) {
-    // statements
-}</pre></section><section class="slide"><div class="kicker">09E · for Loop</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09E · for Loop</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">for (int i = 1; i &lt;= 5; i++) {
+<h2>Example 2 · Output</h2><div class="output">Add</div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Display weekdays using 1–7.</div><div class="exercise"><b>2.</b> Create a calculator menu.</div><div class="exercise"><b>3.</b> Display month names using 1–12.</div><div class="exercise"><b>4.</b> Create a simple student menu.</div><div class="exercise"><b>5.</b> Remove break and observe the behavior.</div></section><section class="slide center cover"><div class="kicker">09E · Control Statements</div><div class="title">FOR LOOP</div><div class="accent"></div></section><section class="slide"><div class="kicker">09E · for Loop</div>
+<h2>What Is a for Loop?</h2><p class="definition">Repeats a block, commonly when the repetition count is known.</p></section><section class="slide"><div class="kicker">09E · for Loop</div><h2>for Loop — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Known Count</h3><p>Useful when the repetition count is known.</p></div><div class="concept-card"><div class="num">02</div><h3>Three Parts</h3><p>Initialization, condition and update.</p></div><div class="concept-card"><div class="num">03</div><h3>Compact</h3><p>All three appear in the loop header.</p></div></div></section><section class="slide"><div class="kicker">09E · for Loop</div><h2>General Syntax</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>for (initialization; condition; update) {
+    // repeated statements
+}</pre></div><div class="note-strip">Use a <strong>for loop</strong> when the repetition count is known or can be controlled clearly.</div></section><section class="slide"><div class="kicker">09E · for Loop</div>
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09E · for Loop</div><h2>How the for Loop Works</h2><div class="flow-wrap"><div class="flow-step"><strong>Initialization</strong><small>Runs once</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Condition</strong><small>Checked before each iteration</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Body</strong><small>Runs when true</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Update</strong><small>Changes control variable</small></div></div><div class="note-strip">When the condition becomes false, the loop ends.</div></section><section class="slide"><div class="kicker">09E · for Loop</div>
+<h2>See It in Action · Example 1</h2><pre class="code">for (int i = 1; i &lt;= 5; i++) {
     System.out.println(i);
 }</pre></section><section class="slide center"><div class="kicker">09E · for Loop</div>
-    <h2>Example 1 · Output</h2><div class="output">1  2  3  4  5</div></section><section class="slide"><div class="kicker">09E · for Loop</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">for (int i = 1; i &lt;= 3; i++) {
-    System.out.println(&quot;Java&quot;);
+<h2>Example 1 · Output</h2><div class="output">1  2  3  4  5</div></section><section class="slide"><div class="kicker">09E · for Loop</div>
+<h2>See It in Action · Example 2</h2><pre class="code">for (int i = 1; i &lt;= 3; i++) {
+    System.out.println("Java");
 }</pre></section><section class="slide center"><div class="kicker">09E · for Loop</div>
-    <h2>Example 2 · Output</h2><div class="output">Java
+<h2>Example 2 · Output</h2><div class="output">Java
 Java
 Java</div></section><section class="slide"><div class="kicker">09E · for Loop</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Print 1–10.</div><div class="exercise"><b>2.</b> Print even numbers 1–20.</div><div class="exercise"><b>3.</b> Print table of 5.</div><div class="exercise"><b>4.</b> Find sum 1–10.</div><div class="exercise"><b>5.</b> Print squares 1–10.</div></section><section class="slide center cover"><div class="kicker">09F · Control Statements</div><div class="title">WHILE LOOP</div><div class="accent"></div></section><section class="slide"><div class="kicker">09F · while Loop</div>
-    <h2>What Is a while Loop?</h2><p class="definition">Repeats while a condition remains true.</p></section><section class="slide "><div class="kicker">09F · while Loop</div><div class="title">General Syntax</div><pre class="code">while (condition) {
-    // statements
-}</pre></section><section class="slide"><div class="kicker">09F · while Loop</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09F · while Loop</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int i = 1;
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Print 1–10.</div><div class="exercise"><b>2.</b> Print even numbers 1–20.</div><div class="exercise"><b>3.</b> Print table of 5.</div><div class="exercise"><b>4.</b> Find sum 1–10.</div><div class="exercise"><b>5.</b> Print squares 1–10.</div></section><section class="slide center cover"><div class="kicker">09F · Control Statements</div><div class="title">WHILE LOOP</div><div class="accent"></div></section><section class="slide"><div class="kicker">09F · while Loop</div>
+<h2>What Is a while Loop?</h2><p class="definition">Repeats while a condition remains true.</p></section><section class="slide"><div class="kicker">09F · while Loop</div><h2>while Loop — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Condition First</h3><p>The condition is checked before the body.</p></div><div class="concept-card"><div class="num">02</div><h3>Zero Times</h3><p>It may run zero times.</p></div><div class="concept-card"><div class="num">03</div><h3>Update</h3><p>Change the control variable to avoid an infinite loop.</p></div></div></section><section class="slide"><div class="kicker">09F · while Loop</div><h2>General Syntax</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>while (condition) {
+    // repeated statements
+}</pre></div><div class="note-strip">The condition is checked <strong>before</strong> every iteration.</div></section><section class="slide"><div class="kicker">09F · while Loop</div>
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09F · while Loop</div><h2>while Loop — Execution Flow</h2><div class="flow-wrap"><div class="flow-step"><strong>Condition</strong><small>Check</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>True</strong><small>Enter body</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Body</strong><small>Execute</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Update</strong><small>Change state → check again</small></div></div><div class="note-strip">If the condition is false, execution moves past the loop.</div></section><section class="slide"><div class="kicker">09F · while Loop</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int i = 1;
 while (i &lt;= 5) {
     System.out.println(i);
     i++;
 }</pre></section><section class="slide center"><div class="kicker">09F · while Loop</div>
-    <h2>Example 1 · Output</h2><div class="output">1  2  3  4  5</div></section><section class="slide"><div class="kicker">09F · while Loop</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int i = 5;
+<h2>Example 1 · Output</h2><div class="output">1  2  3  4  5</div></section><section class="slide"><div class="kicker">09F · while Loop</div>
+<h2>See It in Action · Example 2</h2><pre class="code">int i = 5;
 while (i &gt;= 1) {
     System.out.println(i);
     i--;
 }</pre></section><section class="slide center"><div class="kicker">09F · while Loop</div>
-    <h2>Example 2 · Output</h2><div class="output">5  4  3  2  1</div></section><section class="slide"><div class="kicker">09F · while Loop</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Print 1–10.</div><div class="exercise"><b>2.</b> Print odd numbers up to 20.</div><div class="exercise"><b>3.</b> Find sum 1–10.</div><div class="exercise"><b>4.</b> Count digits in a number.</div><div class="exercise"><b>5.</b> Reverse a number.</div></section><section class="slide center cover"><div class="kicker">09G · Control Statements</div><div class="title">DO-WHILE LOOP</div><div class="accent"></div></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
-    <h2>What Is a do-while Loop?</h2><p class="definition">Executes the body first and checks the condition afterward.</p></section><section class="slide "><div class="kicker">09G · do-while Loop</div><div class="title">General Syntax</div><pre class="code">do {
-    // statements
-} while (condition);</pre></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int i = 1;
+<h2>Example 2 · Output</h2><div class="output">5  4  3  2  1</div></section><section class="slide"><div class="kicker">09F · while Loop</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Print 1–10.</div><div class="exercise"><b>2.</b> Print odd numbers up to 20.</div><div class="exercise"><b>3.</b> Find sum 1–10.</div><div class="exercise"><b>4.</b> Count digits in a number.</div><div class="exercise"><b>5.</b> Reverse a number.</div></section><section class="slide center cover"><div class="kicker">09G · Control Statements</div><div class="title">DO-WHILE LOOP</div><div class="accent"></div></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
+<h2>What Is a do-while Loop?</h2><p class="definition">Executes the body first and checks the condition afterward.</p></section><section class="slide"><div class="kicker">09G · do-while Loop</div><h2>do-while — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Body First</h3><p>The body executes before the condition is checked.</p></div><div class="concept-card"><div class="num">02</div><h3>At Least Once</h3><p>The body runs at least once.</p></div><div class="concept-card"><div class="num">03</div><h3>Repeat</h3><p>A true condition starts another iteration.</p></div></div></section><section class="slide"><div class="kicker">09G · do-while Loop</div><h2>General Syntax</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>do {
+    // repeated statements
+} while (condition);</pre></div><div class="note-strip">The condition is checked <strong>after</strong> the body, so the body executes at least once.</div></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09G · do-while Loop</div><h2>do-while — Execution Flow</h2><div class="flow-wrap"><div class="flow-step"><strong>Body</strong><small>Execute first</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Condition</strong><small>Check</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>True</strong><small>Repeat</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>False</strong><small>Exit</small></div></div><div class="note-strip">Key idea: <strong>the body executes before the condition is tested.</strong></div></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int i = 1;
 do {
     System.out.println(i);
     i++;
 } while (i &lt;= 3);</pre></section><section class="slide center"><div class="kicker">09G · do-while Loop</div>
-    <h2>Example 1 · Output</h2><div class="output">1  2  3</div></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int i = 10;
+<h2>Example 1 · Output</h2><div class="output">1  2  3</div></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
+<h2>See It in Action · Example 2</h2><pre class="code">int i = 10;
 do {
     System.out.println(i);
 } while (i &lt; 5);</pre></section><section class="slide center"><div class="kicker">09G · do-while Loop</div>
-    <h2>Example 2 · Output</h2><div class="output">10
+<h2>Example 2 · Output</h2><div class="output">10
 Runs once!</div></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Print 1–5.</div><div class="exercise"><b>2.</b> Display a message at least once.</div><div class="exercise"><b>3.</b> Create a menu until Exit.</div><div class="exercise"><b>4.</b> Print 5–1.</div><div class="exercise"><b>5.</b> Repeat while a number is positive.</div></section><section class="slide center cover"><div class="kicker">09H · Control Statements</div><div class="title">BREAK STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09H · break Statement</div>
-    <h2>What Is break?</h2><p class="definition">Immediately terminates the nearest loop or switch.</p></section><section class="slide "><div class="kicker">09H · break Statement</div><div class="title">General Syntax</div><pre class="code">if (condition) {
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Print 1–5.</div><div class="exercise"><b>2.</b> Display a message at least once.</div><div class="exercise"><b>3.</b> Create a menu until Exit.</div><div class="exercise"><b>4.</b> Print 5–1.</div><div class="exercise"><b>5.</b> Repeat while a number is positive.</div></section><section class="slide center cover"><div class="kicker">09H · Control Statements</div><div class="title">BREAK STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09H · break Statement</div>
+<h2>What Is break?</h2><p class="definition">Immediately terminates the nearest loop or switch.</p></section><section class="slide"><div class="kicker">09H · break Statement</div><h2>break — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Exit</h3><p>Leaves the nearest loop or switch immediately.</p></div><div class="concept-card"><div class="num">02</div><h3>Continue After</h3><p>Execution resumes after that structure.</p></div><div class="concept-card"><div class="num">03</div><h3>Use Carefully</h3><p>Use when early termination improves the logic.</p></div></div></section><section class="slide"><div class="kicker">09H · break Statement</div><div class="title">General Syntax</div><pre class="code">if (condition) {
     break;
 }</pre></section><section class="slide"><div class="kicker">09H · break Statement</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09H · break Statement</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">for (int i = 1; i &lt;= 10; i++) {
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09H · break Statement</div>
+<h2>See It in Action · Example 1</h2><pre class="code">for (int i = 1; i &lt;= 10; i++) {
     if (i == 5) break;
     System.out.println(i);
 }</pre></section><section class="slide center"><div class="kicker">09H · break Statement</div>
-    <h2>Example 1 · Output</h2><div class="output">1  2  3  4</div></section><section class="slide"><div class="kicker">09H · break Statement</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int i = 1;
+<h2>Example 1 · Output</h2><div class="output">1  2  3  4</div></section><section class="slide"><div class="kicker">09H · break Statement</div>
+<h2>See It in Action · Example 2</h2><pre class="code">int i = 1;
 while (i &lt;= 10) {
     if (i == 4) break;
     System.out.println(i);
     i++;
 }</pre></section><section class="slide center"><div class="kicker">09H · break Statement</div>
-    <h2>Example 2 · Output</h2><div class="output">1  2  3</div></section><section class="slide"><div class="kicker">09H · break Statement</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Stop when counter reaches 7.</div><div class="exercise"><b>2.</b> Search 1–100 and stop at 50.</div><div class="exercise"><b>3.</b> Exit a menu when 0 is chosen.</div><div class="exercise"><b>4.</b> Stop printing at 10.</div><div class="exercise"><b>5.</b> Find first number divisible by 7.</div></section><section class="slide center cover"><div class="kicker">09I · Control Statements</div><div class="title">CONTINUE STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
-    <h2>What Is continue?</h2><p class="definition">Skips the current iteration and moves to the next iteration.</p></section><section class="slide "><div class="kicker">09I · continue Statement</div><div class="title">General Syntax</div><pre class="code">if (condition) {
+<h2>Example 2 · Output</h2><div class="output">1  2  3</div></section><section class="slide"><div class="kicker">09H · break Statement</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Stop when counter reaches 7.</div><div class="exercise"><b>2.</b> Search 1–100 and stop at 50.</div><div class="exercise"><b>3.</b> Exit a menu when 0 is chosen.</div><div class="exercise"><b>4.</b> Stop printing at 10.</div><div class="exercise"><b>5.</b> Find first number divisible by 7.</div></section><section class="slide center cover"><div class="kicker">09I · Control Statements</div><div class="title">CONTINUE STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
+<h2>What Is continue?</h2><p class="definition">Skips the current iteration and moves to the next iteration.</p></section><section class="slide"><div class="kicker">09I · continue Statement</div><h2>continue — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Skip</h3><p>Skips the remaining part of the current iteration.</p></div><div class="concept-card"><div class="num">02</div><h3>Next</h3><p>Moves to the next iteration.</p></div><div class="concept-card"><div class="num">03</div><h3>Not Exit</h3><p>The loop itself continues.</p></div></div></section><section class="slide"><div class="kicker">09I · continue Statement</div><div class="title">General Syntax</div><pre class="code">if (condition) {
     continue;
 }</pre></section><section class="slide"><div class="kicker">09I · continue Statement</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">for (int i = 1; i &lt;= 5; i++) {
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
+<h2>See It in Action · Example 1</h2><pre class="code">for (int i = 1; i &lt;= 5; i++) {
     if (i == 3) continue;
     System.out.println(i);
 }</pre></section><section class="slide center"><div class="kicker">09I · continue Statement</div>
-    <h2>Example 1 · Output</h2><div class="output">1  2  4  5</div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">for (int i = 1; i &lt;= 6; i++) {
+<h2>Example 1 · Output</h2><div class="output">1  2  4  5</div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
+<h2>See It in Action · Example 2</h2><pre class="code">for (int i = 1; i &lt;= 6; i++) {
     if (i % 2 == 0) continue;
     System.out.println(i);
 }</pre></section><section class="slide center"><div class="kicker">09I · continue Statement</div>
-    <h2>Example 2 · Output</h2><div class="output">1  3  5</div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Print 1–10 but skip 5.</div><div class="exercise"><b>2.</b> Print 1–20 but skip even numbers.</div><div class="exercise"><b>3.</b> Skip multiples of 3.</div><div class="exercise"><b>4.</b> Skip negative numbers.</div><div class="exercise"><b>5.</b> Print numbers not divisible by 5.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Operators</div>
-    <h2>What Are Operators?</h2><p class="definition">Operators are symbols used to perform operations on values and variables.</p></section><section class="slide"><div class="kicker">10 · Operators</div><h2>Types of Operators</h2><div class="cards"><div class="card"><h3>Arithmetic</h3><p>+ − * / %</p></div><div class="card"><h3>Relational</h3><p>== != > < >= <=</p></div><div class="card"><h3>Logical</h3><p>&& || !</p></div><div class="card"><h3>Bitwise</h3><p>& | ^ ~ << >></p></div><div class="card"><h3>Ternary</h3><p>condition ? value1 : value2</p></div></div></section><section class="slide center cover"><div class="kicker">10 · Arithmetic Operators</div><div class="title">ARITHMETIC
+<h2>Example 2 · Output</h2><div class="output">1  3  5</div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Print 1–10 but skip 5.</div><div class="exercise"><b>2.</b> Print 1–20 but skip even numbers.</div><div class="exercise"><b>3.</b> Skip multiples of 3.</div><div class="exercise"><b>4.</b> Skip negative numbers.</div><div class="exercise"><b>5.</b> Print numbers not divisible by 5.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Operators</div>
+<h2>What Are Operators?</h2><p class="definition">Operators are symbols used to perform operations on values and variables.</p></section><section class="slide"><div class="kicker">10 · Operators</div><h2>Operator Families</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Arithmetic</h3><p>+, -, *, /, % → calculations</p></div><div class="concept-card"><div class="num">02</div><h3>Relational</h3><p>&gt;, &lt;, &gt;=, &lt;=, ==, != → comparisons</p></div><div class="concept-card"><div class="num">03</div><h3>Logical</h3><p>&amp;&amp;, ||, ! → combine conditions</p></div></div></section><section class="slide"><div class="kicker">10 · Operators</div><h2>Types of Operators</h2><div class="cards"><div class="card"><h3>Arithmetic</h3><p>+ − * / %</p></div><div class="card"><h3>Relational</h3><p>== != &gt; &lt; &gt;= &lt;=</p></div><div class="card"><h3>Logical</h3><p>&amp;&amp; || !</p></div><div class="card"><h3>Bitwise</h3><p>&amp; | ^ ~ &lt;&lt; &gt;&gt;</p></div><div class="card"><h3>Ternary</h3><p>condition ? value1 : value2</p></div></div></section><section class="slide center cover"><div class="kicker">10 · Arithmetic Operators</div><div class="title">ARITHMETIC
 OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Arithmetic Operators</div>
-    <h2>What Are Arithmetic Operators?</h2><p class="definition">Arithmetic operators perform mathematical calculations.</p></section><section class="slide "><div class="kicker">10 · Arithmetic Operators</div><div class="title">General Syntax</div><pre class="code">result = operand1 operator operand2;</pre></section><section class="slide"><div class="kicker">10 · Arithmetic Operators</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int a = 10;
+<h2>What Are Arithmetic Operators?</h2><p class="definition">Arithmetic operators perform mathematical calculations.</p></section><section class="slide"><div class="kicker">10 · Arithmetic Operators</div><div class="title">General Syntax</div><pre class="code">result = operand1 operator operand2;</pre></section><section class="slide"><div class="kicker">10 · Arithmetic Operators</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int a = 10;
 int b = 3;
 
 System.out.println(a + b);
 System.out.println(a * b);
 System.out.println(a % b);</pre></section><section class="slide center"><div class="kicker">10 · Arithmetic Operators</div>
-    <h2>Example 1 · Output</h2><div class="output">13
+<h2>Example 1 · Output</h2><div class="output">13
 30
 1</div></section><section class="slide"><div class="kicker">10 · Arithmetic Operators</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">double x = 10;
+<h2>See It in Action · Example 2</h2><pre class="code">double x = 10;
 double y = 4;
 
 System.out.println(x / y);
 System.out.println(x - y);</pre></section><section class="slide center"><div class="kicker">10 · Arithmetic Operators</div>
-    <h2>Example 2 · Output</h2><div class="output">2.5
+<h2>Example 2 · Output</h2><div class="output">2.5
 6.0</div></section><section class="slide"><div class="kicker">10 · Arithmetic Operators</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Calculate area of a rectangle.</div><div class="exercise"><b>2.</b> Calculate simple interest.</div><div class="exercise"><b>3.</b> Find quotient and remainder.</div><div class="exercise"><b>4.</b> Calculate average of three numbers.</div><div class="exercise"><b>5.</b> Create a basic calculator using arithmetic operators.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">RELATIONAL OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
-    <h2>What Are Relational Operators?</h2><p class="definition">Compare two values and produce a boolean result.</p></section><section class="slide "><div class="kicker">10 · Relational Operators</div><div class="title">General Syntax</div><pre class="code">== != &gt; &lt; &gt;= &lt;=</pre></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> Operands are the values on which the operator works.</div><div class="bullet"><span>•</span> The operator determines the operation or comparison.</div><div class="bullet"><span>•</span> The result depends on the operator and operand types.</div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int a = 10;
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Calculate area of a rectangle.</div><div class="exercise"><b>2.</b> Calculate simple interest.</div><div class="exercise"><b>3.</b> Find quotient and remainder.</div><div class="exercise"><b>4.</b> Calculate average of three numbers.</div><div class="exercise"><b>5.</b> Create a basic calculator using arithmetic operators.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">RELATIONAL OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
+<h2>What Are Relational Operators?</h2><p class="definition">Compare two values and produce a boolean result.</p></section><section class="slide"><div class="kicker">10 · Relational Operators</div><div class="title">General Syntax</div><pre class="code">== != &gt; &lt; &gt;= &lt;=</pre></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> Operands are the values on which the operator works.</div><div class="bullet"><span>•</span> The operator determines the operation or comparison.</div><div class="bullet"><span>•</span> The result depends on the operator and operand types.</div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int a = 10;
 int b = 20;
 System.out.println(a &lt; b);</pre></section><section class="slide center"><div class="kicker">10 · Relational Operators</div>
-    <h2>Example 1 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int a = 10;
+<h2>Example 1 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
+<h2>See It in Action · Example 2</h2><pre class="code">int a = 10;
 int b = 10;
 System.out.println(a == b);</pre></section><section class="slide center"><div class="kicker">10 · Relational Operators</div>
-    <h2>Example 2 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check whether marks are greater than 40.</div><div class="exercise"><b>2.</b> Check whether two numbers are equal.</div><div class="exercise"><b>3.</b> Find whether one number is larger.</div><div class="exercise"><b>4.</b> Check whether age is at least 18.</div><div class="exercise"><b>5.</b> Compare two prices.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">LOGICAL OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
-    <h2>What Are Logical Operators?</h2><p class="definition">Combine or invert boolean conditions.</p></section><section class="slide "><div class="kicker">10 · Logical Operators</div><div class="title">General Syntax</div><pre class="code">&amp;&amp; || !</pre></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> Operands are the values on which the operator works.</div><div class="bullet"><span>•</span> The operator determines the operation or comparison.</div><div class="bullet"><span>•</span> The result depends on the operator and operand types.</div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int age = 20;
+<h2>Example 2 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check whether marks are greater than 40.</div><div class="exercise"><b>2.</b> Check whether two numbers are equal.</div><div class="exercise"><b>3.</b> Find whether one number is larger.</div><div class="exercise"><b>4.</b> Check whether age is at least 18.</div><div class="exercise"><b>5.</b> Compare two prices.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">LOGICAL OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
+<h2>What Are Logical Operators?</h2><p class="definition">Combine or invert boolean conditions.</p></section><section class="slide"><div class="kicker">10 · Logical Operators</div><div class="title">General Syntax</div><pre class="code">&amp;&amp; || !</pre></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> Operands are the values on which the operator works.</div><div class="bullet"><span>•</span> The operator determines the operation or comparison.</div><div class="bullet"><span>•</span> The result depends on the operator and operand types.</div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int age = 20;
 boolean id = true;
 System.out.println(age &gt;= 18 &amp;&amp; id);</pre></section><section class="slide center"><div class="kicker">10 · Logical Operators</div>
-    <h2>Example 1 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int marks = 35;
+<h2>Example 1 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
+<h2>See It in Action · Example 2</h2><pre class="code">int marks = 35;
 System.out.println(marks &lt; 40 || marks &gt; 90);</pre></section><section class="slide center"><div class="kicker">10 · Logical Operators</div>
-    <h2>Example 2 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check two conditions using &&.</div><div class="exercise"><b>2.</b> Check alternative conditions using ||.</div><div class="exercise"><b>3.</b> Use ! to invert a boolean.</div><div class="exercise"><b>4.</b> Check eligibility using two conditions.</div><div class="exercise"><b>5.</b> Create a login-style condition.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">BITWISE OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
-    <h2>What Are Bitwise Operators?</h2><p class="definition">Operate on integer values at the bit level.</p></section><section class="slide "><div class="kicker">10 · Bitwise Operators</div><div class="title">General Syntax</div><pre class="code">&amp; | ^ ~ &lt;&lt; &gt;&gt;</pre></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> Operands are the values on which the operator works.</div><div class="bullet"><span>•</span> The operator determines the operation or comparison.</div><div class="bullet"><span>•</span> The result depends on the operator and operand types.</div></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int a = 5;
+<h2>Example 2 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check two conditions using &amp;&amp;.</div><div class="exercise"><b>2.</b> Check alternative conditions using ||.</div><div class="exercise"><b>3.</b> Use ! to invert a boolean.</div><div class="exercise"><b>4.</b> Check eligibility using two conditions.</div><div class="exercise"><b>5.</b> Create a login-style condition.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">BITWISE OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
+<h2>What Are Bitwise Operators?</h2><p class="definition">Operate on integer values at the bit level.</p></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div><div class="title">General Syntax</div><pre class="code">&amp; | ^ ~ &lt;&lt; &gt;&gt;</pre></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> Operands are the values on which the operator works.</div><div class="bullet"><span>•</span> The operator determines the operation or comparison.</div><div class="bullet"><span>•</span> The result depends on the operator and operand types.</div></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int a = 5;
 int b = 3;
 System.out.println(a &amp; b);
 System.out.println(a | b);</pre></section><section class="slide center"><div class="kicker">10 · Bitwise Operators</div>
-    <h2>Example 1 · Output</h2><div class="output">1
+<h2>Example 1 · Output</h2><div class="output">1
 7</div></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int a = 4;
+<h2>See It in Action · Example 2</h2><pre class="code">int a = 4;
 System.out.println(a &lt;&lt; 1);
 System.out.println(a &gt;&gt; 1);</pre></section><section class="slide center"><div class="kicker">10 · Bitwise Operators</div>
-    <h2>Example 2 · Output</h2><div class="output">8
+<h2>Example 2 · Output</h2><div class="output">8
 2</div></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Find AND of two integers.</div><div class="exercise"><b>2.</b> Find OR of two integers.</div><div class="exercise"><b>3.</b> Find XOR of two integers.</div><div class="exercise"><b>4.</b> Left shift a number by one bit.</div><div class="exercise"><b>5.</b> Right shift a number by one bit.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">TERNARY OPERATOR</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
-    <h2>What Is the Ternary Operator?</h2><p class="definition">A compact operator used to choose one of two values.</p></section><section class="slide "><div class="kicker">10 · Ternary Operator</div><div class="title">General Syntax</div><pre class="code">condition ? value1 : value2</pre></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> Operands are the values on which the operator works.</div><div class="bullet"><span>•</span> The operator determines the operation or comparison.</div><div class="bullet"><span>•</span> The result depends on the operator and operand types.</div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">int marks = 75;
-String result = marks &gt;= 40 ? &quot;Pass&quot; : &quot;Fail&quot;;
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Find AND of two integers.</div><div class="exercise"><b>2.</b> Find OR of two integers.</div><div class="exercise"><b>3.</b> Find XOR of two integers.</div><div class="exercise"><b>4.</b> Left shift a number by one bit.</div><div class="exercise"><b>5.</b> Right shift a number by one bit.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">TERNARY OPERATOR</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
+<h2>What Is the Ternary Operator?</h2><p class="definition">A compact operator used to choose one of two values.</p></section><section class="slide"><div class="kicker">10 · Ternary Operator</div><div class="title">General Syntax</div><pre class="code">condition ? value1 : value2</pre></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> Operands are the values on which the operator works.</div><div class="bullet"><span>•</span> The operator determines the operation or comparison.</div><div class="bullet"><span>•</span> The result depends on the operator and operand types.</div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
+<h2>See It in Action · Example 1</h2><pre class="code">int marks = 75;
+String result = marks &gt;= 40 ? "Pass" : "Fail";
 System.out.println(result);</pre></section><section class="slide center"><div class="kicker">10 · Ternary Operator</div>
-    <h2>Example 1 · Output</h2><div class="output">Pass</div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">int a = 10;
+<h2>Example 1 · Output</h2><div class="output">Pass</div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
+<h2>See It in Action · Example 2</h2><pre class="code">int a = 10;
 int b = 20;
 int max = a &gt; b ? a : b;
 System.out.println(max);</pre></section><section class="slide center"><div class="kicker">10 · Ternary Operator</div>
-    <h2>Example 2 · Output</h2><div class="output">20</div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Find the larger of two numbers using ternary.</div><div class="exercise"><b>2.</b> Check Pass/Fail using ternary.</div><div class="exercise"><b>3.</b> Find whether a number is even or odd.</div><div class="exercise"><b>4.</b> Find the smaller of two numbers.</div><div class="exercise"><b>5.</b> Display Adult/Minor using ternary.</div></section><section class="slide center cover"><div class="kicker">11 · Strings in Java</div><div class="title">STRINGS
-IN JAVA</div><div class="accent"></div></section><section class="slide mcq-slide">
+<h2>Example 2 · Output</h2><div class="output">20</div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Find the larger of two numbers using ternary.</div><div class="exercise"><b>2.</b> Check Pass/Fail using ternary.</div><div class="exercise"><b>3.</b> Find whether a number is even or odd.</div><div class="exercise"><b>4.</b> Find the smaller of two numbers.</div><div class="exercise"><b>5.</b> Display Adult/Minor using ternary.</div></section><section class="slide"><div class="kicker">Classroom Transition</div><h2>Knowledge Check 3</h2><p class="definition">Control Statements &amp; Operators Complete</p><p class="definition">Pause • Think • Discuss • Then answer</p></section><section class="slide mcq-slide">
 <div class="kicker">Classroom Check · 09–10 · Control Statements &amp; Operators</div>
 <h2>5-Question Concept Check</h2>
 <p class="definition">After Control Statements &amp; Operators</p>
@@ -629,83 +804,82 @@ IN JAVA</div><div class="accent"></div></section><section class="slide mcq-slide
 <div class="kicker">Answer · 09–10 · Control Statements &amp; Operators · Q1</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which statement executes a block only when its condition is true?</div>
-<div class="mcq-options"><div class="mcq-option correct"><span class="mcq-letter">A</span>if</div><div class="mcq-option "><span class="mcq-letter">B</span>for</div><div class="mcq-option "><span class="mcq-letter">C</span>switch</div><div class="mcq-option "><span class="mcq-letter">D</span>break</div></div>
+<div class="mcq-options"><div class="mcq-option correct"><span class="mcq-letter">A</span>if</div><div class="mcq-option"><span class="mcq-letter">B</span>for</div><div class="mcq-option"><span class="mcq-letter">C</span>switch</div><div class="mcq-option"><span class="mcq-letter">D</span>break</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> The if statement executes its block when its condition evaluates to true.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 09–10 · Control Statements &amp; Operators · Q2</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which loop checks its condition after executing the loop body?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>for</div><div class="mcq-option "><span class="mcq-letter">B</span>while</div><div class="mcq-option correct"><span class="mcq-letter">C</span>do-while</div><div class="mcq-option "><span class="mcq-letter">D</span>switch</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>for</div><div class="mcq-option"><span class="mcq-letter">B</span>while</div><div class="mcq-option correct"><span class="mcq-letter">C</span>do-while</div><div class="mcq-option"><span class="mcq-letter">D</span>switch</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> A do-while loop executes its body first and checks the condition afterward.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 09–10 · Control Statements &amp; Operators · Q3</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">What does break do inside a loop?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>Skips only the current iteration.</div><div class="mcq-option "><span class="mcq-letter">B</span>Repeats the current iteration.</div><div class="mcq-option correct"><span class="mcq-letter">C</span>Immediately exits the nearest loop.</div><div class="mcq-option "><span class="mcq-letter">D</span>Starts the loop again.</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>Skips only the current iteration.</div><div class="mcq-option"><span class="mcq-letter">B</span>Repeats the current iteration.</div><div class="mcq-option correct"><span class="mcq-letter">C</span>Immediately exits the nearest loop.</div><div class="mcq-option"><span class="mcq-letter">D</span>Starts the loop again.</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> break immediately transfers control outside the nearest loop or switch.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 09–10 · Control Statements &amp; Operators · Q4</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which operator combines two boolean conditions and requires both to be true?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>||</div><div class="mcq-option correct"><span class="mcq-letter">B</span>&amp;&amp;</div><div class="mcq-option "><span class="mcq-letter">C</span>!</div><div class="mcq-option "><span class="mcq-letter">D</span>%</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>||</div><div class="mcq-option correct"><span class="mcq-letter">B</span>&amp;&amp;</div><div class="mcq-option"><span class="mcq-letter">C</span>!</div><div class="mcq-option"><span class="mcq-letter">D</span>%</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> The logical AND operator &amp;&amp; is true when both operand conditions are true.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 09–10 · Control Statements &amp; Operators · Q5</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">What is the result of 10 &gt; 5?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>10</div><div class="mcq-option "><span class="mcq-letter">B</span>5</div><div class="mcq-option correct"><span class="mcq-letter">C</span>true</div><div class="mcq-option "><span class="mcq-letter">D</span>false</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>10</div><div class="mcq-option"><span class="mcq-letter">B</span>5</div><div class="mcq-option correct"><span class="mcq-letter">C</span>true</div><div class="mcq-option"><span class="mcq-letter">D</span>false</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> The relational expression 10 &gt; 5 is true because 10 is greater than 5.</div>
-</section><section class="slide"><div class="kicker">11 · Strings in Java</div>
-    <h2>What Is a String?</h2><p class="definition">A String is an object that represents a sequence of characters.</p></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
-    <h2>In Simple Words</h2><div class="bullet"><span>•</span> Strings are written inside double quotation marks.</div><div class="bullet"><span>•</span> Java provides the <code>String</code> class for working with text.</div><div class="bullet"><span>•</span> String objects are <strong>immutable</strong>: their contents do not change after creation.</div></section><section class="slide "><div class="kicker">11 · Strings in Java</div><div class="title">General Syntax</div><pre class="code">String variableName = "text";</pre></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
-    <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> <code>String</code> → class/type used for text.</div><div class="bullet"><span>•</span> <code>variableName</code> → name of the String variable.</div><div class="bullet"><span>•</span> <code>"text"</code> → character sequence stored in the String.</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">String name = &quot;Asha&quot;;
+</section><section class="slide center cover"><div class="kicker">11 · Strings in Java</div><div class="title">STRINGS
+IN JAVA</div><div class="accent"></div></section><section class="slide"><div class="kicker">11 · Strings in Java</div><h2>String — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Text</h3><p>Represents a sequence of characters.</p></div><div class="concept-card"><div class="num">02</div><h3>Immutable</h3><p>Its contents cannot be changed after creation.</p></div><div class="concept-card"><div class="num">03</div><h3>Useful Methods</h3><p>length(), charAt(), equals(), substring() and more.</p></div></div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
+<h2>What Is a String?</h2><p class="definition">A String is an object that represents a sequence of characters.</p></section><section class="slide"><div class="kicker">11 · Strings in Java</div><h2>String — Remember This</h2><div class="bullet"><span>•</span><strong>Text:</strong> stores a sequence of characters.</div><div class="bullet"><span>•</span><strong>Immutable:</strong> String contents cannot be changed after creation.</div><div class="bullet"><span>•</span><strong>Methods:</strong> use methods such as length(), charAt() and equals().</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
+<h2>In Simple Words</h2><div class="bullet"><span>•</span> Strings are written inside double quotation marks.</div><div class="bullet"><span>•</span> Java provides the <code>String</code> class for working with text.</div><div class="bullet"><span>•</span> String objects are <strong>immutable</strong>: their contents do not change after creation.</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div><div class="title">General Syntax</div><pre class="code">String variableName = "text";</pre></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
+<h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> <code>String</code> → class/type used for text.</div><div class="bullet"><span>•</span> <code>variableName</code> → name of the String variable.</div><div class="bullet"><span>•</span> <code>"text"</code> → character sequence stored in the String.</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
+<h2>See It in Action · Example 1</h2><pre class="code">String name = "Asha";
 System.out.println(name);</pre></section><section class="slide center"><div class="kicker">11 · Strings in Java</div>
-    <h2>Example 1 · Output</h2><div class="output">Asha</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">String first = &quot;Hello&quot;;
-String second = &quot;Java&quot;;
+<h2>Example 1 · Output</h2><div class="output">Asha</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
+<h2>See It in Action · Example 2</h2><pre class="code">String first = "Hello";
+String second = "Java";
 
-System.out.println(first + &quot; &quot; + second);</pre></section><section class="slide center"><div class="kicker">11 · Strings in Java</div>
-    <h2>Example 2 · Output</h2><div class="output">Hello Java</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div><h2>Common String Methods</h2><div class="cards"><div class="card"><h3>length()</h3><p>Returns the number of characters.</p></div><div class="card"><h3>charAt()</h3><p>Returns the character at an index.</p></div><div class="card"><h3>toUpperCase()</h3><p>Returns an uppercase version.</p></div><div class="card"><h3>toLowerCase()</h3><p>Returns a lowercase version.</p></div><div class="card"><h3>equals()</h3><p>Compares String contents.</p></div></div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
-    <h2>String Methods · Example</h2><pre class="code">String s = &quot;Java&quot;;
+System.out.println(first + " " + second);</pre></section><section class="slide center"><div class="kicker">11 · Strings in Java</div>
+<h2>Example 2 · Output</h2><div class="output">Hello Java</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div><h2>Common String Methods</h2><div class="cards"><div class="card"><h3>length()</h3><p>Returns the number of characters.</p></div><div class="card"><h3>charAt()</h3><p>Returns the character at an index.</p></div><div class="card"><h3>toUpperCase()</h3><p>Returns an uppercase version.</p></div><div class="card"><h3>toLowerCase()</h3><p>Returns a lowercase version.</p></div><div class="card"><h3>equals()</h3><p>Compares String contents.</p></div></div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
+<h2>String Methods · Example</h2><pre class="code">String s = "Java";
 
 System.out.println(s.length());
 System.out.println(s.toUpperCase());
 System.out.println(s.charAt(1));</pre></section><section class="slide center"><div class="kicker">11 · Strings in Java</div>
-    <h2>String Methods · Output</h2><div class="output">4
+<h2>String Methods · Output</h2><div class="output">4
 JAVA
 a</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Read a name and print its length.</div><div class="exercise"><b>2.</b> Convert a String to uppercase.</div><div class="exercise"><b>3.</b> Convert a String to lowercase.</div><div class="exercise"><b>4.</b> Print the first character of a String.</div><div class="exercise"><b>5.</b> Compare two Strings using equals().</div></section><section class="slide center cover"><div class="kicker">12 · StringBuffer & StringBuilder</div><div class="title">STRINGBUFFER
-& STRINGBUILDER</div><div class="accent"></div></section><section class="slide"><div class="kicker">12 · StringBuffer & StringBuilder</div>
-    <h2>What Are StringBuffer &amp; StringBuilder?</h2><p class="definition"><code>StringBuffer</code> and <code>StringBuilder</code> are mutable character sequences used when text needs to be modified repeatedly.</p></section><section class="slide"><div class="kicker">12 · StringBuffer & StringBuilder</div><h2>Why Not Always String?</h2><div class="cards"><div class="card"><h3>String</h3><p>Immutable — modifications create new String objects.</p></div><div class="card"><h3>StringBuffer</h3><p>Mutable and synchronized; useful when thread safety is required.</p></div><div class="card"><h3>StringBuilder</h3><p>Mutable and generally faster for single-threaded string manipulation.</p></div></div></section><section class="slide "><div class="kicker">12 · StringBuffer</div><div class="title">General Syntax</div><pre class="code">StringBuffer sb = new StringBuffer("Java");
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Read a name and print its length.</div><div class="exercise"><b>2.</b> Convert a String to uppercase.</div><div class="exercise"><b>3.</b> Convert a String to lowercase.</div><div class="exercise"><b>4.</b> Print the first character of a String.</div><div class="exercise"><b>5.</b> Compare two Strings using equals().</div></section><section class="slide center cover"><div class="kicker">12 · StringBuffer &amp; StringBuilder</div><div class="title">STRINGBUFFER
+&amp; STRINGBUILDER</div><div class="accent"></div></section><section class="slide"><div class="kicker">12 · StringBuffer &amp; StringBuilder</div><h2>Which One Should I Use?</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>String</h3><p>Use when text does not need repeated modification.</p></div><div class="concept-card"><div class="num">02</div><h3>StringBuffer</h3><p>Mutable and synchronized.</p></div><div class="concept-card"><div class="num">03</div><h3>StringBuilder</h3><p>Mutable and generally preferred for ordinary single-threaded work.</p></div></div></section><section class="slide"><div class="kicker">12 · StringBuffer &amp; StringBuilder</div>
+<h2>What Are StringBuffer &amp; StringBuilder?</h2><p class="definition"><code>StringBuffer</code> and <code>StringBuilder</code> are mutable character sequences used when text needs to be modified repeatedly.</p></section><section class="slide"><div class="kicker">12 · StringBuffer &amp; StringBuilder</div><h2>Mutable Strings — Remember This</h2><div class="bullet"><span>•</span><strong>Mutable:</strong> contents can be changed without creating a new String each time.</div><div class="bullet"><span>•</span><strong>StringBuffer:</strong> synchronized and thread-safe.</div><div class="bullet"><span>•</span><strong>StringBuilder:</strong> generally preferred for ordinary single-threaded use.</div></section><section class="slide"><div class="kicker">12 · StringBuffer &amp; StringBuilder</div><h2>Why Not Always String?</h2><div class="cards"><div class="card"><h3>String</h3><p>Immutable — modifications create new String objects.</p></div><div class="card"><h3>StringBuffer</h3><p>Mutable and synchronized; useful when thread safety is required.</p></div><div class="card"><h3>StringBuilder</h3><p>Mutable and generally faster for single-threaded string manipulation.</p></div></div></section><section class="slide"><div class="kicker">12 · StringBuffer</div><div class="title">General Syntax</div><pre class="code">StringBuffer sb = new StringBuffer("Java");
 sb.append(" Programming");</pre></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
-    <h2>Important Methods</h2><div class="bullet"><span>•</span> <code>append()</code> → adds text at the end.</div><div class="bullet"><span>•</span> <code>insert()</code> → inserts text at a position.</div><div class="bullet"><span>•</span> <code>delete()</code> → removes characters.</div><div class="bullet"><span>•</span> <code>reverse()</code> → reverses the sequence.</div></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">StringBuffer sb = new StringBuffer(&quot;Java&quot;);
-sb.append(&quot; Programming&quot;);
+<h2>Important Methods</h2><div class="bullet"><span>•</span> <code>append()</code> → adds text at the end.</div><div class="bullet"><span>•</span> <code>insert()</code> → inserts text at a position.</div><div class="bullet"><span>•</span> <code>delete()</code> → removes characters.</div><div class="bullet"><span>•</span> <code>reverse()</code> → reverses the sequence.</div></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
+<h2>See It in Action · Example 1</h2><pre class="code">StringBuffer sb = new StringBuffer("Java");
+sb.append(" Programming");
 
 System.out.println(sb);</pre></section><section class="slide center"><div class="kicker">12 · StringBuffer</div>
-    <h2>Example 1 · Output</h2><div class="output">Java Programming</div></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">StringBuffer sb = new StringBuffer(&quot;Hello&quot;);
+<h2>Example 1 · Output</h2><div class="output">Java Programming</div></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
+<h2>See It in Action · Example 2</h2><pre class="code">StringBuffer sb = new StringBuffer("Hello");
 sb.reverse();
 
 System.out.println(sb);</pre></section><section class="slide center"><div class="kicker">12 · StringBuffer</div>
-    <h2>Example 2 · Output</h2><div class="output">olleH</div></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Append your name to a StringBuffer.</div><div class="exercise"><b>2.</b> Insert a word into an existing StringBuffer.</div><div class="exercise"><b>3.</b> Delete a portion of a StringBuffer.</div><div class="exercise"><b>4.</b> Reverse a StringBuffer.</div><div class="exercise"><b>5.</b> Build a sentence using repeated append().</div></section><section class="slide "><div class="kicker">12 · StringBuilder</div><div class="title">General Syntax</div><pre class="code">StringBuilder sb = new StringBuilder("Java");
+<h2>Example 2 · Output</h2><div class="output">olleH</div></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Append your name to a StringBuffer.</div><div class="exercise"><b>2.</b> Insert a word into an existing StringBuffer.</div><div class="exercise"><b>3.</b> Delete a portion of a StringBuffer.</div><div class="exercise"><b>4.</b> Reverse a StringBuffer.</div><div class="exercise"><b>5.</b> Build a sentence using repeated append().</div></section><section class="slide"><div class="kicker">12 · StringBuilder</div><div class="title">General Syntax</div><pre class="code">StringBuilder sb = new StringBuilder("Java");
 sb.append(" Programming");</pre></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
-    <h2>Important Methods</h2><div class="bullet"><span>•</span> <code>append()</code> → adds text.</div><div class="bullet"><span>•</span> <code>insert()</code> → inserts text.</div><div class="bullet"><span>•</span> <code>delete()</code> → removes characters.</div><div class="bullet"><span>•</span> <code>reverse()</code> → reverses the sequence.</div></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
-    <h2>See It in Action · Example 1</h2><pre class="code">StringBuilder sb = new StringBuilder(&quot;Java&quot;);
-sb.append(&quot; Programming&quot;);
+<h2>Important Methods</h2><div class="bullet"><span>•</span> <code>append()</code> → adds text.</div><div class="bullet"><span>•</span> <code>insert()</code> → inserts text.</div><div class="bullet"><span>•</span> <code>delete()</code> → removes characters.</div><div class="bullet"><span>•</span> <code>reverse()</code> → reverses the sequence.</div></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
+<h2>See It in Action · Example 1</h2><pre class="code">StringBuilder sb = new StringBuilder("Java");
+sb.append(" Programming");
 
 System.out.println(sb);</pre></section><section class="slide center"><div class="kicker">12 · StringBuilder</div>
-    <h2>Example 1 · Output</h2><div class="output">Java Programming</div></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
-    <h2>See It in Action · Example 2</h2><pre class="code">StringBuilder sb = new StringBuilder(&quot;Hello&quot;);
+<h2>Example 1 · Output</h2><div class="output">Java Programming</div></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
+<h2>See It in Action · Example 2</h2><pre class="code">StringBuilder sb = new StringBuilder("Hello");
 sb.reverse();
 
 System.out.println(sb);</pre></section><section class="slide center"><div class="kicker">12 · StringBuilder</div>
-    <h2>Example 2 · Output</h2><div class="output">olleH</div></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Append your name using StringBuilder.</div><div class="exercise"><b>2.</b> Insert text at a specified position.</div><div class="exercise"><b>3.</b> Delete selected characters.</div><div class="exercise"><b>4.</b> Reverse a StringBuilder.</div><div class="exercise"><b>5.</b> Build a sentence using multiple append() calls.</div></section><section class="slide"><div class="kicker">12 · StringBuffer vs StringBuilder</div><h2>Quick Comparison</h2><div class="cards"><div class="card"><h3>String</h3><p>Immutable</p></div><div class="card"><h3>StringBuffer</h3><p>Mutable + synchronized</p></div><div class="card"><h3>StringBuilder</h3><p>Mutable + generally faster in single-threaded use</p></div></div></section><section class="slide"><div class="kicker">12 · Final Revision</div>
-    <h2>One-Line Memory Map</h2><p class="definition"><strong>String → immutable text</strong> &nbsp; | &nbsp; <strong>StringBuffer → mutable + synchronized</strong> &nbsp; | &nbsp; <strong>StringBuilder → mutable + fast for common single-threaded use</strong></p></section><section class="slide center cover"><div class="kicker">Final Revision</div><div class="title">JAVA
-FUNDAMENTALS</div><p class="subtitle">Understand • Practice • Build</p><div class="accent"></div></section><section class="slide mcq-slide">
+<h2>Example 2 · Output</h2><div class="output">olleH</div></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Append your name using StringBuilder.</div><div class="exercise"><b>2.</b> Insert text at a specified position.</div><div class="exercise"><b>3.</b> Delete selected characters.</div><div class="exercise"><b>4.</b> Reverse a StringBuilder.</div><div class="exercise"><b>5.</b> Build a sentence using multiple append() calls.</div></section><section class="slide"><div class="kicker">12 · StringBuffer vs StringBuilder</div><h2>Quick Comparison</h2><div class="cards"><div class="card"><h3>String</h3><p>Immutable</p></div><div class="card"><h3>StringBuffer</h3><p>Mutable + synchronized</p></div><div class="card"><h3>StringBuilder</h3><p>Mutable + generally faster in single-threaded use</p></div></div></section><section class="slide"><div class="kicker">Classroom Transition</div><h2>Knowledge Check 4</h2><p class="definition">Strings Complete</p><p class="definition">Pause • Think • Discuss • Then answer</p></section><section class="slide mcq-slide">
 <div class="kicker">Classroom Check · 11–12 · Strings, StringBuffer &amp; StringBuilder</div>
 <h2>5-Question Concept Check</h2>
 <p class="definition">After Strings, StringBuffer &amp; StringBuilder</p>
@@ -734,51 +908,49 @@ FUNDAMENTALS</div><p class="subtitle">Understand • Practice • Build</p><div 
 <div class="kicker">Answer · 11–12 · Strings, StringBuffer &amp; StringBuilder · Q1</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which statement about String is correct in Java?</div>
-<div class="mcq-options"><div class="mcq-option correct"><span class="mcq-letter">A</span>String objects are immutable.</div><div class="mcq-option "><span class="mcq-letter">B</span>String objects can never be compared.</div><div class="mcq-option "><span class="mcq-letter">C</span>String stores only numbers.</div><div class="mcq-option "><span class="mcq-letter">D</span>String is a primitive data type.</div></div>
+<div class="mcq-options"><div class="mcq-option correct"><span class="mcq-letter">A</span>String objects are immutable.</div><div class="mcq-option"><span class="mcq-letter">B</span>String objects can never be compared.</div><div class="mcq-option"><span class="mcq-letter">C</span>String stores only numbers.</div><div class="mcq-option"><span class="mcq-letter">D</span>String is a primitive data type.</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> String objects are immutable, meaning their contents cannot be changed after creation.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 11–12 · Strings, StringBuffer &amp; StringBuilder · Q2</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which method returns the number of characters in a String s?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>s.size()</div><div class="mcq-option correct"><span class="mcq-letter">B</span>s.length()</div><div class="mcq-option "><span class="mcq-letter">C</span>s.count()</div><div class="mcq-option "><span class="mcq-letter">D</span>s.characters()</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>s.size()</div><div class="mcq-option correct"><span class="mcq-letter">B</span>s.length()</div><div class="mcq-option"><span class="mcq-letter">C</span>s.count()</div><div class="mcq-option"><span class="mcq-letter">D</span>s.characters()</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> The String length() method returns the number of characters.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 11–12 · Strings, StringBuffer &amp; StringBuilder · Q3</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which method compares the contents of two String objects?</div>
-<div class="mcq-options"><div class="mcq-option correct"><span class="mcq-letter">A</span>equals()</div><div class="mcq-option "><span class="mcq-letter">B</span>same()</div><div class="mcq-option "><span class="mcq-letter">C</span>compareText()</div><div class="mcq-option "><span class="mcq-letter">D</span>content()</div></div>
+<div class="mcq-options"><div class="mcq-option correct"><span class="mcq-letter">A</span>equals()</div><div class="mcq-option"><span class="mcq-letter">B</span>same()</div><div class="mcq-option"><span class="mcq-letter">C</span>compareText()</div><div class="mcq-option"><span class="mcq-letter">D</span>content()</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> equals() compares the contents of String objects.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 11–12 · Strings, StringBuffer &amp; StringBuilder · Q4</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which class provides a mutable character sequence and is synchronized?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>String</div><div class="mcq-option "><span class="mcq-letter">B</span>StringBuilder</div><div class="mcq-option correct"><span class="mcq-letter">C</span>StringBuffer</div><div class="mcq-option "><span class="mcq-letter">D</span>Character</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>String</div><div class="mcq-option"><span class="mcq-letter">B</span>StringBuilder</div><div class="mcq-option correct"><span class="mcq-letter">C</span>StringBuffer</div><div class="mcq-option"><span class="mcq-letter">D</span>Character</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> StringBuffer is mutable and synchronized, making it suitable when synchronization is required.</div>
 </section><section class="slide mcq-answer-slide">
 <div class="kicker">Answer · 11–12 · Strings, StringBuffer &amp; StringBuilder · Q5</div>
 <h2>Correct Answer</h2>
 <div class="mcq-question">Which class is generally preferred for mutable string manipulation in ordinary single-threaded code?</div>
-<div class="mcq-options"><div class="mcq-option "><span class="mcq-letter">A</span>String</div><div class="mcq-option "><span class="mcq-letter">B</span>StringBuffer</div><div class="mcq-option correct"><span class="mcq-letter">C</span>StringBuilder</div><div class="mcq-option "><span class="mcq-letter">D</span>char</div></div>
+<div class="mcq-options"><div class="mcq-option"><span class="mcq-letter">A</span>String</div><div class="mcq-option"><span class="mcq-letter">B</span>StringBuffer</div><div class="mcq-option correct"><span class="mcq-letter">C</span>StringBuilder</div><div class="mcq-option"><span class="mcq-letter">D</span>char</div></div>
 <div class="mcq-answer-note"><strong>Why?</strong> StringBuilder is mutable and generally faster than StringBuffer in common single-threaded use.</div>
-</section><section class="slide"><div class="kicker">Final Revision</div><h2>Complete Learning Map</h2><div class="cards"><div class="card"><h3>Foundation</h3><p>Introduction • History • JDK • JRE • JVM</p></div><div class="card"><h3>Core Data</h3><p>Data Types • Variables • Type Inference • Type Casting</p></div><div class="card"><h3>Structures</h3><p>Arrays • Control Statements • Operators</p></div><div class="card"><h3>Text</h3><p>String • StringBuffer • StringBuilder</p></div></div></section><section class="slide"><div class="kicker">Final Classroom Challenge</div>
-    <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Write a Java program that reads marks, stores them in an array, and calculates the average.</div><div class="exercise"><b>2.</b> Use an if-else or else-if ladder to display a grade.</div><div class="exercise"><b>3.</b> Use a loop to print all array elements.</div><div class="exercise"><b>4.</b> Use String methods to display a student's name in uppercase.</div><div class="exercise"><b>5.</b> Build a small menu-driven Java program using switch and a loop.</div></section>
-
-
-
-<div id="slideStage" aria-label="Presentation slide changer">
-  <div id="slideViewport">
-    <div id="slideFrame"></div>
-    <div class="slidebar">
-      <button id="prevSlide" title="Previous slide">←</button>
-      <button id="nextSlide" title="Next slide">→</button>
-      <span class="slide-counter" id="slideCounter">1 / 1</span>
-      <div class="slide-progress"><span id="slideProgress"></span></div>
-      <span class="slide-hint">← → Navigate · Space Next · Home / End · F Fullscreen · Esc Exit</span>
-      <button id="slideExit" title="Exit presentation mode">✕ Exit</button>
-    </div>
-  </div>
+</section><section class="slide"><div class="kicker">12 · Final Revision</div>
+<h2>One-Line Memory Map</h2><p class="definition"><strong>String → immutable text</strong>   |   <strong>StringBuffer → mutable + synchronized</strong>   |   <strong>StringBuilder → mutable + fast for common single-threaded use</strong></p></section><section class="slide center cover"><div class="kicker">Final Revision</div><div class="title">JAVA
+FUNDAMENTALS</div><p class="subtitle">Understand • Practice • Build</p><div class="accent"></div></section><section class="slide"><div class="kicker">Final Revision</div><h2>Complete Learning Map</h2><div class="cards"><div class="card"><h3>Foundation</h3><p>Introduction • History • JDK • JRE • JVM</p></div><div class="card"><h3>Core Data</h3><p>Data Types • Variables • Type Inference • Type Casting</p></div><div class="card"><h3>Structures</h3><p>Arrays • Control Statements • Operators</p></div><div class="card"><h3>Text</h3><p>String • StringBuffer • StringBuilder</p></div></div></section><section class="slide"><div class="kicker">Final Classroom Challenge</div>
+<h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Write a Java program that reads marks, stores them in an array, and calculates the average.</div><div class="exercise"><b>2.</b> Use an if-else or else-if ladder to display a grade.</div><div class="exercise"><b>3.</b> Use a loop to print all array elements.</div><div class="exercise"><b>4.</b> Use String methods to display a student's name in uppercase.</div><div class="exercise"><b>5.</b> Build a small menu-driven Java program using switch and a loop.</div></section>
+<div aria-label="Presentation slide changer" id="slideStage">
+<div id="slideViewport">
+<div id="slideFrame"></div>
+<div class="slidebar">
+<button id="prevSlide" title="Previous slide">←</button>
+<button id="nextSlide" title="Next slide">→</button>
+<span class="slide-counter" id="slideCounter">1 / 1</span>
+<div class="slide-progress"><span id="slideProgress"></span></div>
+<span class="slide-hint">← → Navigate · Space Next · Home / End · F Fullscreen · Esc Exit</span>
+<button id="slideExit" title="Exit presentation mode">✕ Exit</button>
 </div>
-
+</div>
+</div>
 <script>
 (function(){
   const sourceSlides=[...document.querySelectorAll('body > .slide')].filter(function(slide){ return !slide.closest('#slideFrame'); });
@@ -830,7 +1002,6 @@ FUNDAMENTALS</div><p class="subtitle">Understand • Practice • Build</p><div 
   window.JavaPresentation={start,close,next:()=>show(current+1),previous:()=>show(current-1),goTo:n=>show(Number(n)||0),current:()=>current+1,total:()=>clones.length};
 })();
 </script>
-
 <script>
 (function () {
   'use strict';
@@ -858,6 +1029,8 @@ FUNDAMENTALS</div><p class="subtitle">Understand • Practice • Build</p><div 
     function sidebarLabel(raw) {
       const id = getId(raw);
       const subtopics = {
+        '06A': 'Data Types — Type Inference (var)',
+        '06B': 'Data Types — Type Casting',
         '09A': 'Control Statements — if Statement',
         '09B': 'Control Statements — if-else Statement',
         '09C': 'Control Statements — else-if Ladder',
