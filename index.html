@@ -298,6 +298,105 @@ body.sidebar-open{overflow:hidden}
     print-color-adjust:exact;
   }
 }
+</style><style>
+/* ============================================================
+   PRESENTATION CONTROL BAR — AUTO HIDE
+   Hidden during presentation; revealed on pointer hover near
+   the bottom edge / over the control bar.
+   ============================================================ */
+.slidebar{
+  transition: transform .28s ease, opacity .28s ease;
+  will-change: transform, opacity;
+}
+body.presentation-controls-hidden .slidebar{
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+body.presentation-controls-hidden .slidebar:hover{
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Invisible hover zone along the bottom edge. */
+#slideStage #presentationBottomHoverZone{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:42px;
+  z-index:9998;
+  pointer-events:none;
+}
+#slideStage.active #presentationBottomHoverZone{
+  pointer-events:auto;
+}
+#slideStage.active #presentationBottomHoverZone:hover + .slidebar,
+#slideStage.active .slidebar:hover{
+  transform:translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* Keep the top/sidebar controls unaffected. */
+</style>
+
+<style>
+.slidebar{
+  box-shadow:0 -8px 24px rgba(10,25,42,.16);
+}
+</style>
+<style>
+/* Cursor-only presentation controls */
+#slideStage #presentationBottomHoverZone{
+  height:52px;
+  z-index:9999;
+}
+#slideStage.active .slidebar{
+  transition:transform .20s ease, opacity .20s ease;
+}
+body.presentation-controls-hidden #slideStage.active .slidebar{
+  transform:translateY(100%);
+  opacity:0;
+  pointer-events:none;
+}
+body:not(.presentation-controls-hidden) #slideStage.active .slidebar{
+  transform:translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
+</style><style>
+/* ============================================================
+   PRESENTATION MODE — SAME SIZE AS NORMAL VIEW
+   + Footer safety when controls are visible
+   ============================================================ */
+#slideStage.active #slideFrame{
+  width:100vw !important;
+  height:100vh !important;
+  left:0 !important;
+  top:0 !important;
+  transform:none !important;
+}
+#slideStage.active #slideFrame .slide{
+  width:100vw !important;
+  height:100vh !important;
+}
+#slideStage.active #slideFrame .slide:after{
+  bottom:2.5vh;
+  transition:bottom .18s ease;
+}
+body:not(.presentation-controls-hidden) #slideStage.active #slideFrame .slide:after{
+  bottom:10vh;
+}
+</style><style>
+/* Present button becomes a clear Exit control while presenting. */
+#presentButton[data-presentation-active="true"]{
+  background:#132033;
+}
+#presentButton[data-presentation-active="true"]:hover{
+  background:#0d4f86;
+}
 </style></head>
 <body>
 <button id="presentButton" title="Start slide presentation">▶ Present</button>
@@ -941,6 +1040,7 @@ FUNDAMENTALS</div><p class="subtitle">Understand • Practice • Build</p><div 
 <div aria-label="Presentation slide changer" id="slideStage">
 <div id="slideViewport">
 <div id="slideFrame"></div>
+<div id="presentationBottomHoverZone" aria-hidden="true"></div>
 <div class="slidebar">
 <button id="prevSlide" title="Previous slide">←</button>
 <button id="nextSlide" title="Next slide">→</button>
@@ -963,12 +1063,26 @@ FUNDAMENTALS</div><p class="subtitle">Understand • Practice • Build</p><div 
   clones.forEach(c=>frame.appendChild(c));
   let current=0;
 
+  /*
+   * Return state for the normal document.
+   * We save the exact scroll position before entering Presentation Mode,
+   * then restore it when Exit is pressed or Escape is used.
+   */
+  let returnScrollY=0;
+  let returnSlideIndex=0;
+  let presentationWasStartedFromNormalPage=false;
+
   function fitFrame(){
-    const vh=window.innerHeight-66, vw=window.innerWidth;
-    const scale=Math.min(vw/16, vh/9);
-    frame.style.width=(16*scale)+'px';
-    frame.style.height=(9*scale)+'px';
+    /*
+     * The HTML slides are designed as full-viewport classroom slides.
+     * Keep Presentation Mode the same visual size as the normal view.
+     */
+    const vw=window.innerWidth;
+    const vh=window.innerHeight;
+    frame.style.width=vw+'px';
+    frame.style.height=vh+'px';
   }
+
   function show(n){
     current=Math.max(0,Math.min(clones.length-1,n));
     clones.forEach((c,i)=>c.classList.toggle('presentation-current',i===current));
@@ -976,15 +1090,126 @@ FUNDAMENTALS</div><p class="subtitle">Understand • Practice • Build</p><div 
     progress.style.width=((current+1)/clones.length*100)+'%';
     fitFrame();
   }
-  function start(n=0){
-    show(n); stage.classList.add('active'); document.body.style.overflow='hidden'; fitFrame();
+
+  function updatePresentButton(isPresenting){
+    if(!present) return;
+
+    if(isPresenting){
+      present.textContent='✕ Exit';
+      present.title='Exit presentation and return to the current page';
+      present.setAttribute('aria-label','Exit presentation and return to the current page');
+      present.dataset.presentationActive='true';
+    }else{
+      present.textContent='▶ Present';
+      present.title='Start slide presentation from the current page';
+      present.setAttribute('aria-label','Start slide presentation from the current page');
+      present.dataset.presentationActive='false';
+    }
   }
+
+  /*
+   * Find the slide currently visible in the normal scrolling document.
+   * This function is intentionally defined before every caller.
+   */
+  function getNormalCurrentSlide(){
+    const viewportTop=window.scrollY || window.pageYOffset || 0;
+    const viewportBottom=viewportTop+window.innerHeight;
+
+    let bestIndex=0;
+    let bestVisible=-1;
+
+    sourceSlides.forEach((slide,i)=>{
+      const r=slide.getBoundingClientRect();
+      const top=r.top+viewportTop;
+      const bottom=r.bottom+viewportTop;
+      const visible=Math.max(
+        0,
+        Math.min(bottom,viewportBottom)-Math.max(top,viewportTop)
+      );
+
+      if(visible>bestVisible){
+        bestVisible=visible;
+        bestIndex=i;
+      }
+    });
+
+    return bestIndex;
+  }
+
+  function start(n){
+    /*
+     * Present button starts from the slide currently visible in the
+     * normal document. Save the exact browser position so Exit returns
+     * to precisely the same place.
+     */
+    if(!stage.classList.contains('active')){
+      returnScrollY=window.scrollY;
+      returnSlideIndex=getNormalCurrentSlide();
+      presentationWasStartedFromNormalPage=true;
+    }
+
+    if(typeof n!=='number' || !Number.isFinite(n)){
+      n=returnSlideIndex;
+    }
+
+    show(n);
+    stage.classList.add('active');
+    document.body.style.overflow='hidden';
+    updatePresentButton(true);
+    fitFrame();
+  }
+
   function close(){
-    stage.classList.remove('active'); document.body.style.overflow='';
-    if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});
+    const shouldRestore=presentationWasStartedFromNormalPage;
+
+    stage.classList.remove('active');
+    document.body.style.overflow='';
+    updatePresentButton(false);
+
+    if(document.fullscreenElement){
+      document.exitFullscreen?.().catch(()=>{});
+    }
+
+    /*
+     * Restore the exact normal-page position after Presentation Mode
+     * has been removed. This keeps the user on the same page/slide.
+     */
+    if(shouldRestore){
+      requestAnimationFrame(()=>{
+        window.scrollTo({
+          top:returnScrollY,
+          left:0,
+          behavior:'instant'
+        });
+
+        /*
+         * A second frame protects against browser layout settling.
+         */
+        requestAnimationFrame(()=>{
+          window.scrollTo(0,returnScrollY);
+        });
+      });
+    }
+
+    presentationWasStartedFromNormalPage=false;
   }
+
   function full(){document.documentElement.requestFullscreen?.().catch(()=>{});}
-  present?.addEventListener('click',()=>start(0));
+
+  /*
+   * The top-right Present button is now a true toggle:
+   * Present → enter from current page
+   * Exit → leave presentation and return to that exact page
+   */
+  present?.addEventListener('click',()=>{
+    if(stage.classList.contains('active')){
+      close();
+      return;
+    }
+
+    const currentPage=getNormalCurrentSlide();
+    start(currentPage);
+  });
   prev?.addEventListener('click',()=>show(current-1));
   next?.addEventListener('click',()=>show(current+1));
   exit?.addEventListener('click',close);
@@ -999,7 +1224,16 @@ FUNDAMENTALS</div><p class="subtitle">Understand • Practice • Build</p><div 
     else if(e.key==='Escape'){e.preventDefault();close();}
   });
   document.getElementById('slideViewport')?.addEventListener('dblclick',full);
-  window.JavaPresentation={start,close,next:()=>show(current+1),previous:()=>show(current-1),goTo:n=>show(Number(n)||0),current:()=>current+1,total:()=>clones.length};
+  window.JavaPresentation={
+    start,
+    close,
+    next:()=>show(current+1),
+    previous:()=>show(current-1),
+    goTo:n=>show(Number(n)||0),
+    current:()=>current+1,
+    currentNormalPage:()=>getNormalCurrentSlide()+1,
+    total:()=>clones.length
+  };
 })();
 </script>
 <script>
@@ -1262,5 +1496,113 @@ FUNDAMENTALS</div><p class="subtitle">Understand • Practice • Build</p><div 
   }
 })();
 </script>
-</body>
+
+<script>
+(function(){
+  'use strict';
+
+  function initCursorOnlyPresentationControls(){
+    const controls = document.querySelector('#slideStage .slidebar');
+    const zone = document.getElementById('presentationBottomHoverZone');
+    const stage = document.getElementById('slideStage');
+    if(!controls || !zone || !stage) return;
+
+    let presentationActive = false;
+
+    function showControls(){
+      if(!presentationActive) return;
+      document.body.classList.remove('presentation-controls-hidden');
+    }
+
+    function hideControls(){
+      if(!presentationActive) return;
+      if(controls.matches(':hover') || zone.matches(':hover')) return;
+      document.body.classList.add('presentation-controls-hidden');
+    }
+
+    function enterPresentation(){
+      presentationActive = true;
+      /* Start hidden. Mouse movement is the only reveal mechanism. */
+      document.body.classList.add('presentation-controls-hidden');
+    }
+
+    function exitPresentation(){
+      presentationActive = false;
+      document.body.classList.remove('presentation-controls-hidden');
+    }
+
+    const observer = new MutationObserver(function(){
+      const active = stage.classList.contains('active');
+
+      if(active && !presentationActive){
+        enterPresentation();
+      }else if(!active && presentationActive){
+        exitPresentation();
+      }
+    });
+
+    observer.observe(stage,{
+      attributes:true,
+      attributeFilter:['class']
+    });
+
+    if(stage.classList.contains('active')){
+      enterPresentation();
+    }
+
+    /* Mouse over the bottom area = show. */
+    zone.addEventListener('mouseenter', showControls);
+    controls.addEventListener('mouseenter', showControls);
+
+    /* Leave the bottom area = hide. */
+    zone.addEventListener('mouseleave', function(){
+      requestAnimationFrame(hideControls);
+    });
+    controls.addEventListener('mouseleave', function(){
+      requestAnimationFrame(hideControls);
+    });
+
+    /*
+     * If the cursor is already near the bottom while changing slides,
+     * keep/show the controls. Slide changes and keyboard presses themselves
+     * never reveal the bar.
+     */
+    document.addEventListener('mousemove', function(e){
+      if(!presentationActive) return;
+
+      const fromBottom = window.innerHeight - e.clientY;
+
+      if(fromBottom <= 55){
+        showControls();
+      }else if(!controls.matches(':hover') && !zone.matches(':hover')){
+        hideControls();
+      }
+    }, {passive:true});
+
+    /*
+     * Deliberately NO keydown listener here.
+     * ← → Space Home End will never make the bottom bar appear.
+     */
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',initCursorOnlyPresentationControls);
+  }else{
+    initCursorOnlyPresentationControls();
+  }
+})();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const b=document.getElementById('presentButton');
+  const st=document.getElementById('slideStage');
+  if(b && st && !st.classList.contains('active')){
+    b.textContent='▶ Present';
+    b.title='Start slide presentation from the current page';
+    b.setAttribute('aria-label','Start slide presentation from the current page');
+    b.dataset.presentationActive='false';
+  }
+});
+</script></body>
 </html>
