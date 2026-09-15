@@ -397,8 +397,338 @@ body:not(.presentation-controls-hidden) #slideStage.active #slideFrame .slide:af
 #presentButton[data-presentation-active="true"]:hover{
   background:#0d4f86;
 }
-</style></head>
+</style>
+<style>
+/* ============================================================
+   JAVA CODE LAB — LARGE SCREEN CLASSROOM UI
+   ============================================================ */
+.code-lab-top-btn{
+  position:fixed;
+  top:24px;
+  right:190px;
+  z-index:10050;
+  border:0;
+  border-radius:16px;
+  padding:15px 21px;
+  background:#132033;
+  color:#fff;
+  font:800 18px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.2px;
+  box-shadow:0 10px 25px rgba(10,25,42,.18);
+  cursor:pointer;
+}
+.code-lab-top-btn:hover{background:#0d4f86;transform:translateY(-1px)}
+.code-lab-overlay{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+  background:rgba(9,20,34,.72);
+  backdrop-filter:blur(5px);
+}
+.code-lab-overlay.open{display:flex}
+.code-lab-window{
+  width:min(1500px,96vw);
+  height:min(900px,92vh);
+  min-height:620px;
+  background:#f7fafc;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+  display:flex;
+  flex-direction:column;
+}
+.code-lab-header{
+  background:#132033;
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:18px 22px;
+}
+.code-lab-kicker{
+  color:#72c7ff;
+  font:900 14px/1 system-ui,sans-serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+.code-lab-title{
+  font:900 30px/1.1 system-ui,sans-serif;
+}
+.code-lab-actions{display:flex;gap:10px;align-items:center}
+.lab-btn{
+  border:0;border-radius:12px;padding:13px 18px;
+  font:800 17px/1 system-ui,sans-serif;cursor:pointer;
+}
+.lab-btn.run{background:#1b78c0;color:#fff}
+.lab-btn.secondary{background:#e7eef5;color:#132033}
+.lab-btn.close{background:#26384d;color:#fff}
+.lab-btn:hover{filter:brightness(1.08)}
+.code-lab-toolbar{
+  min-height:44px;padding:8px 18px;display:flex;align-items:center;gap:12px;
+  background:#eaf2f8;border-bottom:1px solid #d5e2eb;
+}
+.lab-pill{
+  background:#132033;color:#fff;border-radius:999px;padding:7px 14px;
+  font:800 15px/1 system-ui,sans-serif;
+}
+.lab-hint{font:700 15px/1.2 system-ui,sans-serif;color:#52667c}
+.code-lab-body{
+  flex:1;min-height:0;display:grid;grid-template-columns:1.65fr .85fr;
+  gap:14px;padding:14px;background:#dfe8ef;
+}
+.editor-panel,.io-box{
+  background:#fff;border:1px solid #d4e0e8;border-radius:17px;overflow:hidden;
+  box-shadow:0 8px 22px rgba(20,45,70,.08);
+}
+.editor-panel{display:flex;flex-direction:column;min-height:0}
+.editor-titlebar,.io-title{
+  background:#eef4f8;color:#132033;font:900 15px/1 system-ui,sans-serif;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:12px 15px;border-bottom:1px solid #d7e3eb;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.editor-status{font-size:13px;color:#1671b5;text-transform:none;letter-spacing:0}
+.editor-wrap{
+  flex:1;min-height:0;display:grid;grid-template-columns:58px 1fr;
+  background:#0f1724;
+}
+.line-numbers{
+  padding:20px 12px 20px 8px;
+  text-align:right;user-select:none;overflow:hidden;
+  color:#60758d;background:#0b1320;
+  font:700 21px/1.58 "Cascadia Mono","Consolas","Courier New",monospace;
+}
+#javaCodeEditor{
+  width:100%;height:100%;resize:none;border:0;outline:0;
+  padding:20px 20px 24px 16px;
+  background:#0f1724;color:#f1f6fb;
+  caret-color:#70c6ff;
+  font:700 23px/1.58 "Cascadia Mono","Consolas","Courier New",monospace;
+  tab-size:4;
+}
+#javaCodeEditor::selection{background:#245a82;color:#fff}
+.io-panel{display:grid;grid-template-rows:0.72fr 1.28fr;gap:14px;min-height:0}
+.io-box{display:flex;flex-direction:column;min-height:0}
+.io-title span{font-size:12px;color:#718398;text-transform:none;letter-spacing:0}
+#javaStdin{
+  flex:1;min-height:0;border:0;outline:0;resize:none;
+  padding:16px;
+  font:650 20px/1.5 "Cascadia Mono","Consolas",monospace;color:#24374c;
+}
+.output-box{background:#0b1320;color:#e9f4ff}
+.output-box .io-title{background:#132033;color:#fff;border-bottom-color:#2a4057}
+.java-output{
+  flex:1;margin:0;padding:18px;overflow:auto;white-space:pre-wrap;
+  font:700 20px/1.55 "Cascadia Mono","Consolas","Courier New",monospace;
+  color:#e9f4ff;
+}
+.code-lab-footer{
+  display:flex;justify-content:space-between;gap:20px;
+  padding:10px 18px;background:#132033;color:#aebed0;
+  font:600 13px/1.3 system-ui,sans-serif;
+}
+.run-example-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  margin:10px 0 0;
+  border:0;border-radius:10px;padding:11px 16px;
+  background:#146fb2;color:#fff;
+  font:800 16px/1 system-ui,sans-serif;
+  cursor:pointer;box-shadow:0 7px 18px rgba(20,111,178,.18);
+}
+.run-example-btn:hover{background:#0d568d;transform:translateY(-1px)}
+.slide .syntax-card .run-example-btn{display:block;margin:12px auto 0}
+@media(max-width:1050px){
+  .code-lab-window{height:94vh}
+  .code-lab-body{grid-template-columns:1fr}
+  .io-panel{grid-template-columns:1fr 1fr;grid-template-rows:1fr}
+  #javaCodeEditor{font-size:20px}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+
+<style>
+/* ============================================================
+   CODE LAB — UI FIXES
+   ============================================================ */
+
+/* Modal must sit above all presentation/sidebar controls. */
+.code-lab-overlay{
+  z-index:20000 !important;
+}
+
+/* When Code Lab is open, hide the global navigation controls so
+   they can never cover the Lab header/action buttons. */
+body.code-lab-open #codeLabButton,
+body.code-lab-open #presentButton,
+body.code-lab-open #topicSidebar{
+  display:none !important;
+}
+
+/* The Lab window owns the complete visible workspace. */
+.code-lab-window{
+  width:min(1540px,97vw);
+  height:min(900px,93vh);
+}
+
+/* Make the line-number column behave like a real code gutter. */
+.line-numbers{
+  width:70px;
+  box-sizing:border-box;
+  white-space:pre !important;
+  overflow:hidden !important;
+  word-break:normal !important;
+  overflow-wrap:normal !important;
+  text-align:right;
+  padding-right:14px;
+}
+
+/* Keep the editor toolbar/buttons clear of any global UI. */
+.code-lab-header{
+  position:relative;
+  z-index:2;
+}
+.code-lab-actions{
+  flex-shrink:0;
+}
+
+/* Large, projector-friendly controls. */
+.lab-btn{
+  min-height:48px;
+  padding:13px 19px;
+  font-size:18px;
+}
+#javaCodeEditor{
+  font-size:24px;
+  line-height:1.55;
+}
+.java-output{
+  font-size:21px;
+  line-height:1.5;
+}
+</style>
+
+<style>
+/* ============================================================
+   CODE LAB — THEME SWITCHER + CLEAN OUTPUT
+   ============================================================ */
+.code-lab-toolbar{
+  flex-wrap:wrap;
+}
+.code-theme-switcher{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:4px;
+  border-radius:12px;
+  background:#dbe7ef;
+}
+.theme-label{
+  font:800 14px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:#52667c;
+  padding:0 5px;
+}
+.theme-btn{
+  border:0;
+  border-radius:9px;
+  padding:8px 12px;
+  cursor:pointer;
+  background:transparent;
+  color:#3e5268;
+  font:800 14px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+.theme-btn.active{
+  background:#132033;
+  color:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.12);
+}
+
+/* Dark editor (default) */
+#javaCodeLab.editor-dark .editor-wrap{
+  background:#0f1724;
+}
+#javaCodeLab.editor-dark #javaCodeEditor{
+  background:#0f1724;
+  color:#f1f6fb;
+  caret-color:#70c6ff;
+}
+#javaCodeLab.editor-dark .line-numbers{
+  background:#0b1320;
+  color:#60758d;
+}
+#javaCodeLab.editor-dark .output-box{
+  background:#0b1320;
+}
+#javaCodeLab.editor-dark .java-output{
+  background:#0b1320;
+  color:#e9f4ff;
+}
+
+/* Light editor */
+#javaCodeLab.editor-light .editor-wrap{
+  background:#f7f9fb;
+  border-top:1px solid #d9e2ea;
+}
+#javaCodeLab.editor-light #javaCodeEditor{
+  background:#ffffff;
+  color:#172638;
+  caret-color:#146fb2;
+}
+#javaCodeLab.editor-light .line-numbers{
+  background:#eef3f7;
+  color:#6d7f91;
+}
+#javaCodeLab.editor-light .output-box{
+  background:#ffffff;
+}
+#javaCodeLab.editor-light .output-box .io-title{
+  background:#eef4f8;
+  color:#132033;
+  border-bottom-color:#d7e3eb;
+}
+#javaCodeLab.editor-light .java-output{
+  background:#ffffff;
+  color:#172638;
+}
+
+/* Keep input readable in both themes. */
+#javaCodeLab.editor-light #javaStdin{
+  background:#fff;
+  color:#24374c;
+}
+#javaCodeLab.editor-dark #javaStdin{
+  background:#fff;
+  color:#24374c;
+}
+
+/* Cleaner footer: no service/provider wording during teaching. */
+.code-lab-footer{
+  justify-content:center;
+}
+.code-lab-footer span:first-child{
+  display:none;
+}
+.code-lab-footer #codeLabRuntime{
+  font-weight:800;
+  color:#c3d4e4;
+}
+
+/* Make the theme controls comfortable on a projector. */
+.theme-btn{
+  min-height:38px;
+  font-size:15px;
+}
+</style>
+</head>
 <body>
+<button id="codeLabButton" class="code-lab-top-btn" type="button" title="Open Java Code Lab">⌘ Code Lab</button>
 <button id="presentButton" title="Start slide presentation">▶ Present</button>
 <button aria-label="Open topics sidebar" id="topicToggle" title="Open topics">☰</button>
 <div id="topicBackdrop"></div>
@@ -416,7 +746,7 @@ TO JAVA</div><div class="accent"></div></section><section class="slide"><div cla
     public static void main(String[] args) {
         System.out.println("Hello, Java!");
     }
-}</pre></section><section class="slide center"><div class="kicker">01 · Introduction to Java</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="public class HelloJava {&#10;    public static void main(String[] args) {&#10;        System.out.println(&quot;Hello, Java!&quot;);&#10;    }&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">01 · Introduction to Java</div>
 <h2>Program Output</h2><div class="output">Hello, Java!</div></section><section class="slide"><div class="kicker">01 · Introduction to Java</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Write a program to print your name.</div><div class="exercise"><b>2.</b> Print the name of your university.</div><div class="exercise"><b>3.</b> Print three lines describing yourself.</div><div class="exercise"><b>4.</b> Print "I am learning Java".</div><div class="exercise"><b>5.</b> Print a simple welcome message for your class.</div></section><section class="slide center cover"><div class="kicker">02 · History of Java</div><div class="title">HISTORY
 OF JAVA</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · History of Java</div>
@@ -513,7 +843,7 @@ boolean passed = true;
 System.out.println(age);
 System.out.println(salary);
 System.out.println(grade);
-System.out.println(passed);</pre></section><section class="slide center"><div class="kicker">06 · Data Types</div>
+System.out.println(passed);</pre><button class="run-example-btn" type="button" data-java-code="int age = 20;&#10;double salary = 45000.50;&#10;char grade = 'A';&#10;boolean passed = true;&#10;&#10;System.out.println(age);&#10;System.out.println(salary);&#10;System.out.println(grade);&#10;System.out.println(passed);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">06 · Data Types</div>
 <h2>Example 1 · Output</h2><div class="output">20
 45000.5
 A
@@ -526,7 +856,7 @@ char section = 'B';
 System.out.println(count);
 System.out.println(population);
 System.out.println(price);
-System.out.println(section);</pre></section><section class="slide center"><div class="kicker">06 · Data Types</div>
+System.out.println(section);</pre><button class="run-example-btn" type="button" data-java-code="byte count = 10;&#10;long population = 1400000000L;&#10;float price = 25.5f;&#10;char section = 'B';&#10;&#10;System.out.println(count);&#10;System.out.println(population);&#10;System.out.println(price);&#10;System.out.println(section);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">06 · Data Types</div>
 <h2>Example 2 · Output</h2><div class="output">10
 1400000000
 25.5
@@ -540,13 +870,13 @@ int amount = (int) price;</pre></div><div class="note-strip">The cast is explici
 <h2>In Simple Words</h2><div class="bullet"><span>•</span> A variable has a <strong>name</strong>.</div><div class="bullet"><span>•</span> It has a <strong>data type</strong>.</div><div class="bullet"><span>•</span> It stores a <strong>value</strong>.</div><div class="bullet"><span>•</span> Its value can change during program execution, unless declared final.</div></section><section class="slide"><div class="kicker">07 · Variables</div><h2>Variable — 3 Things to Remember</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Declaration</h3><p>Tell Java the type and variable name.</p></div><div class="concept-card"><div class="num">02</div><h3>Initialization</h3><p>Give the variable its first value.</p></div><div class="concept-card"><div class="num">03</div><h3>Assignment</h3><p>Change the stored value when required.</p></div></div></section><section class="slide"><div class="kicker">07 · Variables</div><div class="title">General Syntax</div><pre class="code">dataType variableName = value;</pre></section><section class="slide"><div class="kicker">07 · Variables</div>
 <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> <code>dataType</code> → specifies what kind of value is stored.</div><div class="bullet"><span>•</span> <code>variableName</code> → identifies the variable.</div><div class="bullet"><span>•</span> <code>=</code> → assignment operator.</div><div class="bullet"><span>•</span> <code>value</code> → initial value assigned to the variable.</div></section><section class="slide"><div class="kicker">07 · Variables</div>
 <h2>See It in Action · Example 1</h2><pre class="code">int marks = 85;
-System.out.println(marks);</pre></section><section class="slide center"><div class="kicker">07 · Variables</div>
+System.out.println(marks);</pre><button class="run-example-btn" type="button" data-java-code="int marks = 85;&#10;System.out.println(marks);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">07 · Variables</div>
 <h2>Example 1 · Output</h2><div class="output">85</div></section><section class="slide"><div class="kicker">07 · Variables</div>
 <h2>See It in Action · Example 2</h2><pre class="code">String name = "Asha";
 int age = 19;
 
 System.out.println(name);
-System.out.println(age);</pre></section><section class="slide center"><div class="kicker">07 · Variables</div>
+System.out.println(age);</pre><button class="run-example-btn" type="button" data-java-code="String name = &quot;Asha&quot;;&#10;int age = 19;&#10;&#10;System.out.println(name);&#10;System.out.println(age);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">07 · Variables</div>
 <h2>Example 2 · Output</h2><div class="output">Asha
 19</div></section><section class="slide"><div class="kicker">07 · Variables</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Create variables for your name, age and branch.</div><div class="exercise"><b>2.</b> Create variables for five subject marks.</div><div class="exercise"><b>3.</b> Create a variable for the price of a product and update it.</div><div class="exercise"><b>4.</b> Swap the values of two integer variables.</div><div class="exercise"><b>5.</b> Calculate the area of a rectangle using variables.</div></section><section class="slide center cover"><div class="kicker">08 · Arrays</div><div class="title">ARRAYS</div><div class="accent"></div></section><section class="slide"><div class="kicker">08 · Arrays</div>
@@ -556,14 +886,14 @@ System.out.println(age);</pre></section><section class="slide center"><div class
 <h2>See It in Action · Example 1</h2><pre class="code">int[] marks = {70, 80, 90};
 
 System.out.println(marks[0]);
-System.out.println(marks[2]);</pre></section><section class="slide center"><div class="kicker">08 · 1D Array</div>
+System.out.println(marks[2]);</pre><button class="run-example-btn" type="button" data-java-code="int[] marks = {70, 80, 90};&#10;&#10;System.out.println(marks[0]);&#10;System.out.println(marks[2]);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">08 · 1D Array</div>
 <h2>Example 1 · Output</h2><div class="output">70
 90</div></section><section class="slide"><div class="kicker">08 · 1D Array</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int[] numbers = {10, 20, 30, 40};
 
 for (int i = 0; i &lt; numbers.length; i++) {
     System.out.println(numbers[i]);
-}</pre></section><section class="slide center"><div class="kicker">08 · 1D Array</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="int[] numbers = {10, 20, 30, 40};&#10;&#10;for (int i = 0; i &lt; numbers.length; i++) {&#10;    System.out.println(numbers[i]);&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">08 · 1D Array</div>
 <h2>Example 2 · Output</h2><div class="output">10
 20
 30
@@ -575,7 +905,7 @@ for (int i = 0; i &lt; numbers.length; i++) {
     {60, 75, 85}
 };
 
-System.out.println(marks[0][1]);</pre></section><section class="slide center"><div class="kicker">08 · 2D Array</div>
+System.out.println(marks[0][1]);</pre><button class="run-example-btn" type="button" data-java-code="int[][] marks = {&#10;    {70, 80, 90},&#10;    {60, 75, 85}&#10;};&#10;&#10;System.out.println(marks[0][1]);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">08 · 2D Array</div>
 <h2>Example 1 · Output</h2><div class="output">80</div></section><section class="slide"><div class="kicker">08 · 2D Array</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int[][] a = {
     {1, 2},
@@ -587,7 +917,7 @@ for (int i = 0; i &lt; a.length; i++) {
         System.out.print(a[i][j] + " ");
     }
     System.out.println();
-}</pre></section><section class="slide center"><div class="kicker">08 · 2D Array</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="int[][] a = {&#10;    {1, 2},&#10;    {3, 4}&#10;};&#10;&#10;for (int i = 0; i &lt; a.length; i++) {&#10;    for (int j = 0; j &lt; a[i].length; j++) {&#10;        System.out.print(a[i][j] + &quot; &quot;);&#10;    }&#10;    System.out.println();&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">08 · 2D Array</div>
 <h2>Example 2 · Output</h2><div class="output">1 2
 3 4</div></section><section class="slide"><div class="kicker">08 · 2D Array</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Create a 2×2 matrix and print all elements.</div><div class="exercise"><b>2.</b> Create a 3×3 matrix and find its sum.</div><div class="exercise"><b>3.</b> Print the elements of a 2D array row by row.</div><div class="exercise"><b>4.</b> Find the largest element in a 2D array.</div><div class="exercise"><b>5.</b> Add two 2D matrices.</div></section><section class="slide"><div class="kicker">Classroom Transition</div><h2>Knowledge Check 2</h2><p class="definition">Data Types, Variables &amp; Arrays Complete</p><p class="definition">Pause • Think • Discuss • Then answer</p></section><section class="slide mcq-slide">
@@ -655,12 +985,12 @@ STATEMENTS</div><div class="accent"></div></section><section class="slide"><div 
 <h2>See It in Action · Example 1</h2><pre class="code">int marks = 75;
 if (marks &gt;= 40) {
     System.out.println("Pass");
-}</pre></section><section class="slide center"><div class="kicker">09A · if Statement</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="int marks = 75;&#10;if (marks &gt;= 40) {&#10;    System.out.println(&quot;Pass&quot;);&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09A · if Statement</div>
 <h2>Example 1 · Output</h2><div class="output">Pass</div></section><section class="slide"><div class="kicker">09A · if Statement</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int age = 20;
 if (age &gt;= 18) {
     System.out.println("Adult");
-}</pre></section><section class="slide center"><div class="kicker">09A · if Statement</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="int age = 20;&#10;if (age &gt;= 18) {&#10;    System.out.println(&quot;Adult&quot;);&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09A · if Statement</div>
 <h2>Example 2 · Output</h2><div class="output">Adult</div></section><section class="slide"><div class="kicker">09A · if Statement</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check whether marks are at least 40.</div><div class="exercise"><b>2.</b> Check whether a number is positive.</div><div class="exercise"><b>3.</b> Check whether a number is even.</div><div class="exercise"><b>4.</b> Check whether age is 18 or above.</div><div class="exercise"><b>5.</b> Print a message if a number is greater than 100.</div></section><section class="slide center cover"><div class="kicker">09B · Control Statements</div><div class="title">IF-ELSE STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
 <h2>What Is if-else?</h2><p class="definition">Chooses between two possible paths.</p></section><section class="slide"><div class="kicker">09B · if-else Statement</div><h2>if-else — Two Paths</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Check</h3><p>Evaluate the condition.</p></div><div class="concept-card"><div class="num">02</div><h3>True Path</h3><p>Execute the if block.</p></div><div class="concept-card"><div class="num">03</div><h3>False Path</h3><p>Execute the else block.</p></div></div></section><section class="slide"><div class="kicker">09B · if-else Statement</div><h2>General Syntax</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>if (condition) {
@@ -673,19 +1003,19 @@ if (age &gt;= 18) {
 if (marks &gt;= 40)
     System.out.println("Pass");
 else
-    System.out.println("Fail");</pre></section><section class="slide center"><div class="kicker">09B · if-else Statement</div>
+    System.out.println("Fail");</pre><button class="run-example-btn" type="button" data-java-code="int marks = 35;&#10;if (marks &gt;= 40)&#10;    System.out.println(&quot;Pass&quot;);&#10;else&#10;    System.out.println(&quot;Fail&quot;);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09B · if-else Statement</div>
 <h2>Example 1 · Output</h2><div class="output">Fail</div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int n = 8;
 if (n % 2 == 0)
     System.out.println("Even");
 else
-    System.out.println("Odd");</pre></section><section class="slide center"><div class="kicker">09B · if-else Statement</div>
+    System.out.println("Odd");</pre><button class="run-example-btn" type="button" data-java-code="int n = 8;&#10;if (n % 2 == 0)&#10;    System.out.println(&quot;Even&quot;);&#10;else&#10;    System.out.println(&quot;Odd&quot;);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09B · if-else Statement</div>
 <h2>Example 2 · Output</h2><div class="output">Even</div></section><section class="slide"><div class="kicker">09B · if-else Statement</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check Adult or Minor.</div><div class="exercise"><b>2.</b> Check Positive or Negative.</div><div class="exercise"><b>3.</b> Check Pass or Fail.</div><div class="exercise"><b>4.</b> Check divisible by 5.</div><div class="exercise"><b>5.</b> Check whether two numbers are equal.</div></section><section class="slide center cover"><div class="kicker">09C · Control Statements</div><div class="title">ELSE-IF LADDER</div><div class="accent"></div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
 <h2>What Is an else-if Ladder?</h2><p class="definition">Checks multiple conditions in sequence.</p></section><section class="slide"><div class="kicker">09C · else-if Ladder</div><h2>else-if — Multiple Choices</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Order</h3><p>Conditions are checked from top to bottom.</p></div><div class="concept-card"><div class="num">02</div><h3>First Match</h3><p>The first true condition executes.</p></div><div class="concept-card"><div class="num">03</div><h3>Else</h3><p>A final else can handle remaining cases.</p></div></div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div><div class="title">General Syntax</div><pre class="code">if (condition1) {
 } else if (condition2) {
 } else {
-}</pre></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="if (condition1) {&#10;} else if (condition2) {&#10;} else {&#10;}">▶ Run Example in Code Lab</button></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
 <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
 <h2>See It in Action · Example 1</h2><pre class="code">int marks = 82;
 if (marks &gt;= 90)
@@ -693,7 +1023,7 @@ if (marks &gt;= 90)
 else if (marks &gt;= 75)
     System.out.println("A");
 else
-    System.out.println("B");</pre></section><section class="slide center"><div class="kicker">09C · else-if Ladder</div>
+    System.out.println("B");</pre><button class="run-example-btn" type="button" data-java-code="int marks = 82;&#10;if (marks &gt;= 90)&#10;    System.out.println(&quot;A+&quot;);&#10;else if (marks &gt;= 75)&#10;    System.out.println(&quot;A&quot;);&#10;else&#10;    System.out.println(&quot;B&quot;);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09C · else-if Ladder</div>
 <h2>Example 1 · Output</h2><div class="output">A</div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int n = -5;
 if (n &gt; 0)
@@ -701,7 +1031,7 @@ if (n &gt; 0)
 else if (n &lt; 0)
     System.out.println("Negative");
 else
-    System.out.println("Zero");</pre></section><section class="slide center"><div class="kicker">09C · else-if Ladder</div>
+    System.out.println("Zero");</pre><button class="run-example-btn" type="button" data-java-code="int n = -5;&#10;if (n &gt; 0)&#10;    System.out.println(&quot;Positive&quot;);&#10;else if (n &lt; 0)&#10;    System.out.println(&quot;Negative&quot;);&#10;else&#10;    System.out.println(&quot;Zero&quot;);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09C · else-if Ladder</div>
 <h2>Example 2 · Output</h2><div class="output">Negative</div></section><section class="slide"><div class="kicker">09C · else-if Ladder</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Display A/B/C/Fail based on marks.</div><div class="exercise"><b>2.</b> Classify a number as positive, negative or zero.</div><div class="exercise"><b>3.</b> Classify age into categories.</div><div class="exercise"><b>4.</b> Find the largest of three numbers.</div><div class="exercise"><b>5.</b> Display a performance message based on marks.</div></section><section class="slide center cover"><div class="kicker">09D · Control Statements</div><div class="title">SWITCH STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
 <h2>What Is switch?</h2><p class="definition">Selects a block based on the value of an expression.</p></section><section class="slide"><div class="kicker">09D · switch Statement</div><h2>switch — Fixed Choices</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Expression</h3><p>Evaluate one value.</p></div><div class="concept-card"><div class="num">02</div><h3>case</h3><p>Match one of the available choices.</p></div><div class="concept-card"><div class="num">03</div><h3>break</h3><p>Usually prevents unwanted fall-through.</p></div></div></section><section class="slide"><div class="kicker">09D · switch Statement</div><div class="title">General Syntax</div><pre class="code">switch (expression) {
@@ -710,21 +1040,21 @@ else
         break;
     default:
         // statements
-}</pre></section><section class="slide"><div class="kicker">09D · switch Statement</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="switch (expression) {&#10;    case value:&#10;        // statements&#10;        break;&#10;    default:&#10;        // statements&#10;}">▶ Run Example in Code Lab</button></section><section class="slide"><div class="kicker">09D · switch Statement</div>
 <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
 <h2>See It in Action · Example 1</h2><pre class="code">int day = 2;
 switch (day) {
     case 1: System.out.println("Mon"); break;
     case 2: System.out.println("Tue"); break;
     default: System.out.println("Invalid");
-}</pre></section><section class="slide center"><div class="kicker">09D · switch Statement</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="int day = 2;&#10;switch (day) {&#10;    case 1: System.out.println(&quot;Mon&quot;); break;&#10;    case 2: System.out.println(&quot;Tue&quot;); break;&#10;    default: System.out.println(&quot;Invalid&quot;);&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09D · switch Statement</div>
 <h2>Example 1 · Output</h2><div class="output">Tue</div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int choice = 1;
 switch (choice) {
     case 1: System.out.println("Add"); break;
     case 2: System.out.println("Exit"); break;
     default: System.out.println("Invalid");
-}</pre></section><section class="slide center"><div class="kicker">09D · switch Statement</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="int choice = 1;&#10;switch (choice) {&#10;    case 1: System.out.println(&quot;Add&quot;); break;&#10;    case 2: System.out.println(&quot;Exit&quot;); break;&#10;    default: System.out.println(&quot;Invalid&quot;);&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09D · switch Statement</div>
 <h2>Example 2 · Output</h2><div class="output">Add</div></section><section class="slide"><div class="kicker">09D · switch Statement</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Display weekdays using 1–7.</div><div class="exercise"><b>2.</b> Create a calculator menu.</div><div class="exercise"><b>3.</b> Display month names using 1–12.</div><div class="exercise"><b>4.</b> Create a simple student menu.</div><div class="exercise"><b>5.</b> Remove break and observe the behavior.</div></section><section class="slide center cover"><div class="kicker">09E · Control Statements</div><div class="title">FOR LOOP</div><div class="accent"></div></section><section class="slide"><div class="kicker">09E · for Loop</div>
 <h2>What Is a for Loop?</h2><p class="definition">Repeats a block, commonly when the repetition count is known.</p></section><section class="slide"><div class="kicker">09E · for Loop</div><h2>for Loop — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Known Count</h3><p>Useful when the repetition count is known.</p></div><div class="concept-card"><div class="num">02</div><h3>Three Parts</h3><p>Initialization, condition and update.</p></div><div class="concept-card"><div class="num">03</div><h3>Compact</h3><p>All three appear in the loop header.</p></div></div></section><section class="slide"><div class="kicker">09E · for Loop</div><h2>General Syntax</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>for (initialization; condition; update) {
@@ -733,11 +1063,11 @@ switch (choice) {
 <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09E · for Loop</div><h2>How the for Loop Works</h2><div class="flow-wrap"><div class="flow-step"><strong>Initialization</strong><small>Runs once</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Condition</strong><small>Checked before each iteration</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Body</strong><small>Runs when true</small></div><div class="flow-arrow">→</div><div class="flow-step"><strong>Update</strong><small>Changes control variable</small></div></div><div class="note-strip">When the condition becomes false, the loop ends.</div></section><section class="slide"><div class="kicker">09E · for Loop</div>
 <h2>See It in Action · Example 1</h2><pre class="code">for (int i = 1; i &lt;= 5; i++) {
     System.out.println(i);
-}</pre></section><section class="slide center"><div class="kicker">09E · for Loop</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="for (int i = 1; i &lt;= 5; i++) {&#10;    System.out.println(i);&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09E · for Loop</div>
 <h2>Example 1 · Output</h2><div class="output">1  2  3  4  5</div></section><section class="slide"><div class="kicker">09E · for Loop</div>
 <h2>See It in Action · Example 2</h2><pre class="code">for (int i = 1; i &lt;= 3; i++) {
     System.out.println("Java");
-}</pre></section><section class="slide center"><div class="kicker">09E · for Loop</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="for (int i = 1; i &lt;= 3; i++) {&#10;    System.out.println(&quot;Java&quot;);&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09E · for Loop</div>
 <h2>Example 2 · Output</h2><div class="output">Java
 Java
 Java</div></section><section class="slide"><div class="kicker">09E · for Loop</div>
@@ -750,13 +1080,13 @@ Java</div></section><section class="slide"><div class="kicker">09E · for Loop</
 while (i &lt;= 5) {
     System.out.println(i);
     i++;
-}</pre></section><section class="slide center"><div class="kicker">09F · while Loop</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="int i = 1;&#10;while (i &lt;= 5) {&#10;    System.out.println(i);&#10;    i++;&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09F · while Loop</div>
 <h2>Example 1 · Output</h2><div class="output">1  2  3  4  5</div></section><section class="slide"><div class="kicker">09F · while Loop</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int i = 5;
 while (i &gt;= 1) {
     System.out.println(i);
     i--;
-}</pre></section><section class="slide center"><div class="kicker">09F · while Loop</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="int i = 5;&#10;while (i &gt;= 1) {&#10;    System.out.println(i);&#10;    i--;&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09F · while Loop</div>
 <h2>Example 2 · Output</h2><div class="output">5  4  3  2  1</div></section><section class="slide"><div class="kicker">09F · while Loop</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Print 1–10.</div><div class="exercise"><b>2.</b> Print odd numbers up to 20.</div><div class="exercise"><b>3.</b> Find sum 1–10.</div><div class="exercise"><b>4.</b> Count digits in a number.</div><div class="exercise"><b>5.</b> Reverse a number.</div></section><section class="slide center cover"><div class="kicker">09G · Control Statements</div><div class="title">DO-WHILE LOOP</div><div class="accent"></div></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
 <h2>What Is a do-while Loop?</h2><p class="definition">Executes the body first and checks the condition afterward.</p></section><section class="slide"><div class="kicker">09G · do-while Loop</div><h2>do-while — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Body First</h3><p>The body executes before the condition is checked.</p></div><div class="concept-card"><div class="num">02</div><h3>At Least Once</h3><p>The body runs at least once.</p></div><div class="concept-card"><div class="num">03</div><h3>Repeat</h3><p>A true condition starts another iteration.</p></div></div></section><section class="slide"><div class="kicker">09G · do-while Loop</div><h2>General Syntax</h2><div class="syntax-card"><div class="syntax-label">General Syntax</div><pre>do {
@@ -767,45 +1097,45 @@ while (i &gt;= 1) {
 do {
     System.out.println(i);
     i++;
-} while (i &lt;= 3);</pre></section><section class="slide center"><div class="kicker">09G · do-while Loop</div>
+} while (i &lt;= 3);</pre><button class="run-example-btn" type="button" data-java-code="int i = 1;&#10;do {&#10;    System.out.println(i);&#10;    i++;&#10;} while (i &lt;= 3);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09G · do-while Loop</div>
 <h2>Example 1 · Output</h2><div class="output">1  2  3</div></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int i = 10;
 do {
     System.out.println(i);
-} while (i &lt; 5);</pre></section><section class="slide center"><div class="kicker">09G · do-while Loop</div>
+} while (i &lt; 5);</pre><button class="run-example-btn" type="button" data-java-code="int i = 10;&#10;do {&#10;    System.out.println(i);&#10;} while (i &lt; 5);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09G · do-while Loop</div>
 <h2>Example 2 · Output</h2><div class="output">10
 Runs once!</div></section><section class="slide"><div class="kicker">09G · do-while Loop</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Print 1–5.</div><div class="exercise"><b>2.</b> Display a message at least once.</div><div class="exercise"><b>3.</b> Create a menu until Exit.</div><div class="exercise"><b>4.</b> Print 5–1.</div><div class="exercise"><b>5.</b> Repeat while a number is positive.</div></section><section class="slide center cover"><div class="kicker">09H · Control Statements</div><div class="title">BREAK STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09H · break Statement</div>
 <h2>What Is break?</h2><p class="definition">Immediately terminates the nearest loop or switch.</p></section><section class="slide"><div class="kicker">09H · break Statement</div><h2>break — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Exit</h3><p>Leaves the nearest loop or switch immediately.</p></div><div class="concept-card"><div class="num">02</div><h3>Continue After</h3><p>Execution resumes after that structure.</p></div><div class="concept-card"><div class="num">03</div><h3>Use Carefully</h3><p>Use when early termination improves the logic.</p></div></div></section><section class="slide"><div class="kicker">09H · break Statement</div><div class="title">General Syntax</div><pre class="code">if (condition) {
     break;
-}</pre></section><section class="slide"><div class="kicker">09H · break Statement</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="if (condition) {&#10;    break;&#10;}">▶ Run Example in Code Lab</button></section><section class="slide"><div class="kicker">09H · break Statement</div>
 <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09H · break Statement</div>
 <h2>See It in Action · Example 1</h2><pre class="code">for (int i = 1; i &lt;= 10; i++) {
     if (i == 5) break;
     System.out.println(i);
-}</pre></section><section class="slide center"><div class="kicker">09H · break Statement</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="for (int i = 1; i &lt;= 10; i++) {&#10;    if (i == 5) break;&#10;    System.out.println(i);&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09H · break Statement</div>
 <h2>Example 1 · Output</h2><div class="output">1  2  3  4</div></section><section class="slide"><div class="kicker">09H · break Statement</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int i = 1;
 while (i &lt;= 10) {
     if (i == 4) break;
     System.out.println(i);
     i++;
-}</pre></section><section class="slide center"><div class="kicker">09H · break Statement</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="int i = 1;&#10;while (i &lt;= 10) {&#10;    if (i == 4) break;&#10;    System.out.println(i);&#10;    i++;&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09H · break Statement</div>
 <h2>Example 2 · Output</h2><div class="output">1  2  3</div></section><section class="slide"><div class="kicker">09H · break Statement</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Stop when counter reaches 7.</div><div class="exercise"><b>2.</b> Search 1–100 and stop at 50.</div><div class="exercise"><b>3.</b> Exit a menu when 0 is chosen.</div><div class="exercise"><b>4.</b> Stop printing at 10.</div><div class="exercise"><b>5.</b> Find first number divisible by 7.</div></section><section class="slide center cover"><div class="kicker">09I · Control Statements</div><div class="title">CONTINUE STATEMENT</div><div class="accent"></div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
 <h2>What Is continue?</h2><p class="definition">Skips the current iteration and moves to the next iteration.</p></section><section class="slide"><div class="kicker">09I · continue Statement</div><h2>continue — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Skip</h3><p>Skips the remaining part of the current iteration.</p></div><div class="concept-card"><div class="num">02</div><h3>Next</h3><p>Moves to the next iteration.</p></div><div class="concept-card"><div class="num">03</div><h3>Not Exit</h3><p>The loop itself continues.</p></div></div></section><section class="slide"><div class="kicker">09I · continue Statement</div><div class="title">General Syntax</div><pre class="code">if (condition) {
     continue;
-}</pre></section><section class="slide"><div class="kicker">09I · continue Statement</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="if (condition) {&#10;    continue;&#10;}">▶ Run Example in Code Lab</button></section><section class="slide"><div class="kicker">09I · continue Statement</div>
 <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> The condition/expression controls the flow of execution.</div><div class="bullet"><span>•</span> Java executes the appropriate block when its rule is satisfied.</div><div class="bullet"><span>•</span> Use braces to make blocks clear and readable.</div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
 <h2>See It in Action · Example 1</h2><pre class="code">for (int i = 1; i &lt;= 5; i++) {
     if (i == 3) continue;
     System.out.println(i);
-}</pre></section><section class="slide center"><div class="kicker">09I · continue Statement</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="for (int i = 1; i &lt;= 5; i++) {&#10;    if (i == 3) continue;&#10;    System.out.println(i);&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09I · continue Statement</div>
 <h2>Example 1 · Output</h2><div class="output">1  2  4  5</div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
 <h2>See It in Action · Example 2</h2><pre class="code">for (int i = 1; i &lt;= 6; i++) {
     if (i % 2 == 0) continue;
     System.out.println(i);
-}</pre></section><section class="slide center"><div class="kicker">09I · continue Statement</div>
+}</pre><button class="run-example-btn" type="button" data-java-code="for (int i = 1; i &lt;= 6; i++) {&#10;    if (i % 2 == 0) continue;&#10;    System.out.println(i);&#10;}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">09I · continue Statement</div>
 <h2>Example 2 · Output</h2><div class="output">1  3  5</div></section><section class="slide"><div class="kicker">09I · continue Statement</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Print 1–10 but skip 5.</div><div class="exercise"><b>2.</b> Print 1–20 but skip even numbers.</div><div class="exercise"><b>3.</b> Skip multiples of 3.</div><div class="exercise"><b>4.</b> Skip negative numbers.</div><div class="exercise"><b>5.</b> Print numbers not divisible by 5.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Operators</div>
 <h2>What Are Operators?</h2><p class="definition">Operators are symbols used to perform operations on values and variables.</p></section><section class="slide"><div class="kicker">10 · Operators</div><h2>Operator Families</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Arithmetic</h3><p>+, -, *, /, % → calculations</p></div><div class="concept-card"><div class="num">02</div><h3>Relational</h3><p>&gt;, &lt;, &gt;=, &lt;=, ==, != → comparisons</p></div><div class="concept-card"><div class="num">03</div><h3>Logical</h3><p>&amp;&amp;, ||, ! → combine conditions</p></div></div></section><section class="slide"><div class="kicker">10 · Operators</div><h2>Types of Operators</h2><div class="cards"><div class="card"><h3>Arithmetic</h3><p>+ − * / %</p></div><div class="card"><h3>Relational</h3><p>== != &gt; &lt; &gt;= &lt;=</p></div><div class="card"><h3>Logical</h3><p>&amp;&amp; || !</p></div><div class="card"><h3>Bitwise</h3><p>&amp; | ^ ~ &lt;&lt; &gt;&gt;</p></div><div class="card"><h3>Ternary</h3><p>condition ? value1 : value2</p></div></div></section><section class="slide center cover"><div class="kicker">10 · Arithmetic Operators</div><div class="title">ARITHMETIC
@@ -816,7 +1146,7 @@ int b = 3;
 
 System.out.println(a + b);
 System.out.println(a * b);
-System.out.println(a % b);</pre></section><section class="slide center"><div class="kicker">10 · Arithmetic Operators</div>
+System.out.println(a % b);</pre><button class="run-example-btn" type="button" data-java-code="int a = 10;&#10;int b = 3;&#10;&#10;System.out.println(a + b);&#10;System.out.println(a * b);&#10;System.out.println(a % b);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">10 · Arithmetic Operators</div>
 <h2>Example 1 · Output</h2><div class="output">13
 30
 1</div></section><section class="slide"><div class="kicker">10 · Arithmetic Operators</div>
@@ -824,7 +1154,7 @@ System.out.println(a % b);</pre></section><section class="slide center"><div cla
 double y = 4;
 
 System.out.println(x / y);
-System.out.println(x - y);</pre></section><section class="slide center"><div class="kicker">10 · Arithmetic Operators</div>
+System.out.println(x - y);</pre><button class="run-example-btn" type="button" data-java-code="double x = 10;&#10;double y = 4;&#10;&#10;System.out.println(x / y);&#10;System.out.println(x - y);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">10 · Arithmetic Operators</div>
 <h2>Example 2 · Output</h2><div class="output">2.5
 6.0</div></section><section class="slide"><div class="kicker">10 · Arithmetic Operators</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Calculate area of a rectangle.</div><div class="exercise"><b>2.</b> Calculate simple interest.</div><div class="exercise"><b>3.</b> Find quotient and remainder.</div><div class="exercise"><b>4.</b> Calculate average of three numbers.</div><div class="exercise"><b>5.</b> Create a basic calculator using arithmetic operators.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">RELATIONAL OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
@@ -832,21 +1162,21 @@ System.out.println(x - y);</pre></section><section class="slide center"><div cla
 <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> Operands are the values on which the operator works.</div><div class="bullet"><span>•</span> The operator determines the operation or comparison.</div><div class="bullet"><span>•</span> The result depends on the operator and operand types.</div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
 <h2>See It in Action · Example 1</h2><pre class="code">int a = 10;
 int b = 20;
-System.out.println(a &lt; b);</pre></section><section class="slide center"><div class="kicker">10 · Relational Operators</div>
+System.out.println(a &lt; b);</pre><button class="run-example-btn" type="button" data-java-code="int a = 10;&#10;int b = 20;&#10;System.out.println(a &lt; b);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">10 · Relational Operators</div>
 <h2>Example 1 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int a = 10;
 int b = 10;
-System.out.println(a == b);</pre></section><section class="slide center"><div class="kicker">10 · Relational Operators</div>
+System.out.println(a == b);</pre><button class="run-example-btn" type="button" data-java-code="int a = 10;&#10;int b = 10;&#10;System.out.println(a == b);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">10 · Relational Operators</div>
 <h2>Example 2 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Relational Operators</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check whether marks are greater than 40.</div><div class="exercise"><b>2.</b> Check whether two numbers are equal.</div><div class="exercise"><b>3.</b> Find whether one number is larger.</div><div class="exercise"><b>4.</b> Check whether age is at least 18.</div><div class="exercise"><b>5.</b> Compare two prices.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">LOGICAL OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
 <h2>What Are Logical Operators?</h2><p class="definition">Combine or invert boolean conditions.</p></section><section class="slide"><div class="kicker">10 · Logical Operators</div><div class="title">General Syntax</div><pre class="code">&amp;&amp; || !</pre></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
 <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> Operands are the values on which the operator works.</div><div class="bullet"><span>•</span> The operator determines the operation or comparison.</div><div class="bullet"><span>•</span> The result depends on the operator and operand types.</div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
 <h2>See It in Action · Example 1</h2><pre class="code">int age = 20;
 boolean id = true;
-System.out.println(age &gt;= 18 &amp;&amp; id);</pre></section><section class="slide center"><div class="kicker">10 · Logical Operators</div>
+System.out.println(age &gt;= 18 &amp;&amp; id);</pre><button class="run-example-btn" type="button" data-java-code="int age = 20;&#10;boolean id = true;&#10;System.out.println(age &gt;= 18 &amp;&amp; id);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">10 · Logical Operators</div>
 <h2>Example 1 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int marks = 35;
-System.out.println(marks &lt; 40 || marks &gt; 90);</pre></section><section class="slide center"><div class="kicker">10 · Logical Operators</div>
+System.out.println(marks &lt; 40 || marks &gt; 90);</pre><button class="run-example-btn" type="button" data-java-code="int marks = 35;&#10;System.out.println(marks &lt; 40 || marks &gt; 90);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">10 · Logical Operators</div>
 <h2>Example 2 · Output</h2><div class="output">true</div></section><section class="slide"><div class="kicker">10 · Logical Operators</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Check two conditions using &amp;&amp;.</div><div class="exercise"><b>2.</b> Check alternative conditions using ||.</div><div class="exercise"><b>3.</b> Use ! to invert a boolean.</div><div class="exercise"><b>4.</b> Check eligibility using two conditions.</div><div class="exercise"><b>5.</b> Create a login-style condition.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">BITWISE OPERATORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
 <h2>What Are Bitwise Operators?</h2><p class="definition">Operate on integer values at the bit level.</p></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div><div class="title">General Syntax</div><pre class="code">&amp; | ^ ~ &lt;&lt; &gt;&gt;</pre></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
@@ -854,12 +1184,12 @@ System.out.println(marks &lt; 40 || marks &gt; 90);</pre></section><section clas
 <h2>See It in Action · Example 1</h2><pre class="code">int a = 5;
 int b = 3;
 System.out.println(a &amp; b);
-System.out.println(a | b);</pre></section><section class="slide center"><div class="kicker">10 · Bitwise Operators</div>
+System.out.println(a | b);</pre><button class="run-example-btn" type="button" data-java-code="int a = 5;&#10;int b = 3;&#10;System.out.println(a &amp; b);&#10;System.out.println(a | b);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">10 · Bitwise Operators</div>
 <h2>Example 1 · Output</h2><div class="output">1
 7</div></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int a = 4;
 System.out.println(a &lt;&lt; 1);
-System.out.println(a &gt;&gt; 1);</pre></section><section class="slide center"><div class="kicker">10 · Bitwise Operators</div>
+System.out.println(a &gt;&gt; 1);</pre><button class="run-example-btn" type="button" data-java-code="int a = 4;&#10;System.out.println(a &lt;&lt; 1);&#10;System.out.println(a &gt;&gt; 1);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">10 · Bitwise Operators</div>
 <h2>Example 2 · Output</h2><div class="output">8
 2</div></section><section class="slide"><div class="kicker">10 · Bitwise Operators</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Find AND of two integers.</div><div class="exercise"><b>2.</b> Find OR of two integers.</div><div class="exercise"><b>3.</b> Find XOR of two integers.</div><div class="exercise"><b>4.</b> Left shift a number by one bit.</div><div class="exercise"><b>5.</b> Right shift a number by one bit.</div></section><section class="slide center cover"><div class="kicker">10 · Operators</div><div class="title">TERNARY OPERATOR</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
@@ -867,12 +1197,12 @@ System.out.println(a &gt;&gt; 1);</pre></section><section class="slide center"><
 <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> Operands are the values on which the operator works.</div><div class="bullet"><span>•</span> The operator determines the operation or comparison.</div><div class="bullet"><span>•</span> The result depends on the operator and operand types.</div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
 <h2>See It in Action · Example 1</h2><pre class="code">int marks = 75;
 String result = marks &gt;= 40 ? "Pass" : "Fail";
-System.out.println(result);</pre></section><section class="slide center"><div class="kicker">10 · Ternary Operator</div>
+System.out.println(result);</pre><button class="run-example-btn" type="button" data-java-code="int marks = 75;&#10;String result = marks &gt;= 40 ? &quot;Pass&quot; : &quot;Fail&quot;;&#10;System.out.println(result);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">10 · Ternary Operator</div>
 <h2>Example 1 · Output</h2><div class="output">Pass</div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
 <h2>See It in Action · Example 2</h2><pre class="code">int a = 10;
 int b = 20;
 int max = a &gt; b ? a : b;
-System.out.println(max);</pre></section><section class="slide center"><div class="kicker">10 · Ternary Operator</div>
+System.out.println(max);</pre><button class="run-example-btn" type="button" data-java-code="int a = 10;&#10;int b = 20;&#10;int max = a &gt; b ? a : b;&#10;System.out.println(max);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">10 · Ternary Operator</div>
 <h2>Example 2 · Output</h2><div class="output">20</div></section><section class="slide"><div class="kicker">10 · Ternary Operator</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Find the larger of two numbers using ternary.</div><div class="exercise"><b>2.</b> Check Pass/Fail using ternary.</div><div class="exercise"><b>3.</b> Find whether a number is even or odd.</div><div class="exercise"><b>4.</b> Find the smaller of two numbers.</div><div class="exercise"><b>5.</b> Display Adult/Minor using ternary.</div></section><section class="slide"><div class="kicker">Classroom Transition</div><h2>Knowledge Check 3</h2><p class="definition">Control Statements &amp; Operators Complete</p><p class="definition">Pause • Think • Discuss • Then answer</p></section><section class="slide mcq-slide">
 <div class="kicker">Classroom Check · 09–10 · Control Statements &amp; Operators</div>
@@ -932,51 +1262,51 @@ System.out.println(max);</pre></section><section class="slide center"><div class
 </section><section class="slide center cover"><div class="kicker">11 · Strings in Java</div><div class="title">STRINGS
 IN JAVA</div><div class="accent"></div></section><section class="slide"><div class="kicker">11 · Strings in Java</div><h2>String — Key Points</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>Text</h3><p>Represents a sequence of characters.</p></div><div class="concept-card"><div class="num">02</div><h3>Immutable</h3><p>Its contents cannot be changed after creation.</p></div><div class="concept-card"><div class="num">03</div><h3>Useful Methods</h3><p>length(), charAt(), equals(), substring() and more.</p></div></div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
 <h2>What Is a String?</h2><p class="definition">A String is an object that represents a sequence of characters.</p></section><section class="slide"><div class="kicker">11 · Strings in Java</div><h2>String — Remember This</h2><div class="bullet"><span>•</span><strong>Text:</strong> stores a sequence of characters.</div><div class="bullet"><span>•</span><strong>Immutable:</strong> String contents cannot be changed after creation.</div><div class="bullet"><span>•</span><strong>Methods:</strong> use methods such as length(), charAt() and equals().</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
-<h2>In Simple Words</h2><div class="bullet"><span>•</span> Strings are written inside double quotation marks.</div><div class="bullet"><span>•</span> Java provides the <code>String</code> class for working with text.</div><div class="bullet"><span>•</span> String objects are <strong>immutable</strong>: their contents do not change after creation.</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div><div class="title">General Syntax</div><pre class="code">String variableName = "text";</pre></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
+<h2>In Simple Words</h2><div class="bullet"><span>•</span> Strings are written inside double quotation marks.</div><div class="bullet"><span>•</span> Java provides the <code>String</code> class for working with text.</div><div class="bullet"><span>•</span> String objects are <strong>immutable</strong>: their contents do not change after creation.</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div><div class="title">General Syntax</div><pre class="code">String variableName = "text";</pre><button class="run-example-btn" type="button" data-java-code="String variableName = &quot;text&quot;;">▶ Run Example in Code Lab</button></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
 <h2>Syntax Breakdown</h2><div class="bullet"><span>•</span> <code>String</code> → class/type used for text.</div><div class="bullet"><span>•</span> <code>variableName</code> → name of the String variable.</div><div class="bullet"><span>•</span> <code>"text"</code> → character sequence stored in the String.</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
 <h2>See It in Action · Example 1</h2><pre class="code">String name = "Asha";
-System.out.println(name);</pre></section><section class="slide center"><div class="kicker">11 · Strings in Java</div>
+System.out.println(name);</pre><button class="run-example-btn" type="button" data-java-code="String name = &quot;Asha&quot;;&#10;System.out.println(name);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">11 · Strings in Java</div>
 <h2>Example 1 · Output</h2><div class="output">Asha</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
 <h2>See It in Action · Example 2</h2><pre class="code">String first = "Hello";
 String second = "Java";
 
-System.out.println(first + " " + second);</pre></section><section class="slide center"><div class="kicker">11 · Strings in Java</div>
+System.out.println(first + " " + second);</pre><button class="run-example-btn" type="button" data-java-code="String first = &quot;Hello&quot;;&#10;String second = &quot;Java&quot;;&#10;&#10;System.out.println(first + &quot; &quot; + second);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">11 · Strings in Java</div>
 <h2>Example 2 · Output</h2><div class="output">Hello Java</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div><h2>Common String Methods</h2><div class="cards"><div class="card"><h3>length()</h3><p>Returns the number of characters.</p></div><div class="card"><h3>charAt()</h3><p>Returns the character at an index.</p></div><div class="card"><h3>toUpperCase()</h3><p>Returns an uppercase version.</p></div><div class="card"><h3>toLowerCase()</h3><p>Returns a lowercase version.</p></div><div class="card"><h3>equals()</h3><p>Compares String contents.</p></div></div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
 <h2>String Methods · Example</h2><pre class="code">String s = "Java";
 
 System.out.println(s.length());
 System.out.println(s.toUpperCase());
-System.out.println(s.charAt(1));</pre></section><section class="slide center"><div class="kicker">11 · Strings in Java</div>
+System.out.println(s.charAt(1));</pre><button class="run-example-btn" type="button" data-java-code="String s = &quot;Java&quot;;&#10;&#10;System.out.println(s.length());&#10;System.out.println(s.toUpperCase());&#10;System.out.println(s.charAt(1));">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">11 · Strings in Java</div>
 <h2>String Methods · Output</h2><div class="output">4
 JAVA
 a</div></section><section class="slide"><div class="kicker">11 · Strings in Java</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Read a name and print its length.</div><div class="exercise"><b>2.</b> Convert a String to uppercase.</div><div class="exercise"><b>3.</b> Convert a String to lowercase.</div><div class="exercise"><b>4.</b> Print the first character of a String.</div><div class="exercise"><b>5.</b> Compare two Strings using equals().</div></section><section class="slide center cover"><div class="kicker">12 · StringBuffer &amp; StringBuilder</div><div class="title">STRINGBUFFER
 &amp; STRINGBUILDER</div><div class="accent"></div></section><section class="slide"><div class="kicker">12 · StringBuffer &amp; StringBuilder</div><h2>Which One Should I Use?</h2><div class="concept-grid"><div class="concept-card"><div class="num">01</div><h3>String</h3><p>Use when text does not need repeated modification.</p></div><div class="concept-card"><div class="num">02</div><h3>StringBuffer</h3><p>Mutable and synchronized.</p></div><div class="concept-card"><div class="num">03</div><h3>StringBuilder</h3><p>Mutable and generally preferred for ordinary single-threaded work.</p></div></div></section><section class="slide"><div class="kicker">12 · StringBuffer &amp; StringBuilder</div>
 <h2>What Are StringBuffer &amp; StringBuilder?</h2><p class="definition"><code>StringBuffer</code> and <code>StringBuilder</code> are mutable character sequences used when text needs to be modified repeatedly.</p></section><section class="slide"><div class="kicker">12 · StringBuffer &amp; StringBuilder</div><h2>Mutable Strings — Remember This</h2><div class="bullet"><span>•</span><strong>Mutable:</strong> contents can be changed without creating a new String each time.</div><div class="bullet"><span>•</span><strong>StringBuffer:</strong> synchronized and thread-safe.</div><div class="bullet"><span>•</span><strong>StringBuilder:</strong> generally preferred for ordinary single-threaded use.</div></section><section class="slide"><div class="kicker">12 · StringBuffer &amp; StringBuilder</div><h2>Why Not Always String?</h2><div class="cards"><div class="card"><h3>String</h3><p>Immutable — modifications create new String objects.</p></div><div class="card"><h3>StringBuffer</h3><p>Mutable and synchronized; useful when thread safety is required.</p></div><div class="card"><h3>StringBuilder</h3><p>Mutable and generally faster for single-threaded string manipulation.</p></div></div></section><section class="slide"><div class="kicker">12 · StringBuffer</div><div class="title">General Syntax</div><pre class="code">StringBuffer sb = new StringBuffer("Java");
-sb.append(" Programming");</pre></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
+sb.append(" Programming");</pre><button class="run-example-btn" type="button" data-java-code="StringBuffer sb = new StringBuffer(&quot;Java&quot;);&#10;sb.append(&quot; Programming&quot;);">▶ Run Example in Code Lab</button></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
 <h2>Important Methods</h2><div class="bullet"><span>•</span> <code>append()</code> → adds text at the end.</div><div class="bullet"><span>•</span> <code>insert()</code> → inserts text at a position.</div><div class="bullet"><span>•</span> <code>delete()</code> → removes characters.</div><div class="bullet"><span>•</span> <code>reverse()</code> → reverses the sequence.</div></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
 <h2>See It in Action · Example 1</h2><pre class="code">StringBuffer sb = new StringBuffer("Java");
 sb.append(" Programming");
 
-System.out.println(sb);</pre></section><section class="slide center"><div class="kicker">12 · StringBuffer</div>
+System.out.println(sb);</pre><button class="run-example-btn" type="button" data-java-code="StringBuffer sb = new StringBuffer(&quot;Java&quot;);&#10;sb.append(&quot; Programming&quot;);&#10;&#10;System.out.println(sb);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">12 · StringBuffer</div>
 <h2>Example 1 · Output</h2><div class="output">Java Programming</div></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
 <h2>See It in Action · Example 2</h2><pre class="code">StringBuffer sb = new StringBuffer("Hello");
 sb.reverse();
 
-System.out.println(sb);</pre></section><section class="slide center"><div class="kicker">12 · StringBuffer</div>
+System.out.println(sb);</pre><button class="run-example-btn" type="button" data-java-code="StringBuffer sb = new StringBuffer(&quot;Hello&quot;);&#10;sb.reverse();&#10;&#10;System.out.println(sb);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">12 · StringBuffer</div>
 <h2>Example 2 · Output</h2><div class="output">olleH</div></section><section class="slide"><div class="kicker">12 · StringBuffer</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Append your name to a StringBuffer.</div><div class="exercise"><b>2.</b> Insert a word into an existing StringBuffer.</div><div class="exercise"><b>3.</b> Delete a portion of a StringBuffer.</div><div class="exercise"><b>4.</b> Reverse a StringBuffer.</div><div class="exercise"><b>5.</b> Build a sentence using repeated append().</div></section><section class="slide"><div class="kicker">12 · StringBuilder</div><div class="title">General Syntax</div><pre class="code">StringBuilder sb = new StringBuilder("Java");
-sb.append(" Programming");</pre></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
+sb.append(" Programming");</pre><button class="run-example-btn" type="button" data-java-code="StringBuilder sb = new StringBuilder(&quot;Java&quot;);&#10;sb.append(&quot; Programming&quot;);">▶ Run Example in Code Lab</button></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
 <h2>Important Methods</h2><div class="bullet"><span>•</span> <code>append()</code> → adds text.</div><div class="bullet"><span>•</span> <code>insert()</code> → inserts text.</div><div class="bullet"><span>•</span> <code>delete()</code> → removes characters.</div><div class="bullet"><span>•</span> <code>reverse()</code> → reverses the sequence.</div></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
 <h2>See It in Action · Example 1</h2><pre class="code">StringBuilder sb = new StringBuilder("Java");
 sb.append(" Programming");
 
-System.out.println(sb);</pre></section><section class="slide center"><div class="kicker">12 · StringBuilder</div>
+System.out.println(sb);</pre><button class="run-example-btn" type="button" data-java-code="StringBuilder sb = new StringBuilder(&quot;Java&quot;);&#10;sb.append(&quot; Programming&quot;);&#10;&#10;System.out.println(sb);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">12 · StringBuilder</div>
 <h2>Example 1 · Output</h2><div class="output">Java Programming</div></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
 <h2>See It in Action · Example 2</h2><pre class="code">StringBuilder sb = new StringBuilder("Hello");
 sb.reverse();
 
-System.out.println(sb);</pre></section><section class="slide center"><div class="kicker">12 · StringBuilder</div>
+System.out.println(sb);</pre><button class="run-example-btn" type="button" data-java-code="StringBuilder sb = new StringBuilder(&quot;Hello&quot;);&#10;sb.reverse();&#10;&#10;System.out.println(sb);">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">12 · StringBuilder</div>
 <h2>Example 2 · Output</h2><div class="output">olleH</div></section><section class="slide"><div class="kicker">12 · StringBuilder</div>
 <h2>Try It Yourself</h2><div class="exercise"><b>1.</b> Append your name using StringBuilder.</div><div class="exercise"><b>2.</b> Insert text at a specified position.</div><div class="exercise"><b>3.</b> Delete selected characters.</div><div class="exercise"><b>4.</b> Reverse a StringBuilder.</div><div class="exercise"><b>5.</b> Build a sentence using multiple append() calls.</div></section><section class="slide"><div class="kicker">12 · StringBuffer vs StringBuilder</div><h2>Quick Comparison</h2><div class="cards"><div class="card"><h3>String</h3><p>Immutable</p></div><div class="card"><h3>StringBuffer</h3><p>Mutable + synchronized</p></div><div class="card"><h3>StringBuilder</h3><p>Mutable + generally faster in single-threaded use</p></div></div></section><section class="slide"><div class="kicker">Classroom Transition</div><h2>Knowledge Check 4</h2><p class="definition">Strings Complete</p><p class="definition">Pause • Think • Discuss • Then answer</p></section><section class="slide mcq-slide">
 <div class="kicker">Classroom Check · 11–12 · Strings, StringBuffer &amp; StringBuilder</div>
@@ -1604,5 +1934,375 @@ document.addEventListener('DOMContentLoaded',function(){
     b.dataset.presentationActive='false';
   }
 });
-</script></body>
+</script>
+<!-- ============================================================
+     JAVA CODE LAB
+     Browser editor + sandboxed remote Java execution via Piston.
+     ============================================================ -->
+<div id="javaCodeLab" class="code-lab-overlay" aria-hidden="true">
+  <div class="code-lab-window" role="dialog" aria-modal="true" aria-labelledby="codeLabTitle">
+    <div class="code-lab-header">
+      <div>
+        <div class="code-lab-kicker">LIVE CLASSROOM CODING</div>
+        <div id="codeLabTitle" class="code-lab-title">Java Code Lab</div>
+      </div>
+      <div class="code-lab-actions">
+        <button id="codeLabReset" type="button" class="lab-btn secondary">↻ Reset</button>
+        <button id="codeLabRun" type="button" class="lab-btn run">▶ Run</button>
+        <button id="codeLabClose" type="button" class="lab-btn close">✕ Close</button>
+      </div>
+    </div>
+
+    <div class="code-lab-toolbar">
+      <span class="lab-pill">Java</span>
+      <span class="lab-hint">Ctrl + Enter / ⌘ + Enter to run</span>
+      <span class="lab-hint">Large-screen classroom editor</span>
+      <div class="code-theme-switcher" role="group" aria-label="Editor theme">
+        <span class="theme-label">Editor:</span>
+        <button id="codeThemeDark" class="theme-btn active" type="button">● Dark</button>
+        <button id="codeThemeLight" class="theme-btn" type="button">○ Light</button>
+      </div>
+    </div>
+
+    <div class="code-lab-body">
+      <div class="editor-panel">
+        <div class="editor-titlebar">
+          <span>Source Code</span>
+          <span id="codeLabStatus" class="editor-status">Ready</span>
+        </div>
+        <div class="editor-wrap">
+          <div id="codeLineNumbers" class="line-numbers" aria-hidden="true">1</div>
+          <textarea id="javaCodeEditor" spellcheck="false" wrap="off"
+            aria-label="Java source code editor"></textarea>
+        </div>
+      </div>
+
+      <div class="io-panel">
+        <div class="io-box">
+          <div class="io-title">INPUT <span>(optional)</span></div>
+          <textarea id="javaStdin" spellcheck="false"
+            placeholder="Enter input for Scanner / stdin here..."></textarea>
+        </div>
+        <div class="io-box output-box">
+          <div class="io-title">OUTPUT</div>
+          <pre id="javaOutput" class="java-output">Run your Java program to see the output here.</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-lab-footer">
+      <span>Java • OpenJDK</span>
+      <span id="codeLabRuntime">Java runtime: loading…</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  const TIO_API='https://tio.run/cgi-bin/run/api/no-cache/';
+  const DEFAULT_CODE=`public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java!");
+    }
+}`;
+
+  function qs(id){return document.getElementById(id);}
+
+  function escapeForEditor(v){
+    return (v||'').replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  }
+
+  function wrapJavaSnippet(code){
+    const t=code.trim();
+    if(/\b(class|interface|enum|record)\s+\w+/.test(t) || /\bstatic\s+void\s+main\s*\(/.test(t)){
+      return t;
+    }
+    return `public class Main {
+    public static void main(String[] args) {
+${t.split('\n').map(line=>'        '+line).join('\n')}
+    }
+}`;
+  }
+
+  function updateLineNumbers(){
+    const ed=qs('javaCodeEditor'), ln=qs('codeLineNumbers');
+    if(!ed||!ln)return;
+    const count=ed.value.split('\n').length;
+    ln.textContent=Array.from({length:count},(_,i)=>i+1).join('\n');
+    ln.scrollTop=ed.scrollTop;
+  }
+
+  function openLab(code){
+    const lab=qs('javaCodeLab'), ed=qs('javaCodeEditor');
+    document.body.classList.add('code-lab-open');
+    if(!lab||!ed)return;
+    ed.value=escapeForEditor(code||DEFAULT_CODE);
+    qs('javaOutput').textContent='Run your Java program to see the output here.';
+    qs('javaStdin').value='';
+    qs('codeLabStatus').textContent='Ready';
+    lab.classList.add('open');
+    lab.setAttribute('aria-hidden','false');
+    updateLineNumbers();
+    setTimeout(()=>{ed.focus(); ed.setSelectionRange(ed.value.length,ed.value.length)},60);
+  }
+
+  function closeLab(){
+    const lab=qs('javaCodeLab');
+    if(!lab)return;
+    document.body.classList.remove('code-lab-open');
+    lab.classList.remove('open');
+    lab.setAttribute('aria-hidden','true');
+  }
+
+  async function loadRuntime(){
+    const el=qs('codeLabRuntime');
+    if(el) el.textContent='Java • OpenJDK';
+  }
+
+  function utf8Bytes(text){
+    return new TextEncoder().encode(text);
+  }
+
+  function buildTioRequest(code,input){
+    /*
+     * TIO request format:
+     * V + variable + NUL + argument-count + NUL + value + NUL
+     * F + filename + NUL + byte-length + NUL + contents + NUL
+     * R
+     *
+     * The request is then raw-DEFLATE compressed.
+     */
+    const parts=[];
+    const pushText=(text)=>{
+      const bytes=utf8Bytes(text);
+      for(const b of bytes) parts.push(b);
+    };
+    const nul=()=>parts.push(0);
+
+    pushText('Vlang'); nul(); pushText('1'); nul(); pushText('java-openjdk'); nul();
+
+    const codeBytes=utf8Bytes(code);
+    pushText('F.code.tio'); nul(); pushText(String(codeBytes.length)); nul();
+    codeBytes.forEach(b=>parts.push(b)); nul();
+
+    const inputBytes=utf8Bytes(input||'');
+    pushText('F.input.tio'); nul(); pushText(String(inputBytes.length)); nul();
+    inputBytes.forEach(b=>parts.push(b)); nul();
+
+    /* No command-line arguments for classroom examples. */
+    pushText('Vargs'); nul(); pushText('0'); nul();
+
+    parts.push('R'.charCodeAt(0));
+    return new Uint8Array(parts);
+  }
+
+  async function parseTioResponse(response){
+    /*
+     * TIO may return the execution result as application/octet-stream
+     * containing a GZIP payload. Browsers do not necessarily decompress
+     * this merely because it is an HTTP response body, so handle it here.
+     */
+    let bytes=new Uint8Array(await response.arrayBuffer());
+
+    const isGzip =
+      bytes.length >= 2 &&
+      bytes[0] === 0x1f &&
+      bytes[1] === 0x8b;
+
+    if(isGzip){
+      if(typeof DecompressionStream==='undefined'){
+        throw new Error('This browser does not support GZIP response decoding.');
+      }
+      const stream=new Blob([bytes])
+        .stream()
+        .pipeThrough(new DecompressionStream('gzip'));
+      bytes=new Uint8Array(await new Response(stream).arrayBuffer());
+    }
+
+    const text=new TextDecoder('utf-8').decode(bytes);
+
+    if(!text){
+      return {output:'',error:'TIO returned an empty response.'};
+    }
+
+    /*
+     * TIO response format:
+     *   16-byte delimiter
+     *   result/output
+     *   same 16-byte delimiter
+     *   error/debug information
+     *
+     * We display ONLY the result/output field.
+     */
+    const delimiter=text.slice(0,16);
+    if(delimiter.length===16){
+      const pieces=text.split(delimiter);
+      const result=pieces.length>1 ? pieces[1] : text;
+      return {
+        output:result
+          .replace(/\r\n/g,'\n')
+          .replace(/\r/g,'\n')
+          .trimEnd(),
+        error:''
+      };
+    }
+
+    return {
+      output:text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').trimEnd(),
+      error:''
+    };
+  }
+
+  async function runJava(){
+    const ed=qs('javaCodeEditor'), out=qs('javaOutput'), status=qs('codeLabStatus');
+    const stdin=qs('javaStdin').value;
+    if(!ed)return;
+
+    const code=wrapJavaSnippet(ed.value);
+    if(!code.trim())return;
+
+    status.textContent='Running…';
+    out.textContent='Compiling and running Java…';
+    qs('codeLabRun').disabled=true;
+
+    try{
+      if(!window.pako || typeof window.pako.deflateRaw!=='function'){
+        throw new Error('The code execution engine is still loading. Please try Run again in a moment.');
+      }
+
+      const request=buildTioRequest(code,stdin);
+      const compressed=window.pako.deflateRaw(request,{level:9});
+
+      /*
+       * text/plain keeps this a simple CORS POST (no JSON preflight).
+       * TIO consumes the compressed request body directly.
+       */
+      const response=await fetch(TIO_API,{
+        method:'POST',
+        mode:'cors',
+        headers:{'Content-Type':'text/plain;charset=UTF-8'},
+        body:compressed
+      });
+
+      if(!response.ok){
+        const serverText=await response.text().catch(()=> '');
+        throw new Error(
+          'Execution service returned HTTP '+response.status+
+          (serverText ? ': '+serverText.slice(0,300) : '.')
+        );
+      }
+
+      const result=await parseTioResponse(response);
+
+      let text=result.output||'';
+
+      if(!text.trim()){
+        text='Program finished successfully with no console output.';
+      }
+
+      out.textContent=text;
+      status.textContent='Finished';
+    }catch(err){
+      out.textContent=
+        'Unable to run the Java program.\\n\\n'+
+        err.message+
+        '\n\nIf this is the first run, wait a few seconds and try again.';
+      status.textContent='Execution unavailable';
+    }finally{
+      qs('codeLabRun').disabled=false;
+    }
+  }
+
+  function setCodeTheme(theme){
+    const lab=qs('javaCodeLab');
+    const dark=qs('codeThemeDark');
+    const light=qs('codeThemeLight');
+    if(!lab)return;
+
+    const isLight=theme==='light';
+    lab.classList.toggle('editor-light',isLight);
+    lab.classList.toggle('editor-dark',!isLight);
+
+    dark?.classList.toggle('active',!isLight);
+    light?.classList.toggle('active',isLight);
+
+    if(dark) dark.textContent=isLight?'○ Dark':'● Dark';
+    if(light) light.textContent=isLight?'● Light':'○ Light';
+
+    try{localStorage.setItem('javaCodeLabTheme',theme)}catch(e){}
+  }
+
+  function resetLab(){
+    const ed=qs('javaCodeEditor');
+    if(ed){
+      ed.value=DEFAULT_CODE;
+      updateLineNumbers();
+      qs('javaOutput').textContent='Editor reset. Press Run to execute.';
+      qs('codeLabStatus').textContent='Ready';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){
+    const open=qs('codeLabButton');
+    const close=qs('codeLabClose');
+    const run=qs('codeLabRun');
+    const reset=qs('codeLabReset');
+    const ed=qs('javaCodeEditor');
+    const ln=qs('codeLineNumbers');
+    const themeDark=qs('codeThemeDark');
+    const themeLight=qs('codeThemeLight');
+
+    themeDark?.addEventListener('click',()=>setCodeTheme('dark'));
+    themeLight?.addEventListener('click',()=>setCodeTheme('light'));
+
+    let savedTheme='dark';
+    try{savedTheme=localStorage.getItem('javaCodeLabTheme')||'dark'}catch(e){}
+    setCodeTheme(savedTheme);
+
+    open?.addEventListener('click',()=>openLab());
+    close?.addEventListener('click',closeLab);
+    run?.addEventListener('click',runJava);
+    reset?.addEventListener('click',resetLab);
+
+    ed?.addEventListener('input',updateLineNumbers);
+    ed?.addEventListener('scroll',()=>{if(ln)ln.scrollTop=ed.scrollTop});
+
+    ed?.addEventListener('keydown',function(e){
+      if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){
+        e.preventDefault();runJava();return;
+      }
+      if(e.key==='Tab'){
+        e.preventDefault();
+        const a=ed.selectionStart,b=ed.selectionEnd;
+        ed.value=ed.value.slice(0,a)+'    '+ed.value.slice(b);
+        ed.selectionStart=ed.selectionEnd=a+4;
+        updateLineNumbers();
+      }
+    });
+
+    qs('javaCodeLab')?.addEventListener('click',function(e){
+      if(e.target===this)closeLab();
+    });
+
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape' && qs('javaCodeLab')?.classList.contains('open')){
+        e.preventDefault();closeLab();
+      }
+    });
+
+    document.querySelectorAll('.run-example-btn').forEach(btn=>{
+      btn.addEventListener('click',function(e){
+        e.stopPropagation();
+        openLab(this.getAttribute('data-java-code')||'');
+      });
+    });
+
+    updateLineNumbers();
+    loadRuntime();
+  });
+})();
+</script>
+</body>
 </html>
