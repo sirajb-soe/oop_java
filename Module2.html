@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Java Module 2 — Introduction to OOP | Beginner-First Classroom Presentation</title>
+<style>
+   :root{--bg:#f4f7fa;--paper:#fff;--ink:#132033;--muted:#617087;--accent:#146fb2;--soft:#eef6fa;--line:#dbe5ec}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}.slide{width:min(1500px,94vw);min-height:100vh;margin:0 auto;padding:7vh 6vw 8vh;display:flex;flex-direction:column;justify-content:center;position:relative;background:var(--paper);border-bottom:1px solid var(--line)}.slide:after{content:"Object Oriented Programming with Java  ·  Module 2";position:absolute;bottom:2.5vh;left:6vw;color:#7c8b9b;font:700 12px/1 system-ui}.kicker{font-size:clamp(14px,1vw,19px);font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:1.7vh}h2{font-size:clamp(38px,4vw,66px);line-height:1.04;margin:.2vh 0 3vh;letter-spacing:-.025em}.title{font-size:clamp(52px,7vw,110px);font-weight:950;line-height:.94;letter-spacing:-.045em;white-space:pre-line}.subtitle{font-size:clamp(20px,1.7vw,30px);color:var(--muted);max-width:950px;line-height:1.35;margin:3vh auto}.center{text-align:center}.cover{background:linear-gradient(180deg,#fff,#f4f8fb)}.cover .kicker{margin-bottom:3vh}.accent{width:100px;height:7px;border-radius:10px;background:var(--accent);margin:4vh auto 0}.definition{font-size:clamp(24px,1.9vw,34px);line-height:1.4;color:#31465c;max-width:1200px}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.card{background:#f8fbfd;border:1px solid var(--line);border-radius:20px;padding:2vw 2.2vw}.card h3{font-size:clamp(30px,2.15vw,40px);margin:.2vh 0 1vh}.card p{font-size:clamp(21px,1.65vw,29px);line-height:1.4;color:#465a6e}.concept-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.concept-card{padding:2vw 1.9vw;background:#fff;border:1px solid var(--line);border-radius:22px}.concept-card .num{width:50px;height:50px;border-radius:14px;background:#eaf4fa;color:var(--accent);display:grid;place-items:center;font-size:22px;font-weight:950}.concept-card h3{font-size:clamp(30px,2.15vw,40px)}.concept-card p{font-size:clamp(22px,1.75vw,31px);line-height:1.35;color:#465a6e}.bullet{display:flex;gap:15px;font-size:clamp(22px,1.75vw,31px);line-height:1.42;margin:1.1vh 0;max-width:1200px}.bullet span{color:var(--accent);font-weight:950}.code{font:700 clamp(20px,1.5vw,28px)/1.5 "Cascadia Mono","Consolas","Courier New",monospace;background:#0f1724;color:#f1f6fb;border-radius:20px;padding:2vw 2.3vw;overflow:auto;white-space:pre;max-height:60vh}.run-example-btn{display:inline-flex;align-items:center;gap:7px;margin:14px 0 0;border:0;border-radius:10px;padding:13px 17px;background:#146fb2;color:#fff;font:800 17px/1 system-ui;cursor:pointer}.output{background:#0b1320;color:#e9f4ff;border-radius:20px;padding:2.5vw 3vw;font:800 clamp(25px,2vw,38px)/1.55 "Cascadia Mono","Consolas",monospace;white-space:pre-wrap;text-align:left;max-width:1000px;margin:auto}.exercise{font-size:clamp(21px,1.7vw,30px);line-height:1.4;background:#f8fbfd;border:1px solid var(--line);padding:1.15vw 1.4vw;border-radius:14px;margin:1vh 0;max-width:1250px}.learning-table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px}.learning-table{width:100%;border-collapse:collapse;font-size:clamp(18px,1.35vw,25px)}.learning-table th{background:#132033;color:#fff;text-align:left;padding:16px 18px}.learning-table td{padding:15px 18px;border-bottom:1px solid var(--line)}.mcq-question{font-size:clamp(27px,2.35vw,42px);font-weight:900;line-height:1.25;margin:2vh 0}.mcq-options{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1200px}.mcq-option{background:#f8fbfd;border:2px solid var(--line);border-radius:16px;padding:18px 20px;font-size:clamp(20px,1.55vw,28px);font-weight:750}.mcq-option.correct{border-color:#146fb2;background:#eaf4fa}.mcq-letter{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:10px;background:#132033;color:#fff;margin-right:12px}.mcq-answer-note{font-size:clamp(20px,1.5vw,27px);color:#4d6174;margin-top:2vh;padding:18px;background:#eef6fa;border-radius:14px;max-width:1200px}
+
+#presentButton,#topicToggle,#codeLabButton{position:fixed;top:24px;z-index:9000;border:0;border-radius:16px;padding:15px 21px;background:#132033;color:#fff;font:800 18px/1 system-ui;cursor:pointer;box-shadow:0 10px 25px rgba(10,25,42,.18)}#presentButton{right:24px;background:#146fb2}#topicToggle{right:165px}#codeLabButton{right:315px}#topicBackdrop{position:fixed;inset:0;background:rgba(9,20,34,.42);z-index:8999;display:none}#topicBackdrop.show{display:block}#topicSidebar{position:fixed;top:0;left:0;width:min(420px,88vw);height:100vh;background:#fff;z-index:9001;transform:translateX(-102%);transition:.22s;box-shadow:20px 0 60px rgba(10,25,42,.18);overflow:auto}#topicSidebar.open{transform:translateX(0)}.sidebar-head{padding:30px 26px 20px;border-bottom:1px solid #dbe5ec}.mini-title{font-size:13px;font-weight:900;color:#146fb2;text-transform:uppercase;letter-spacing:.1em}.sidebar-head h3{font-size:28px;margin:8px 0}.topic-btn{display:flex;gap:14px;width:100%;border:0;background:#fff;padding:16px 22px;text-align:left;border-bottom:1px solid #eef2f5;cursor:pointer}.topic-btn:hover,.topic-btn.active{background:#edf4f8}.topic-num{font-weight:950;color:#146fb2;min-width:48px}.topic-name{font-weight:750;color:#24374c;font-size:16px}
+#slideStage{position:fixed;inset:0;z-index:15000;background:#0b1320;display:none}#slideStage.active{display:block}#slideFrame{width:100vw;height:100vh}#slideFrame .slide{display:none;width:100vw;height:100vh;min-height:100vh;margin:0;padding:7vh 7vw 10vh;overflow:auto}#slideFrame .slide.presentation-current{display:flex}.slidebar{position:fixed;left:0;right:0;bottom:0;height:72px;background:rgba(19,32,51,.96);display:flex;align-items:center;gap:14px;padding:10px 18px;color:#fff;z-index:16000;transition:.2s}.slidebar button{border:0;background:#25384d;color:#fff;border-radius:10px;padding:10px 16px;font-size:20px;cursor:pointer}.slide-counter{font-weight:900;min-width:80px;text-align:center}.slide-progress{height:5px;background:#31465c;flex:1;border-radius:5px;overflow:hidden}.slide-progress span{display:block;height:100%;background:#4aa3dc;width:0}.slide-hint{font-size:12px;color:#c4d1dc}body.presentation-controls-hidden .slidebar{transform:translateY(100%);opacity:0;pointer-events:none}#presentationBottomHoverZone{position:fixed;left:0;right:0;bottom:0;height:55px;z-index:15999}
+#javaCodeLab{position:fixed;inset:0;z-index:20000;display:none;align-items:center;justify-content:center;padding:28px;background:rgba(9,20,34,.72);backdrop-filter:blur(5px)}#javaCodeLab.open{display:flex}.code-lab-window{width:min(1540px,97vw);height:min(900px,93vh);background:#f7fafc;border-radius:24px;overflow:hidden;display:flex;flex-direction:column}.code-lab-header{display:flex;justify-content:space-between;gap:20px;padding:18px 22px;background:#132033;color:#fff}.code-lab-kicker{font-size:12px;font-weight:900;letter-spacing:.12em;color:#72bce9}.code-lab-title{font-size:28px;font-weight:950}.code-lab-actions{display:flex;gap:10px}.lab-btn{min-height:48px;padding:13px 19px;border:0;border-radius:10px;font-weight:800;font-size:18px;cursor:pointer}.lab-btn.secondary{background:#e4edf3;color:#132033}.lab-btn.run{background:#146fb2;color:#fff}.lab-btn.close{background:#33485e;color:#fff}.code-lab-toolbar{display:flex;align-items:center;gap:10px;padding:12px 18px;background:#f0f5f8;border-bottom:1px solid #d9e2ea}.lab-pill{background:#132033;color:#fff;border-radius:999px;padding:7px 12px;font-weight:900}.lab-hint{font-size:13px;color:#617087;font-weight:700}.code-theme-switcher{margin-left:auto;display:flex;gap:6px;padding:4px;border-radius:12px;background:#dbe7ef}.theme-label{font-weight:800;padding:0 5px}.theme-btn{border:0;border-radius:9px;padding:8px 12px;background:transparent;cursor:pointer;font-weight:800}.theme-btn.active{background:#132033;color:#fff}.code-lab-body{display:grid;grid-template-columns:1.45fr .9fr;gap:14px;padding:14px;flex:1;min-height:0;background:#dfe8ee}.editor-panel,.io-box{display:flex;flex-direction:column;min-height:0;border-radius:14px;overflow:hidden;background:#fff}.editor-titlebar,.io-title{padding:10px 14px;background:#eef4f8;border-bottom:1px solid #d7e3eb;font-weight:900}.editor-status{float:right;color:#146fb2}.editor-wrap{display:grid;grid-template-columns:70px 1fr;flex:1;min-height:0;background:#0f1724}.line-numbers{padding:16px 14px 16px 0;text-align:right;overflow:hidden;color:#60758d;background:#0b1320;font:700 23px/1.58 "Cascadia Mono","Consolas",monospace;white-space:pre}#javaCodeEditor{width:100%;height:100%;resize:none;border:0;outline:0;padding:16px;background:#0f1724;color:#f1f6fb;font:700 23px/1.58 "Cascadia Mono","Consolas",monospace;white-space:pre;overflow:auto}.io-panel{display:grid;grid-template-rows:.72fr 1.28fr;gap:14px;min-height:0}#javaStdin{flex:1;min-height:0;border:0;outline:0;resize:none;padding:16px;font:650 20px/1.5 "Cascadia Mono","Consolas",monospace}.output-box{background:#0b1320}.java-output{flex:1;margin:0;padding:18px;overflow:auto;white-space:pre-wrap;font:700 20px/1.55 "Cascadia Mono","Consolas",monospace;color:#e9f4ff;background:#0b1320}.code-lab-footer{display:flex;justify-content:center;padding:10px;background:#132033;color:#c3d4e4;font-weight:800}body.code-lab-open #codeLabButton,body.code-lab-open #presentButton,body.code-lab-open #topicToggle,body.code-lab-open #topicSidebar{display:none!important}
+@media(max-width:1050px){.cards,.concept-grid,.mcq-options{grid-template-columns:1fr}.code-lab-body{grid-template-columns:1fr}.io-panel{grid-template-rows:1fr 1fr}#javaCodeEditor{font-size:20px}}
+  </style>
+<style id="classroom-readability-fixes">
+   /* ============================================================
+   CLASSROOM READABILITY + PRESENTATION VISIBILITY FIXES
+   Optimised for projector / last-row viewing at 1080p and above.
+   ============================================================ */
+.slide{padding:6vh 6vw 9vh;}
+.slide h2{font-size:clamp(44px,4.25vw,70px);line-height:1.06;margin:.2vh 0 2.6vh;}
+.slide .kicker{font-size:clamp(19px,1.15vw,21px);margin-bottom:1.35vh;}
+.slide .definition{font-size:clamp(30px,2.05vw,38px);line-height:1.42;}
+.slide .bullet{font-size:clamp(30px,1.95vw,36px);line-height:1.4;gap:16px;margin:1.15vh 0;}
+.slide .card h3,.slide .concept-card h3{font-size:clamp(32px,2.35vw,42px);}
+.slide .card p,.slide .concept-card p{font-size:clamp(29px,1.9vw,34px);line-height:1.38;}
+.slide .exercise{font-size:clamp(28px,1.85vw,34px);line-height:1.38;padding:1.05vw 1.3vw;margin:.85vh 0;}
+.slide .learning-table{font-size:clamp(24px,1.65vw,30px);}
+.slide .learning-table th,.slide .learning-table td{padding:14px 16px;}
+.slide .mcq-question{font-size:clamp(32px,2.55vw,46px);}
+.slide .mcq-option{font-size:clamp(28px,1.8vw,33px);padding:18px 20px;}
+.slide .mcq-answer-note{font-size:clamp(27px,1.7vw,32px);}
+.slide .code{font-size:clamp(25px,1.65vw,31px);line-height:1.48;max-height:58vh;}
+.slide .output{font-size:clamp(30px,2.2vw,42px);}
+.slide .run-example-btn{font-size:clamp(19px,1.2vw,22px);padding:14px 18px;}
+/* Keep title/cover slides powerful without making content slides cramped. */
+.slide .title{font-size:clamp(58px,7vw,112px);}
+/* Presentation mode uses the same large type, with a little more usable width. */
+#slideFrame .slide{padding:6vh 6.5vw 10vh;overflow:auto;}
+#slideFrame .slide h2{font-size:clamp(50px,4.4vw,76px);}
+#slideFrame .slide .definition{font-size:clamp(30px,2.15vw,40px);}
+#slideFrame .slide .bullet{font-size:clamp(30px,2.0vw,37px);}
+#slideFrame .slide .card p,#slideFrame .slide .concept-card p{font-size:clamp(29px,1.95vw,35px);}
+#slideFrame .slide .exercise{font-size:clamp(29px,1.9vw,35px);}
+#slideFrame .slide .learning-table{font-size:clamp(27px,1.7vw,32px);}
+#slideFrame .slide .code{font-size:clamp(26px,1.7vw,33px);}
+#slideFrame .slide .mcq-option{font-size:clamp(29px,1.85vw,34px);}
+/* Any instructional paragraph on a slide must remain legible on smaller preview/projector viewports. */
+.slide > p:not(.subtitle){font-size:clamp(30px,2.05vw,38px);line-height:1.42;max-width:1250px;}
+#slideFrame .slide > p:not(.subtitle){font-size:clamp(30px,2.15vw,40px);line-height:1.42;}
+.slide > p.definition{max-width:1250px;}
+/* Code Lab: reference-compatible themes and projector-friendly controls. */
+.code-lab-toolbar{flex-wrap:wrap;}
+.code-theme-switcher{margin-left:auto;display:flex;align-items:center;gap:6px;padding:4px;border-radius:12px;background:#dbe7ef;}
+.theme-label{font:800 15px/1 system-ui,-apple-system,"Segoe UI",sans-serif;color:#52667c;padding:0 5px;}
+.theme-btn{border:0;border-radius:9px;padding:9px 13px;min-height:40px;cursor:pointer;background:transparent;color:#3e5268;font:800 15px/1 system-ui,-apple-system,"Segoe UI",sans-serif;}
+.theme-btn.active{background:#132033;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.12);}
+#javaCodeLab.editor-dark .editor-wrap{background:#0f1724;}
+#javaCodeLab.editor-dark #javaCodeEditor{background:#0f1724;color:#f1f6fb;caret-color:#70c6ff;}
+#javaCodeLab.editor-dark .line-numbers{background:#0b1320;color:#60758d;}
+#javaCodeLab.editor-dark .output-box{background:#0b1320;}
+#javaCodeLab.editor-dark .java-output{background:#0b1320;color:#e9f4ff;}
+#javaCodeLab.editor-light .editor-wrap{background:#f7f9fb;border-top:1px solid #d9e2ea;}
+#javaCodeLab.editor-light #javaCodeEditor{background:#fff;color:#172638;caret-color:#146fb2;}
+#javaCodeLab.editor-light .line-numbers{background:#eef3f7;color:#6d7f91;}
+#javaCodeLab.editor-light .output-box{background:#fff;}
+#javaCodeLab.editor-light .output-box .io-title{background:#eef4f8;color:#132033;border-bottom-color:#d7e3eb;}
+#javaCodeLab.editor-light .java-output{background:#fff;color:#172638;}
+#javaCodeLab.editor-dark #javaStdin{background:#0f1724;color:#f1f6fb;caret-color:#70c6ff;}
+#javaCodeLab.editor-light #javaStdin{background:#fff;color:#172638;caret-color:#146fb2;}
+#javaCodeLab.editor-dark .io-box{background:#101a28;color:#f1f6fb;}
+#javaCodeLab.editor-dark .io-title{background:#172536;color:#f1f6fb;border-bottom-color:#2b4055;}
+#javaCodeLab.editor-light .io-box{background:#fff;color:#172638;}
+#javaCodeLab .code-lab-overlay{z-index:20000!important;}
+#javaCodeLab .code-lab-header{position:relative;z-index:2;}
+#javaCodeLab .code-lab-actions{flex-shrink:0;}
+#javaCodeLab .lab-btn{min-height:50px;padding:13px 20px;font-size:18px;}
+#javaCodeLab #javaCodeEditor{font-size:24px;line-height:1.55;tab-size:4;}
+#javaCodeLab .line-numbers{width:70px;box-sizing:border-box;white-space:pre!important;overflow:hidden!important;word-break:normal!important;overflow-wrap:normal!important;text-align:right;padding-right:14px;font-size:24px;line-height:1.55;}
+#javaCodeLab .java-output{font-size:21px;line-height:1.5;}
+#javaCodeLab .io-title{font-size:16px;}
+#javaCodeLab .lab-hint{font-size:14px;}
+#javaCodeLab .code-lab-footer{justify-content:center;}
+@media(max-width:1050px){
+  #javaCodeLab .code-lab-window{height:94vh;}
+  #javaCodeLab .code-lab-body{grid-template-columns:1fr;}
+  #javaCodeLab .io-panel{grid-template-columns:1fr 1fr;grid-template-rows:1fr;}
+  #javaCodeLab #javaCodeEditor{font-size:20px;}
+  #javaCodeLab .line-numbers{font-size:20px;}
+}
+@media(max-width:760px){
+  .slide,.slide#slideFrame .slide{padding:5vh 5vw 10vh;}
+  .slide .cards,.slide .concept-grid{grid-template-columns:1fr;}
+  #javaCodeLab{padding:8px;}
+  #javaCodeLab .code-lab-window{width:100%;height:98vh;border-radius:14px;}
+  #javaCodeLab .code-lab-header{padding:12px;gap:10px;}
+  #javaCodeLab .code-lab-title{font-size:22px;}
+  #javaCodeLab .code-lab-actions{gap:6px;}
+  #javaCodeLab .lab-btn{min-height:44px;padding:10px 12px;font-size:15px;}
+  #javaCodeLab .code-lab-toolbar{padding:9px 10px;gap:7px;}
+  #javaCodeLab .code-theme-switcher{margin-left:0;width:100%;}
+  #javaCodeLab .theme-btn{flex:1;}
+  #javaCodeLab .code-lab-body{padding:8px;gap:8px;}
+}
+  </style>
+<style id="final-classroom-fix">
+   /* FINAL DETERMINISTIC CLASSROOM TYPOGRAPHY — reference codelab.html inspired */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#e9eef4;color:#132033;font-family:"Segoe UI",Arial,sans-serif}
+body{overflow-x:hidden}
+.slide{width:100vw!important;height:100vh!important;min-height:650px!important;padding:7vh 9vw 8vh!important;display:flex;flex-direction:column;justify-content:center;background:#fff;page-break-after:always;overflow:hidden;position:relative}
+.slide:after{font-size:11px!important;letter-spacing:.15em!important}
+.slide .kicker{font-size:clamp(16px,1vw,18px)!important;line-height:1.2!important;font-weight:800!important;letter-spacing:.15em!important;margin-bottom:2vh!important}
+.slide h2{font-size:clamp(40px,4.8vw,72px)!important;line-height:1.05!important;margin:0 0 2.5vh!important;letter-spacing:-.03em!important}
+.slide .title{font-size:clamp(55px,7vw,115px)!important;line-height:1!important}
+.slide .definition{font-size:clamp(27px,2.7vw,46px)!important;line-height:1.25!important;max-width:1150px!important;margin:0!important}
+.slide .bullet{font-size:clamp(25px,2.15vw,37px)!important;line-height:1.45!important;margin:1.1vh 0!important;max-width:1180px!important}
+.slide .card h3,.slide .concept-card h3{font-size:clamp(28px,2.15vw,38px)!important;line-height:1.12!important}
+.slide .card p,.slide .concept-card p{font-size:clamp(24px,1.7vw,30px)!important;line-height:1.35!important}
+.slide .exercise{font-size:clamp(25px,1.7vw,32px)!important;line-height:1.35!important}
+.slide .learning-table{font-size:clamp(21px,1.55vw,28px)!important}
+.slide .learning-table th{font-size:clamp(22px,1.6vw,29px)!important}
+.slide .mcq-question{font-size:clamp(29px,2.35vw,42px)!important}
+.slide .mcq-option{font-size:clamp(24px,1.7vw,30px)!important}
+.slide .code{font-size:clamp(22px,1.75vw,34px)!important;line-height:1.48!important}
+.slide .output{font-size:clamp(30px,3vw,52px)!important}
+.slide > p:not(.subtitle){font-size:clamp(27px,2.5vw,42px)!important;line-height:1.35!important;max-width:1200px!important}
+.slide[data-generated-points="true"]{align-items:flex-start}
+.slide[data-generated-points="true"] .bullet{max-width:1120px}
+/* Presentation clones use the same classroom scale. */
+#slideFrame .slide{width:100vw!important;height:100vh!important;min-height:650px!important;padding:7vh 9vw 10vh!important;overflow:hidden!important}
+#slideFrame .slide h2{font-size:clamp(42px,4.8vw,74px)!important}
+#slideFrame .slide .definition{font-size:clamp(28px,2.7vw,46px)!important}
+#slideFrame .slide .bullet{font-size:clamp(26px,2.15vw,37px)!important}
+#slideFrame .slide .card p,#slideFrame .slide .concept-card p{font-size:clamp(24px,1.7vw,31px)!important}
+#slideFrame .slide .code{font-size:clamp(23px,1.8vw,35px)!important}
+#slideFrame .slide .exercise{font-size:clamp(25px,1.75vw,33px)!important}
+/* Explicit order guard: no content can render before its title. */
+.slide>.kicker{order:10}.slide>h2,.slide>.title{order:20}.slide>.subtitle{order:25}.slide>p{order:30}.slide>.bullet,.slide>.cards,.slide>.concept-grid,.slide>.learning-table-wrap,.slide>.exercise,.slide>.code,.slide>.output,.slide>.run-example-btn,.slide>.syntax-card,.slide>.note-strip{order:40}.slide>.accent{order:90}
+@media(max-width:1000px){.slide .cards,.slide .concept-grid{grid-template-columns:1fr}.slide{padding-left:7vw!important;padding-right:7vw!important}}
+  
+/* Presentation-mode launcher remains available for live coding. */
+#slideStage.active ~ #codeLabButton{display:block!important;z-index:20001!important}
+  </style>
+<style>
+/* MODULE 2 BEGINNER-FIRST CLASSROOM REBUILD */
+.slide{justify-content:flex-start;padding-top:8vh;padding-bottom:9vh;}
+.slide h2{margin-top:0;margin-bottom:2.5vh;}
+.slide .definition{margin:1vh 0 2.5vh;}
+.slide .bullet{margin:.85vh 0;}
+.slide .syntax-card{max-width:1250px;margin-top:1vh;}
+.slide .code{max-width:1250px;}
+.slide .output{max-width:1100px;margin-top:2vh;}
+.slide .note-strip{max-width:1100px;margin-top:2vh;}
+/* Never allow the body text to move above the title. */
+.slide{display:flex;}
+.slide>.kicker{order:10}.slide>h2,.slide>.title{order:20}.slide>.subtitle{order:25}.slide>.definition,.slide>p:not(.subtitle){order:30}.slide>.bullet,.slide>.cards,.slide>.concept-grid,.slide>.learning-table-wrap,.slide>.exercise,.slide>.code,.slide>.output,.slide>.run-example-btn,.slide>.syntax-card,.slide>.note-strip{order:40}.slide>.accent{order:90}
+/* Projector-safe minimum sizes. */
+.slide .kicker{font-size:clamp(17px,1.15vw,21px)!important}
+.slide h2{font-size:clamp(40px,4.15vw,68px)!important}
+.slide .definition{font-size:clamp(28px,2.05vw,38px)!important;line-height:1.38!important}
+.slide .bullet{font-size:clamp(25px,1.72vw,33px)!important;line-height:1.42!important;max-width:1250px!important}
+.slide .code{font-size:clamp(21px,1.38vw,28px)!important;line-height:1.48!important}
+.slide .output{font-size:clamp(28px,2.2vw,42px)!important;line-height:1.35!important}
+.slide .run-example-btn{font-size:17px!important;min-height:46px}
+#slideFrame .slide{width:100vw!important;height:100vh!important;min-height:650px!important;padding:7vh 8vw 9vh!important;overflow:hidden!important;justify-content:flex-start!important}
+#slideFrame .slide h2{font-size:clamp(42px,4.6vw,74px)!important}
+#slideFrame .slide .definition{font-size:clamp(29px,2.5vw,45px)!important}
+#slideFrame .slide .bullet{font-size:clamp(26px,2vw,36px)!important}
+#slideFrame .slide .code{font-size:clamp(22px,1.65vw,34px)!important}
+@media(max-width:1050px){.slide{padding-left:7vw!important;padding-right:7vw!important}.slide .bullet{max-width:100%!important}}
+</style><style>
+/* MODULE 2 BEGINNER-FIRST CLASSROOM REBUILD */
+.slide{justify-content:flex-start;padding-top:8vh;padding-bottom:9vh;}
+.slide h2{margin-top:0;margin-bottom:2.5vh;}
+.slide .definition{margin:1vh 0 2.5vh;}
+.slide .bullet{margin:.85vh 0;}
+.slide .syntax-card{max-width:1250px;margin-top:1vh;}
+.slide .code{max-width:1250px;}
+.slide .output{max-width:1100px;margin-top:2vh;}
+.slide .note-strip{max-width:1100px;margin-top:2vh;}
+/* Never allow the body text to move above the title. */
+.slide{display:flex;}
+.slide>.kicker{order:10}.slide>h2,.slide>.title{order:20}.slide>.subtitle{order:25}.slide>.definition,.slide>p:not(.subtitle){order:30}.slide>.bullet,.slide>.cards,.slide>.concept-grid,.slide>.learning-table-wrap,.slide>.exercise,.slide>.code,.slide>.output,.slide>.run-example-btn,.slide>.syntax-card,.slide>.note-strip{order:40}.slide>.accent{order:90}
+/* Projector-safe minimum sizes. */
+.slide .kicker{font-size:clamp(17px,1.15vw,21px)!important}
+.slide h2{font-size:clamp(40px,4.15vw,68px)!important}
+.slide .definition{font-size:clamp(28px,2.05vw,38px)!important;line-height:1.38!important}
+.slide .bullet{font-size:clamp(25px,1.72vw,33px)!important;line-height:1.42!important;max-width:1250px!important}
+.slide .code{font-size:clamp(21px,1.38vw,28px)!important;line-height:1.48!important}
+.slide .output{font-size:clamp(28px,2.2vw,42px)!important;line-height:1.35!important}
+.slide .run-example-btn{font-size:17px!important;min-height:46px}
+#slideFrame .slide{width:100vw!important;height:100vh!important;min-height:650px!important;padding:7vh 8vw 9vh!important;overflow:hidden!important;justify-content:flex-start!important}
+#slideFrame .slide h2{font-size:clamp(42px,4.6vw,74px)!important}
+#slideFrame .slide .definition{font-size:clamp(29px,2.5vw,45px)!important}
+#slideFrame .slide .bullet{font-size:clamp(26px,2vw,36px)!important}
+#slideFrame .slide .code{font-size:clamp(22px,1.65vw,34px)!important}
+@media(max-width:1050px){.slide{padding-left:7vw!important;padding-right:7vw!important}.slide .bullet{max-width:100%!important}}
+</style><style>
+/* MODULE 2 BEGINNER-FIRST CLASSROOM REBUILD */
+.slide{justify-content:flex-start;padding-top:8vh;padding-bottom:9vh;}
+.slide h2{margin-top:0;margin-bottom:2.5vh;}
+.slide .definition{margin:1vh 0 2.5vh;}
+.slide .bullet{margin:.85vh 0;}
+.slide .syntax-card{max-width:1250px;margin-top:1vh;}
+.slide .code{max-width:1250px;}
+.slide .output{max-width:1100px;margin-top:2vh;}
+.slide .note-strip{max-width:1100px;margin-top:2vh;}
+/* Never allow the body text to move above the title. */
+.slide{display:flex;}
+.slide>.kicker{order:10}.slide>h2,.slide>.title{order:20}.slide>.subtitle{order:25}.slide>.definition,.slide>p:not(.subtitle){order:30}.slide>.bullet,.slide>.cards,.slide>.concept-grid,.slide>.learning-table-wrap,.slide>.exercise,.slide>.code,.slide>.output,.slide>.run-example-btn,.slide>.syntax-card,.slide>.note-strip{order:40}.slide>.accent{order:90}
+/* Projector-safe minimum sizes. */
+.slide .kicker{font-size:clamp(17px,1.15vw,21px)!important}
+.slide h2{font-size:clamp(40px,4.15vw,68px)!important}
+.slide .definition{font-size:clamp(28px,2.05vw,38px)!important;line-height:1.38!important}
+.slide .bullet{font-size:clamp(25px,1.72vw,33px)!important;line-height:1.42!important;max-width:1250px!important}
+.slide .code{font-size:clamp(21px,1.38vw,28px)!important;line-height:1.48!important}
+.slide .output{font-size:clamp(28px,2.2vw,42px)!important;line-height:1.35!important}
+.slide .run-example-btn{font-size:17px!important;min-height:46px}
+#slideFrame .slide{width:100vw!important;height:100vh!important;min-height:650px!important;padding:7vh 8vw 9vh!important;overflow:hidden!important;justify-content:flex-start!important}
+#slideFrame .slide h2{font-size:clamp(42px,4.6vw,74px)!important}
+#slideFrame .slide .definition{font-size:clamp(29px,2.5vw,45px)!important}
+#slideFrame .slide .bullet{font-size:clamp(26px,2vw,36px)!important}
+#slideFrame .slide .code{font-size:clamp(22px,1.65vw,34px)!important}
+@media(max-width:1050px){.slide{padding-left:7vw!important;padding-right:7vw!important}.slide .bullet{max-width:100%!important}}
+</style></head>
+<body>
+<button id="codeLabButton" title="Open Java Code Lab" type="button">
+   ⌘ Code Lab
+  </button>
+<button id="presentButton" title="Start slide presentation" type="button">
+   ▶ Present
+  </button>
+<button id="topicToggle" title="Open topics" type="button">
+   ☰
+  </button>
+<div id="topicBackdrop">
+</div>
+<aside id="topicSidebar">
+<div class="sidebar-head">
+<div class="mini-title">
+     Object Oriented Programming with Java
+    </div>
+<h3>
+     Presentation Topics
+    </h3>
+</div>
+<nav id="topicList">
+</nav>
+</aside>
+<div id="slideStage">
+<div id="slideFrame">
+</div>
+<div id="presentationBottomHoverZone">
+</div>
+<div class="slidebar">
+<button id="prevSlide">
+     ←
+    </button>
+<button id="nextSlide">
+     →
+    </button>
+<span class="slide-counter" id="slideCounter">
+     1
+    </span>
+<div class="slide-progress">
+<span id="slideProgress">
+</span>
+</div>
+<span class="slide-hint">
+     ← → Navigate · Space Next · Home / End · F Fullscreen · Esc Exit
+    </span>
+<button id="slideExit">
+     ✕ Exit
+    </button>
+</div>
+</div>
+<section class="slide center cover"><div class="kicker">Object Oriented Programming with Java</div><div class="title">MODULE 2 · INTRODUCTION TO OOP</div><p class="subtitle">Beginner-first classroom sequence</p><div class="accent"></div></section><section class="slide"><div class="kicker">Module Roadmap</div><h2>How We Will Learn OOP</h2><div class="bullet"><span>•</span><div><strong>First:</strong> understand class, field, method, constructor, object and reference.</div></div><div class="bullet"><span>•</span><div><strong>Next:</strong> create and initialize objects, then call methods.</div></div><div class="bullet"><span>•</span><div><strong>Then:</strong> learn overloading, recursion, access control, static and final.</div></div><div class="bullet"><span>•</span><div><strong>Finally:</strong> connect the four OOP principles with simple examples.</div></div></section><section class="slide"><div class="kicker">Before We Write OOP Code</div><h2>The Terms We Must Know</h2><div class="bullet"><span>•</span><div>Class — defines the structure of objects.</div></div><div class="bullet"><span>•</span><div>Object — an instance created from a class.</div></div><div class="bullet"><span>•</span><div>Field — stores an object's data (state).</div></div><div class="bullet"><span>•</span><div>Method — defines an object's behavior (action).</div></div></section><section class="slide center cover"><div class="kicker">01 · Class</div><div class="title">CLASS</div><div class="accent"></div></section><section class="slide"><div class="kicker">01 · Class</div><h2>What Is a Class?</h2><p class="definition">A class is a blueprint or prototype from which objects are created.</p></section><section class="slide"><div class="kicker">01 · Class</div><h2>Class — In Simple Words</h2><div class="bullet"><span>•</span><div>A class describes what its objects can store and do.</div></div><div class="bullet"><span>•</span><div>Fields represent data or state.</div></div><div class="bullet"><span>•</span><div>Methods represent behavior.</div></div><div class="bullet"><span>•</span><div>A class declaration is written with the class name and a class body.</div></div></section><section class="slide"><div class="kicker">01 · Class</div><h2>Class — Important Points</h2><div class="bullet"><span>•</span><div>A class describes what its objects can store and do.</div></div><div class="bullet"><span>•</span><div>Fields represent data or state.</div></div><div class="bullet"><span>•</span><div>Methods represent behavior.</div></div><div class="bullet"><span>•</span><div>A class declaration is written with the class name and a class body.</div></div></section><section class="slide"><div class="kicker">01 · Class</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>class ClassName {
+    // fields
+    // constructors
+    // methods
+}</code></pre></div></section><section class="slide"><div class="kicker">01 · Class</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div><code>class</code> starts the class declaration.</div></div><div class="bullet"><span>•</span><div><code>ClassName</code> is the name of the class.</div></div><div class="bullet"><span>•</span><div>Inside <code>{ }</code>, we write fields, constructors and methods.</div></div></section><section class="slide"><div class="kicker">01 · Class</div><h2>Example 1 · Empty class</h2><pre class="code"><code>class Student {
+}</code></pre><button class="run-example-btn" data-java-code="class Student {
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">01 · Class</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>No output — the class is only declared.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">01 · Class</div><h2>Example 2 · One field</h2><pre class="code"><code>class Student {
+    String name;
+}</code></pre><button class="run-example-btn" data-java-code="class Student {
+    String name;
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">01 · Class</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>No output — name is a field.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">01 · Class</div><h2>Example 3 · Field with a value</h2><pre class="code"><code>class Student {
+    String name = "Asha";
+}</code></pre><button asha";="" class="run-example-btn" data-java-code='class Student {
+    String name = "Asha";
+}' type="button" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">01 · Class</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>No output — the field is initialized.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">01 · Class</div><h2>Example 4 · Class with a method</h2><pre class="code"><code>class Student {
+    void show() {
+        System.out.println("Student");
+    }
+}</code></pre><button class="run-example-btn" data-java-code='class Student {
+    void show() {
+        System.out.println("Student");
+    }
+}' student");="" type="button" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">01 · Class</div><h2>Example 4 · What to Notice</h2><div class="bullet"><span>•</span><div>No output — the method runs only when called.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">01 · Class</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Class</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">02 · Object</div><div class="title">OBJECT</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · Object</div><h2>What Is an Object?</h2><p class="definition">An object is an instance of a class with its own state and behavior.</p></section><section class="slide"><div class="kicker">02 · Object</div><h2>Object — In Simple Words</h2><div class="bullet"><span>•</span><div>An object is an instance of a class.</div></div><div class="bullet"><span>•</span><div>Its state is stored in fields.</div></div><div class="bullet"><span>•</span><div>Its behavior is provided by methods.</div></div><div class="bullet"><span>•</span><div>A Java object is normally created with new and a constructor.</div></div></section><section class="slide"><div class="kicker">02 · Object</div><h2>Object — Important Points</h2><div class="bullet"><span>•</span><div>An object is an instance of a class.</div></div><div class="bullet"><span>•</span><div>Its state is stored in fields.</div></div><div class="bullet"><span>•</span><div>Its behavior is provided by methods.</div></div><div class="bullet"><span>•</span><div>A Java object is normally created with new and a constructor.</div></div></section><section class="slide"><div class="kicker">02 · Object</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>ClassName referenceName = new ClassName();</code></pre></div></section><section class="slide"><div class="kicker">02 · Object</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div><code>ClassName</code> tells Java the type of object.</div></div><div class="bullet"><span>•</span><div><code>referenceName</code> stores the reference to the object.</div></div><div class="bullet"><span>•</span><div><code>new ClassName()</code> creates the object and calls its constructor.</div></div></section><section class="slide"><div class="kicker">02 · Object</div><h2>Example 1 · Declare a reference</h2><pre class="code"><code>Student s;</code></pre><button class="run-example-btn" data-java-code="Student s;" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">02 · Object</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>No output — only a reference variable is declared.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">02 · Object</div><h2>Example 2 · Create an object</h2><pre class="code"><code>new Student();</code></pre><button class="run-example-btn" data-java-code="new Student();" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">02 · Object</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>An object is created, but its reference is not stored.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">02 · Object</div><h2>Example 3 · Declare and create</h2><pre class="code"><code>Student s = new Student();</code></pre><button class="run-example-btn" data-java-code="Student s = new Student();" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">02 · Object</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>No output — s now refers to a Student object.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">02 · Object</div><h2>Example 4 · Create and use a field</h2><pre class="code"><code>Student s = new Student();
+s.name = "Asha";
+System.out.println(s.name);</code></pre><button asha";="" class="run-example-btn" data-java-code='Student s = new Student();
+s.name = "Asha";
+System.out.println(s.name);' system.out.println(s.name);"="" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">02 · Object</div><h2>Example 4 · What to Notice</h2><div class="bullet"><span>•</span><div>Asha</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">02 · Object</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Object</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">03 · Object Creation &amp; Initialization</div><div class="title">OBJECT CREATION &amp; INITIALIZATION</div><div class="accent"></div></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>What Are Object Creation and Initialization?</h2><p class="definition">Object creation creates an instance of a class; initialization gives the new object its initial state.</p></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>Object Creation &amp; Initialization — In Simple Words</h2><div class="bullet"><span>•</span><div>Declare a reference variable first, when needed.</div></div><div class="bullet"><span>•</span><div>Use new to create the object.</div></div><div class="bullet"><span>•</span><div>A constructor runs during object creation.</div></div><div class="bullet"><span>•</span><div>Fields can then be assigned or initialized by a constructor.</div></div></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>Object Creation &amp; Initialization — Important Points</h2><div class="bullet"><span>•</span><div>Declare a reference variable first, when needed.</div></div><div class="bullet"><span>•</span><div>Use new to create the object.</div></div><div class="bullet"><span>•</span><div>A constructor runs during object creation.</div></div><div class="bullet"><span>•</span><div>Fields can then be assigned or initialized by a constructor.</div></div></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>ClassName ref = new ClassName();
+ref.field = value;</code></pre></div></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>Declare a reference when needed.</div></div><div class="bullet"><span>•</span><div>Use <code>new</code> to create an object.</div></div><div class="bullet"><span>•</span><div>Give the object its initial values through fields or a constructor.</div></div></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>Example 1 · Field initialization after creation</h2><pre class="code"><code>Student s = new Student();
+s.name = "Asha";
+System.out.println(s.name);</code></pre><button asha";="" class="run-example-btn" data-java-code='Student s = new Student();
+s.name = "Asha";
+System.out.println(s.name);' system.out.println(s.name);"="" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>Asha</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>Example 2 · Two fields</h2><pre class="code"><code>Student s = new Student();
+s.name = "Asha";
+s.age = 20;
+System.out.println(s.name + " " + s.age);</code></pre><button "="" +="" asha";="" class="run-example-btn" data-java-code='Student s = new Student();
+s.name = "Asha";
+s.age = 20;
+System.out.println(s.name + " " + s.age);' s.age="20;" s.age);"="" system.out.println(s.name="" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>Asha 20</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>Example 3 · Two objects</h2><pre class="code"><code>Student a = new Student();
+Student b = new Student();
+a.name = "Asha";
+b.name = "Ravi";
+System.out.println(a.name);
+System.out.println(b.name);</code></pre><button ;="" asha";="" b.name="Ravi" class="run-example-btn" data-java-code='Student a = new Student();
+Student b = new Student();
+a.name = "Asha";
+b.name = "Ravi";
+System.out.println(a.name);
+System.out.println(b.name);' system.out.println(a.name);="" system.out.println(b.name);"="" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>Asha
+Ravi</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">03 · Object Creation &amp; Initialization</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Object Creation &amp; Initialization</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">04 · Object Reference Variables</div><div class="title">OBJECT REFERENCE VARIABLES</div><div class="accent"></div></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>What Is an Object Reference?</h2><p class="definition">A reference variable is a variable that refers to an object.</p></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>Object Reference Variables — In Simple Words</h2><div class="bullet"><span>•</span><div>The variable does not contain the object itself.</div></div><div class="bullet"><span>•</span><div>It can refer to an object created from its declared class type.</div></div><div class="bullet"><span>•</span><div>Two reference variables can refer to the same object.</div></div><div class="bullet"><span>•</span><div>A reference can also contain null.</div></div></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>Object Reference Variables — Important Points</h2><div class="bullet"><span>•</span><div>The variable does not contain the object itself.</div></div><div class="bullet"><span>•</span><div>It can refer to an object created from its declared class type.</div></div><div class="bullet"><span>•</span><div>Two reference variables can refer to the same object.</div></div><div class="bullet"><span>•</span><div>A reference can also contain null.</div></div></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>ClassName referenceName;
+referenceName = new ClassName();</code></pre></div></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>A reference variable stores a reference to an object.</div></div><div class="bullet"><span>•</span><div>The declaration gives the reference its class type.</div></div><div class="bullet"><span>•</span><div>Assignment can make the reference point to an object.</div></div></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>Example 1 · Reference points to an object</h2><pre class="code"><code>Student s = new Student();
+s.name = "Asha";
+System.out.println(s.name);</code></pre><button asha";="" class="run-example-btn" data-java-code='Student s = new Student();
+s.name = "Asha";
+System.out.println(s.name);' system.out.println(s.name);"="" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>Asha</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>Example 2 · Two references, one object</h2><pre class="code"><code>Student a = new Student();
+Student b = a;
+a.name = "Ravi";
+System.out.println(b.name);</code></pre><button class="run-example-btn" data-java-code='Student a = new Student();
+Student b = a;
+a.name = "Ravi";
+System.out.println(b.name);' ravi";="" system.out.println(b.name);"="" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>Ravi</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>Example 3 · null reference</h2><pre class="code"><code>Student s = null;
+System.out.println(s);</code></pre><button class="run-example-btn" data-java-code="Student s = null;
+System.out.println(s);" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>null</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">04 · Object Reference Variables</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Object Reference Variables</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">05 · Methods</div><div class="title">METHODS</div><div class="accent"></div></section><section class="slide"><div class="kicker">05 · Methods</div><h2>What Is a Method?</h2><p class="definition">A method is a block of code that performs a specific task and can be called when needed.</p></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Methods — In Simple Words</h2><div class="bullet"><span>•</span><div>A method can receive input through parameters.</div></div><div class="bullet"><span>•</span><div>A method may return a value or use void when it returns no value.</div></div><div class="bullet"><span>•</span><div>Methods can read or change object state.</div></div><div class="bullet"><span>•</span><div>An instance method is normally called through an object reference.</div></div></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Methods — Important Points</h2><div class="bullet"><span>•</span><div>A method can receive input through parameters.</div></div><div class="bullet"><span>•</span><div>A method may return a value or use void when it returns no value.</div></div><div class="bullet"><span>•</span><div>Methods can read or change object state.</div></div><div class="bullet"><span>•</span><div>An instance method is normally called through an object reference.</div></div></section><section class="slide"><div class="kicker">05 · Methods</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>returnType methodName(parameterList) {
+    // statements
+}</code></pre></div></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div><code>returnType</code> tells what the method returns; use <code>void</code> when it returns nothing.</div></div><div class="bullet"><span>•</span><div><code>methodName</code> identifies the method.</div></div><div class="bullet"><span>•</span><div>Parameters receive input values.</div></div><div class="bullet"><span>•</span><div>The statements inside <code>{ }</code> perform the work.</div></div></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Example 1 · Void method</h2><pre class="code"><code>class Student {
+    void greet() {
+        System.out.println("Hello");
+    }
+}</code></pre><button class="run-example-btn" data-java-code='class Student {
+    void greet() {
+        System.out.println("Hello");
+    }
+}' hello");="" type="button" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>No output until greet() is called.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Example 2 · Method with parameter</h2><pre class="code"><code>class Student {
+    void greet(String name) {
+        System.out.println("Hello " + name);
+    }
+}</code></pre><button "="" +="" class="run-example-btn" data-java-code='class Student {
+    void greet(String name) {
+        System.out.println("Hello " + name);
+    }
+}' hello="" name);="" type="button" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>Calling greet("Asha") prints: Hello Asha</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Example 3 · Method with return value</h2><pre class="code"><code>class Calculator {
+    int add(int a, int b) {
+        return a + b;
+    }
+}</code></pre><button class="run-example-btn" data-java-code="class Calculator {
+    int add(int a, int b) {
+        return a + b;
+    }
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>Calling add(2, 3) returns 5</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Example 4 · Call through object</h2><pre class="code"><code>class Student {
+    void show() {
+        System.out.println("Student");
+    }
+}
+
+Student s = new Student();
+s.show();</code></pre><button class="run-example-btn" data-java-code='class Student {
+    void show() {
+        System.out.println("Student");
+    }
+}
+
+Student s = new Student();
+s.show();' s="new" s.show();"="" student="" student");="" student();="" type="button" }="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Example 4 · What to Notice</h2><div class="bullet"><span>•</span><div>Student</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">05 · Methods</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Methods</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">06 · Constructors</div><div class="title">CONSTRUCTORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>What Is a Constructor?</h2><p class="definition">A constructor is a special class member that is called when an object is created to initialize it.</p></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Constructors — In Simple Words</h2><div class="bullet"><span>•</span><div>A constructor initializes a new object.</div></div><div class="bullet"><span>•</span><div>Its name must match the class name.</div></div><div class="bullet"><span>•</span><div>A constructor has no return type, not even void.</div></div><div class="bullet"><span>•</span><div>Java supports constructor overloading.</div></div></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Constructors — Important Points</h2><div class="bullet"><span>•</span><div>A constructor initializes a new object.</div></div><div class="bullet"><span>•</span><div>Its name must match the class name.</div></div><div class="bullet"><span>•</span><div>A constructor has no return type, not even void.</div></div><div class="bullet"><span>•</span><div>Java supports constructor overloading.</div></div></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>ClassName(parameters) {
+    // initialization
+}</code></pre></div></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>The constructor name must match the class name.</div></div><div class="bullet"><span>•</span><div>A constructor has no return type—not even <code>void</code>.</div></div><div class="bullet"><span>•</span><div>The body initializes the new object.</div></div><div class="bullet"><span>•</span><div>Use parameters when the object needs starting values.</div></div></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Example 1 · No constructor declared</h2><pre class="code"><code>class Student {
+    String name;
+}
+
+Student s = new Student();</code></pre><button class="run-example-btn" data-java-code="class Student {
+    String name;
+}
+
+Student s = new Student();" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>A default constructor is implicitly provided because no constructor is declared.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Example 2 · User-defined no-argument constructor</h2><pre class="code"><code>class Student {
+    String name;
+    Student() {
+        name = "Unknown";
+    }
+}</code></pre><button class="run-example-btn" data-java-code='class Student {
+    String name;
+    Student() {
+        name = "Unknown";
+    }
+}' type="button" unknown";="" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>A newly created Student starts with name = Unknown.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Example 3 · Parameterized constructor</h2><pre class="code"><code>class Student {
+    String name;
+    Student(String name) {
+        this.name = name;
+    }
+}</code></pre><button class="run-example-btn" data-java-code="class Student {
+    String name;
+    Student(String name) {
+        this.name = name;
+    }
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>new Student("Asha") gives name = Asha</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Example 4 · Copy-style constructor</h2><pre class="code"><code>class Student {
+    String name;
+    Student(Student other) {
+        this.name = other.name;
+    }
+}</code></pre><button class="run-example-btn" data-java-code="class Student {
+    String name;
+    Student(Student other) {
+        this.name = other.name;
+    }
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Example 4 · What to Notice</h2><div class="bullet"><span>•</span><div>new Student(oldStudent) copies the name from oldStudent.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">06 · Constructors</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Constructors</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">07 · this Keyword</div><div class="title">THIS KEYWORD</div><div class="accent"></div></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>What Is the this Keyword?</h2><p class="definition">In an instance method or constructor, this is a reference to the current object.</p></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>this Keyword — In Simple Words</h2><div class="bullet"><span>•</span><div>this refers to the object whose instance member is being used.</div></div><div class="bullet"><span>•</span><div>this.name can distinguish a field from a parameter with the same name.</div></div><div class="bullet"><span>•</span><div>this can call another instance method.</div></div><div class="bullet"><span>•</span><div>this(...) can invoke another constructor in the same class.</div></div></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>this Keyword — Important Points</h2><div class="bullet"><span>•</span><div>this refers to the object whose instance member is being used.</div></div><div class="bullet"><span>•</span><div>this.name can distinguish a field from a parameter with the same name.</div></div><div class="bullet"><span>•</span><div>this can call another instance method.</div></div><div class="bullet"><span>•</span><div>this(...) can invoke another constructor in the same class.</div></div></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>this.memberName
+this.methodName()
+this(arguments)</code></pre></div></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div><code>this</code> refers to the current object.</div></div><div class="bullet"><span>•</span><div>Use <code>this.field</code> to refer to the current object’s field.</div></div><div class="bullet"><span>•</span><div>Use <code>this(...)</code> to call another constructor in the same class.</div></div></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>Example 1 · Distinguish field and parameter</h2><pre class="code"><code>class Student {
+    String name;
+    Student(String name) {
+        this.name = name;
+    }
+}</code></pre><button class="run-example-btn" data-java-code="class Student {
+    String name;
+    Student(String name) {
+        this.name = name;
+    }
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>this.name refers to the field; name refers to the parameter.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>Example 2 · Call current object method</h2><pre class="code"><code>class Student {
+    void show() { System.out.println("Hi"); }
+    void start() { this.show(); }
+}</code></pre><button class="run-example-btn" data-java-code='class Student {
+    void show() { System.out.println("Hi"); }
+    void start() { this.show(); }
+}' hi");="" start()="" this.show();="" type="button" void="" {="" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>Hi</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>Example 3 · Constructor chaining</h2><pre class="code"><code>class Student {
+    Student() { this("Unknown"); }
+    Student(String name) { System.out.println(name); }
+}</code></pre><button class="run-example-btn" data-java-code='class Student {
+    Student() { this("Unknown"); }
+    Student(String name) { System.out.println(name); }
+}' name)="" student(string="" system.out.println(name);="" type="button" unknown");="" {="" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>Unknown</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">07 · this Keyword</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>this Keyword</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">08 · Garbage Collection</div><div class="title">GARBAGE COLLECTION</div><div class="accent"></div></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>What Is Garbage Collection?</h2><p class="definition">Garbage collection is the automatic process by which Java reclaims memory used by objects that are no longer reachable.</p></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>Garbage Collection — In Simple Words</h2><div class="bullet"><span>•</span><div>An object is eligible when no live reference can reach it.</div></div><div class="bullet"><span>•</span><div>Setting a reference to null may make an object unreachable.</div></div><div class="bullet"><span>•</span><div>The garbage collector decides when to reclaim eligible memory.</div></div><div class="bullet"><span>•</span><div>Program code should not rely on a specific garbage-collection time.</div></div></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>Garbage Collection — Important Points</h2><div class="bullet"><span>•</span><div>An object is eligible when no live reference can reach it.</div></div><div class="bullet"><span>•</span><div>Setting a reference to null may make an object unreachable.</div></div><div class="bullet"><span>•</span><div>The garbage collector decides when to reclaim eligible memory.</div></div><div class="bullet"><span>•</span><div>Program code should not rely on a specific garbage-collection time.</div></div></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>Reference becomes unreachable
+        ↓
+Object becomes eligible
+        ↓
+JVM may reclaim memory</code></pre></div></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>Java automatically identifies objects that are no longer reachable.</div></div><div class="bullet"><span>•</span><div>The garbage collector can reclaim their memory.</div></div><div class="bullet"><span>•</span><div>Programmers do not directly free Java objects with <code>free()</code> or <code>delete</code>.</div></div></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>Example 1 · Object becomes unreachable</h2><pre class="code"><code>Student s = new Student();
+s = null;</code></pre><button class="run-example-btn" data-java-code="Student s = new Student();
+s = null;" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>The object previously referenced by s becomes eligible for garbage collection.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>Example 2 · Two references</h2><pre class="code"><code>Student a = new Student();
+Student b = a;
+a = null;</code></pre><button class="run-example-btn" data-java-code="Student a = new Student();
+Student b = a;
+a = null;" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>The object is still reachable through b.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>Example 3 · All references removed</h2><pre class="code"><code>Student a = new Student();
+Student b = a;
+a = null;
+b = null;</code></pre><button class="run-example-btn" data-java-code="Student a = new Student();
+Student b = a;
+a = null;
+b = null;" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>The object is now eligible for garbage collection.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">08 · Garbage Collection</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Garbage Collection</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">09 · Method Overloading</div><div class="title">METHOD OVERLOADING</div><div class="accent"></div></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>What Is Method Overloading?</h2><p class="definition">Method overloading is defining multiple methods with the same name but different parameter lists in the same class.</p></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>Method Overloading — In Simple Words</h2><div class="bullet"><span>•</span><div>The method name stays the same.</div></div><div class="bullet"><span>•</span><div>The number, types or order of parameters must differ.</div></div><div class="bullet"><span>•</span><div>Changing only the return type is not enough.</div></div><div class="bullet"><span>•</span><div>The compiler selects the applicable overloaded method at compile time.</div></div></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>Method Overloading — Important Points</h2><div class="bullet"><span>•</span><div>The method name stays the same.</div></div><div class="bullet"><span>•</span><div>The number, types or order of parameters must differ.</div></div><div class="bullet"><span>•</span><div>Changing only the return type is not enough.</div></div><div class="bullet"><span>•</span><div>The compiler selects the applicable overloaded method at compile time.</div></div></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>returnType methodName(int a) { }
+returnType methodName(int a, int b) { }</code></pre></div></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>Use the same method name with different parameter lists.</div></div><div class="bullet"><span>•</span><div>The parameter list may differ in number, type, or order.</div></div><div class="bullet"><span>•</span><div>Return type alone cannot create an overload.</div></div></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>Example 1 · Same name, different count</h2><pre class="code"><code>class Calculator {
+    int add(int a, int b) { return a + b; }
+    int add(int a, int b, int c) { return a + b + c; }
+}</code></pre><button class="run-example-btn" data-java-code="class Calculator {
+    int add(int a, int b) { return a + b; }
+    int add(int a, int b, int c) { return a + b + c; }
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>add(2,3) → 5; add(2,3,4) → 9</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>Example 2 · Different parameter types</h2><pre class="code"><code>class Printer {
+    void print(int x) { System.out.println(x); }
+    void print(String x) { System.out.println(x); }
+}</code></pre><button class="run-example-btn" data-java-code="class Printer {
+    void print(int x) { System.out.println(x); }
+    void print(String x) { System.out.println(x); }
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>print(10) → 10; print("Hi") → Hi</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>Example 3 · Different parameter order</h2><pre class="code"><code>class Show {
+    void show(int x, String s) { }
+    void show(String s, int x) { }
+}</code></pre><button class="run-example-btn" data-java-code="class Show {
+    void show(int x, String s) { }
+    void show(String s, int x) { }
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>Both methods are valid because their parameter lists differ.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">09 · Method Overloading</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Method Overloading</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">10 · Passing and Returning Objects</div><div class="title">PASSING AND RETURNING OBJECTS</div><div class="accent"></div></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>What Does It Mean to Pass and Return Objects?</h2><p class="definition">An object reference can be passed to a method as an argument and returned from a method.</p></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>Passing and Returning Objects — In Simple Words</h2><div class="bullet"><span>•</span><div>A method parameter can have a class type.</div></div><div class="bullet"><span>•</span><div>The argument passed is a reference to an object.</div></div><div class="bullet"><span>•</span><div>A method can modify the object reached through that reference.</div></div><div class="bullet"><span>•</span><div>A method can return an object reference.</div></div></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>Passing and Returning Objects — Important Points</h2><div class="bullet"><span>•</span><div>A method parameter can have a class type.</div></div><div class="bullet"><span>•</span><div>The argument passed is a reference to an object.</div></div><div class="bullet"><span>•</span><div>A method can modify the object reached through that reference.</div></div><div class="bullet"><span>•</span><div>A method can return an object reference.</div></div></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>void methodName(ClassName obj) { }
+
+ClassName methodName() {
+    return new ClassName();
+}</code></pre></div></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>A method parameter can receive an object reference.</div></div><div class="bullet"><span>•</span><div>The method can use that reference to access the object.</div></div><div class="bullet"><span>•</span><div>A method can return an object reference to its caller.</div></div></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>Example 1 · Pass an object</h2><pre class="code"><code>class Student { int marks; }
+static void show(Student s) {
+    System.out.println(s.marks);
+}
+
+Student s = new Student();
+s.marks = 90;
+show(s);</code></pre><button class="run-example-btn" data-java-code="class Student { int marks; }
+static void show(Student s) {
+    System.out.println(s.marks);
+}
+
+Student s = new Student();
+s.marks = 90;
+show(s);" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>90</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>Example 2 · Change object state</h2><pre class="code"><code>class Student { int marks; }
+static void addBonus(Student s) { s.marks += 5; }</code></pre><button class="run-example-btn" data-java-code="class Student { int marks; }
+static void addBonus(Student s) { s.marks += 5; }" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>Passing the reference lets the method change the same object.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>Example 3 · Return an object</h2><pre class="code"><code>static Student createStudent() {
+    return new Student();
+}</code></pre><button class="run-example-btn" data-java-code="static Student createStudent() {
+    return new Student();
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>The returned reference can be stored in Student s.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">10 · Passing and Returning Objects</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Passing and Returning Objects</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">11 · Recursion</div><div class="title">RECURSION</div><div class="accent"></div></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>What Is Recursion?</h2><p class="definition">Recursion is a technique in which a method calls itself to solve a problem by working on smaller instances of it.</p></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>Recursion — In Simple Words</h2><div class="bullet"><span>•</span><div>A recursive method needs a base case.</div></div><div class="bullet"><span>•</span><div>The recursive case moves toward the base case.</div></div><div class="bullet"><span>•</span><div>Each call gets its own stack frame.</div></div><div class="bullet"><span>•</span><div>Missing or incorrect stopping conditions can cause StackOverflowError.</div></div></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>Recursion — Important Points</h2><div class="bullet"><span>•</span><div>A recursive method needs a base case.</div></div><div class="bullet"><span>•</span><div>The recursive case moves toward the base case.</div></div><div class="bullet"><span>•</span><div>Each call gets its own stack frame.</div></div><div class="bullet"><span>•</span><div>Missing or incorrect stopping conditions can cause StackOverflowError.</div></div></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>returnType methodName(input) {
+    if (baseCase) return result;
+    return methodName(smallerInput);
+}</code></pre></div></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>A recursive method calls itself.</div></div><div class="bullet"><span>•</span><div>Each call should move toward a smaller or simpler problem.</div></div><div class="bullet"><span>•</span><div>A base case stops the recursive calls.</div></div></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>Example 1 · Countdown</h2><pre class="code"><code>static void count(int n) {
+    if (n == 0) return;
+    System.out.println(n);
+    count(n - 1);
+}</code></pre><button class="run-example-btn" data-java-code="static void count(int n) {
+    if (n == 0) return;
+    System.out.println(n);
+    count(n - 1);
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>3
+2
+1</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>Example 2 · Factorial</h2><pre class="code"><code>static int fact(int n) {
+    if (n &lt;= 1) return 1;
+    return n * fact(n - 1);
+}</code></pre><button class="run-example-btn" data-java-code="static int fact(int n) {
+    if (n &lt;= 1) return 1;
+    return n * fact(n - 1);
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>fact(4) → 24</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>Example 3 · Sum of numbers</h2><pre class="code"><code>static int sum(int n) {
+    if (n == 0) return 0;
+    return n + sum(n - 1);
+}</code></pre><button class="run-example-btn" data-java-code="static int sum(int n) {
+    if (n == 0) return 0;
+    return n + sum(n - 1);
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>sum(4) → 10</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">11 · Recursion</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Recursion</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">12 · Access Control</div><div class="title">ACCESS CONTROL</div><div class="accent"></div></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>What Is Access Control?</h2><p class="definition">Access control determines where a class or its members can be accessed in a Java program.</p></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Access Control — In Simple Words</h2><div class="bullet"><span>•</span><div>public allows broad access, subject to class accessibility.</div></div><div class="bullet"><span>•</span><div>private restricts access to the declaring class.</div></div><div class="bullet"><span>•</span><div>protected allows access in the same package and, with additional rules, in subclasses.</div></div><div class="bullet"><span>•</span><div>No modifier gives package access.</div></div></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Access Control — Important Points</h2><div class="bullet"><span>•</span><div>public allows broad access, subject to class accessibility.</div></div><div class="bullet"><span>•</span><div>private restricts access to the declaring class.</div></div><div class="bullet"><span>•</span><div>protected allows access in the same package and, with additional rules, in subclasses.</div></div><div class="bullet"><span>•</span><div>No modifier gives package access.</div></div></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>public    Type member;
+private   Type member;
+protected Type member;
+          Type member;  // package access</code></pre></div></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>Access modifiers control where a class member can be used.</div></div><div class="bullet"><span>•</span><div><code>public</code> allows broad access.</div></div><div class="bullet"><span>•</span><div><code>private</code> restricts access to the declaring class.</div></div><div class="bullet"><span>•</span><div><code>protected</code> and default access follow Java package/inheritance rules.</div></div></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Example 1 · public</h2><pre class="code"><code>class Student {
+    public String name;
+}
+
+Student s = new Student();
+s.name = "Asha";</code></pre><button asha";"="" class="run-example-btn" data-java-code='class Student {
+    public String name;
+}
+
+Student s = new Student();
+s.name = "Asha";' type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>A public member can be accessed wherever the class is accessible.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Example 2 · private</h2><pre class="code"><code>class Student {
+    private int marks;
+    void setMarks(int m) { marks = m; }
+}
+
+Student s = new Student();
+s.setMarks(90);</code></pre><button class="run-example-btn" data-java-code="class Student {
+    private int marks;
+    void setMarks(int m) { marks = m; }
+}
+
+Student s = new Student();
+s.setMarks(90);" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>The private field is accessed through a class method.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Example 3 · protected</h2><pre class="code"><code>class Parent {
+    protected int x = 10;
+}
+class Child extends Parent {
+    void show() { System.out.println(x); }
+}</code></pre><button class="run-example-btn" data-java-code="class Parent {
+    protected int x = 10;
+}
+class Child extends Parent {
+    void show() { System.out.println(x); }
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>10</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Example 4 · default / package access</h2><pre class="code"><code>class Student {
+    int age = 20;
+}
+
+Student s = new Student();
+System.out.println(s.age);</code></pre><button class="run-example-btn" data-java-code="class Student {
+    int age = 20;
+}
+
+Student s = new Student();
+System.out.println(s.age);" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Example 4 · What to Notice</h2><div class="bullet"><span>•</span><div>The member is accessible to code in the same package.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">12 · Access Control</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Access Control</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">13 · static Keyword</div><div class="title">STATIC KEYWORD</div><div class="accent"></div></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>What Is the static Keyword?</h2><p class="definition">A static member belongs to the class rather than to a particular object.</p></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>static Keyword — In Simple Words</h2><div class="bullet"><span>•</span><div>A static field is shared by the instances of the class.</div></div><div class="bullet"><span>•</span><div>A static method can be called using the class name.</div></div><div class="bullet"><span>•</span><div>Static members can be used without creating an instance of the class.</div></div><div class="bullet"><span>•</span><div>A static method does not have a current object available through this.</div></div></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>static Keyword — Important Points</h2><div class="bullet"><span>•</span><div>A static field is shared by the instances of the class.</div></div><div class="bullet"><span>•</span><div>A static method can be called using the class name.</div></div><div class="bullet"><span>•</span><div>Static members can be used without creating an instance of the class.</div></div><div class="bullet"><span>•</span><div>A static method does not have a current object available through this.</div></div></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>static Type fieldName;
+
+static returnType methodName(parameters) { }</code></pre></div></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>A <code>static</code> member belongs to the class, not to one particular object.</div></div><div class="bullet"><span>•</span><div>It can be accessed through the class name.</div></div><div class="bullet"><span>•</span><div>A static method cannot directly use an instance field without an object.</div></div></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>Example 1 · Static field</h2><pre class="code"><code>class Counter {
+    static int count = 0;
+}
+
+Counter.count++;
+System.out.println(Counter.count);</code></pre><button class="run-example-btn" data-java-code="class Counter {
+    static int count = 0;
+}
+
+Counter.count++;
+System.out.println(Counter.count);" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>1</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>Example 2 · Shared field</h2><pre class="code"><code>class Counter { static int count; }
+Counter a = new Counter();
+Counter b = new Counter();
+a.count++;
+System.out.println(b.count);</code></pre><button class="run-example-btn" data-java-code="class Counter { static int count; }
+Counter a = new Counter();
+Counter b = new Counter();
+a.count++;
+System.out.println(b.count);" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>1</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>Example 3 · Static method</h2><pre class="code"><code>class MathTool {
+    static int square(int n) { return n * n; }
+}
+
+System.out.println(MathTool.square(5));</code></pre><button class="run-example-btn" data-java-code="class MathTool {
+    static int square(int n) { return n * n; }
+}
+
+System.out.println(MathTool.square(5));" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>25</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">13 · static Keyword</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>static Keyword</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">14 · final Keyword</div><div class="title">FINAL KEYWORD</div><div class="accent"></div></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>What Is the final Keyword?</h2><p class="definition">The final keyword prevents further change or extension, depending on whether it is applied to a variable, method, or class.</p></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>final Keyword — In Simple Words</h2><div class="bullet"><span>•</span><div>A final variable cannot be assigned a new value after initialization.</div></div><div class="bullet"><span>•</span><div>A final method cannot be overridden.</div></div><div class="bullet"><span>•</span><div>A final class cannot be extended.</div></div><div class="bullet"><span>•</span><div>static final is commonly used for constants.</div></div></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>final Keyword — Important Points</h2><div class="bullet"><span>•</span><div>A final variable cannot be assigned a new value after initialization.</div></div><div class="bullet"><span>•</span><div>A final method cannot be overridden.</div></div><div class="bullet"><span>•</span><div>A final class cannot be extended.</div></div><div class="bullet"><span>•</span><div>static final is commonly used for constants.</div></div></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>final Type variable = value;
+final returnType methodName() { }
+final class ClassName { }</code></pre></div></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>A <code>final</code> variable cannot be assigned a new value after initialization.</div></div><div class="bullet"><span>•</span><div>A <code>final</code> method cannot be overridden.</div></div><div class="bullet"><span>•</span><div>A <code>final</code> class cannot be extended.</div></div></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>Example 1 · Final variable</h2><pre class="code"><code>final int MAX = 100;
+System.out.println(MAX);</code></pre><button class="run-example-btn" data-java-code="final int MAX = 100;
+System.out.println(MAX);" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>100</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>Example 2 · Final method</h2><pre class="code"><code>class Parent {
+    final void show() {
+        System.out.println("Parent");
+    }
+}</code></pre><button class="run-example-btn" data-java-code='class Parent {
+    final void show() {
+        System.out.println("Parent");
+    }
+}' parent");="" type="button" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>A subclass cannot override show().</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>Example 3 · Final class</h2><pre class="code"><code>final class Utility { }</code></pre><button class="run-example-btn" data-java-code="final class Utility { }" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>A final class cannot be extended.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">14 · final Keyword</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>final Keyword</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">15 · Nested and Inner Classes</div><div class="title">NESTED AND INNER CLASSES</div><div class="accent"></div></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>What Are Nested and Inner Classes?</h2><p class="definition">A nested class is a class declared inside another class or interface; an inner class is a non-static nested class.</p></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Nested and Inner Classes — In Simple Words</h2><div class="bullet"><span>•</span><div>A static nested class does not require an enclosing object.</div></div><div class="bullet"><span>•</span><div>A non-static inner class is associated with an instance of its enclosing class.</div></div><div class="bullet"><span>•</span><div>Local classes are declared inside a method or block.</div></div><div class="bullet"><span>•</span><div>Anonymous classes have no explicit class name.</div></div></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Nested and Inner Classes — Important Points</h2><div class="bullet"><span>•</span><div>A static nested class does not require an enclosing object.</div></div><div class="bullet"><span>•</span><div>A non-static inner class is associated with an instance of its enclosing class.</div></div><div class="bullet"><span>•</span><div>Local classes are declared inside a method or block.</div></div><div class="bullet"><span>•</span><div>Anonymous classes have no explicit class name.</div></div></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>class Outer {
+    static class Nested { }
+    class Inner { }
+}</code></pre></div></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>A nested class is declared inside another class or interface.</div></div><div class="bullet"><span>•</span><div>A static nested class is associated with the outer class.</div></div><div class="bullet"><span>•</span><div>A non-static nested class is called an inner class and is associated with an outer object.</div></div></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Example 1 · Static nested class</h2><pre class="code"><code>class Outer {
+    static class Inner {
+        void show() { System.out.println("Nested"); }
+    }
+}
+
+Outer.Inner x = new Outer.Inner();
+x.show();</code></pre><button class="run-example-btn" data-java-code='class Outer {
+    static class Inner {
+        void show() { System.out.println("Nested"); }
+    }
+}
+
+Outer.Inner x = new Outer.Inner();
+x.show();' nested");="" outer.inner="" outer.inner();="" type="button" x="new" x.show();"="" }="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>Nested</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Example 2 · Inner class</h2><pre class="code"><code>class Outer {
+    class Inner {
+        void show() { System.out.println("Inner"); }
+    }
+}
+
+Outer o = new Outer();
+Outer.Inner x = o.new Inner();
+x.show();</code></pre><button class="run-example-btn" data-java-code='class Outer {
+    class Inner {
+        void show() { System.out.println("Inner"); }
+    }
+}
+
+Outer o = new Outer();
+Outer.Inner x = o.new Inner();
+x.show();' inner");="" inner();="" o="new" outer="" outer();="" outer.inner="" type="button" x="o.new" x.show();"="" }="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>Inner</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Example 3 · Local class</h2><pre class="code"><code>void test() {
+    class Local {
+        void show() { System.out.println("Local"); }
+    }
+    new Local().show();
+}</code></pre><button class="run-example-btn" data-java-code='void test() {
+    class Local {
+        void show() { System.out.println("Local"); }
+    }
+    new Local().show();
+}' local");="" local().show();="" new="" type="button" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>Local</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Example 4 · Anonymous class</h2><pre class="code"><code>interface Greeter { void greet(); }
+Greeter g = new Greeter() {
+    public void greet() { System.out.println("Hi"); }
+};
+g.greet();</code></pre><button class="run-example-btn" data-java-code='interface Greeter { void greet(); }
+Greeter g = new Greeter() {
+    public void greet() { System.out.println("Hi"); }
+};
+g.greet();' g.greet();"="" hi");="" type="button" }="" };="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Example 4 · What to Notice</h2><div class="bullet"><span>•</span><div>Hi</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">15 · Nested and Inner Classes</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Nested and Inner Classes</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">16 · Encapsulation</div><div class="title">ENCAPSULATION</div><div class="accent"></div></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>What Is Encapsulation?</h2><p class="definition">Encapsulation is the practice of keeping data and the methods that operate on it together while controlling access to the data.</p></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>Encapsulation — In Simple Words</h2><div class="bullet"><span>•</span><div>Keep important fields private.</div></div><div class="bullet"><span>•</span><div>Provide methods that control how the state is read or changed.</div></div><div class="bullet"><span>•</span><div>The class can validate data before changing its state.</div></div></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>Encapsulation — Important Points</h2><div class="bullet"><span>•</span><div>Keep important fields private.</div></div><div class="bullet"><span>•</span><div>Provide methods that control how the state is read or changed.</div></div><div class="bullet"><span>•</span><div>The class can validate data before changing its state.</div></div></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>class Account {
+    private double balance;
+    void deposit(double amount) { balance += amount; }
+}</code></pre></div></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>Keep an object’s data and the methods that operate on it together.</div></div><div class="bullet"><span>•</span><div>Restrict direct access to internal data when appropriate.</div></div><div class="bullet"><span>•</span><div>Use methods such as getters and setters to provide controlled access.</div></div></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>Example 1 · Private field</h2><pre class="code"><code>class Student {
+    private int marks;
+}</code></pre><button class="run-example-btn" data-java-code="class Student {
+    private int marks;
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>The field cannot be accessed directly outside Student.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>Example 2 · Getter and setter</h2><pre class="code"><code>class Student {
+    private int marks;
+    int getMarks() { return marks; }
+    void setMarks(int m) { marks = m; }
+}</code></pre><button class="run-example-btn" data-java-code="class Student {
+    private int marks;
+    int getMarks() { return marks; }
+    void setMarks(int m) { marks = m; }
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>State is accessed through methods.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>Example 3 · Validation</h2><pre class="code"><code>class Account {
+    private double balance;
+    void deposit(double amount) {
+        if (amount &gt; 0) balance += amount;
+    }
+}</code></pre><button class="run-example-btn" data-java-code="class Account {
+    private double balance;
+    void deposit(double amount) {
+        if (amount &gt; 0) balance += amount;
+    }
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>Invalid amounts can be rejected before changing state.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">16 · Encapsulation</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Encapsulation</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">17 · Inheritance</div><div class="title">INHERITANCE</div><div class="accent"></div></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>What Is Inheritance?</h2><p class="definition">Inheritance is a mechanism in which a subclass derives from a superclass and inherits its accessible members.</p></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>Inheritance — In Simple Words</h2><div class="bullet"><span>•</span><div>Use extends to create a subclass.</div></div><div class="bullet"><span>•</span><div>The subclass reuses inherited state and behavior.</div></div><div class="bullet"><span>•</span><div>A subclass can add its own fields and methods.</div></div></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>Inheritance — Important Points</h2><div class="bullet"><span>•</span><div>Use extends to create a subclass.</div></div><div class="bullet"><span>•</span><div>The subclass reuses inherited state and behavior.</div></div><div class="bullet"><span>•</span><div>A subclass can add its own fields and methods.</div></div></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>class Child extends Parent {
+    // additional members
+}</code></pre></div></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>Use <code>extends</code> to create a subclass from a class.</div></div><div class="bullet"><span>•</span><div>The subclass inherits accessible members of the superclass.</div></div><div class="bullet"><span>•</span><div>The subclass can add new members or override methods.</div></div></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>Example 1 · Simple inheritance</h2><pre class="code"><code>class Animal { void eat(){ System.out.println("Eat"); } }
+class Dog extends Animal { }</code></pre><button animal="" class="" data-java-code="class Animal { void eat(){ System.out.println(" dog="" eat");="" extends="" type="button" {="" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>A Dog can use eat().</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>Example 2 · Add behavior</h2><pre class="code"><code>class Animal { void eat(){} }
+class Dog extends Animal { void bark(){ System.out.println("Bark"); } }</code></pre><button bark");="" class="run-example-btn" data-java-code='class Animal { void eat(){} }
+class Dog extends Animal { void bark(){ System.out.println("Bark"); } }' type="button" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>Dog has inherited and new behavior.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>Example 3 · Override behavior</h2><pre class="code"><code>class Animal { void sound(){ System.out.println("Animal"); } }
+class Dog extends Animal { void sound(){ System.out.println("Bark"); } }</code></pre><button animal="" animal");="" class="" data-java-code="class Animal { void sound(){ System.out.println(" dog="" extends="" sound(){="" system.out.println("bark");="" type="button" void="" {="" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>Dog provides its own sound() implementation.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">17 · Inheritance</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Inheritance</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">18 · Polymorphism</div><div class="title">POLYMORPHISM</div><div class="accent"></div></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>What Is Polymorphism?</h2><p class="definition">Polymorphism allows a common reference type to refer to objects of different related types and use their specific behavior.</p></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>Polymorphism — In Simple Words</h2><div class="bullet"><span>•</span><div>A superclass reference can refer to a subclass object.</div></div><div class="bullet"><span>•</span><div>Overridden instance methods are selected at run time.</div></div><div class="bullet"><span>•</span><div>The same method call can produce different behavior for different objects.</div></div></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>Polymorphism — Important Points</h2><div class="bullet"><span>•</span><div>A superclass reference can refer to a subclass object.</div></div><div class="bullet"><span>•</span><div>Overridden instance methods are selected at run time.</div></div><div class="bullet"><span>•</span><div>The same method call can produce different behavior for different objects.</div></div></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>Parent ref = new Child();
+ref.method();</code></pre></div></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>A superclass reference can refer to a subclass object.</div></div><div class="bullet"><span>•</span><div>The actual object determines which overridden instance method runs.</div></div><div class="bullet"><span>•</span><div>This allows one common interface to work with different object types.</div></div></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>Example 1 · Parent reference</h2><pre class="code"><code>Animal a = new Dog();
+a.sound();</code></pre><button class="run-example-btn" data-java-code="Animal a = new Dog();
+a.sound();" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>The Dog implementation can run when sound() is overridden.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>Example 2 · Two forms</h2><pre class="code"><code>Animal a = new Dog();
+Animal b = new Cat();</code></pre><button class="run-example-btn" data-java-code="Animal a = new Dog();
+Animal b = new Cat();" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>Both variables use the Animal type but can refer to different objects.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>Example 3 · Overloading note</h2><pre class="code"><code>void show(int x){}
+void show(String x){}</code></pre><button class="run-example-btn" data-java-code="void show(int x){}
+void show(String x){}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>Overloading is compile-time polymorphism; overriding supports run-time polymorphism.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">18 · Polymorphism</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Polymorphism</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">19 · Abstraction</div><div class="title">ABSTRACTION</div><div class="accent"></div></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>What Is Abstraction?</h2><p class="definition">Abstraction focuses on essential features while hiding unnecessary implementation details.</p></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>Abstraction — In Simple Words</h2><div class="bullet"><span>•</span><div>An abstract class can define common behavior and abstract methods.</div></div><div class="bullet"><span>•</span><div>An abstract method declares behavior without providing its implementation.</div></div><div class="bullet"><span>•</span><div>A concrete subclass provides the missing implementation.</div></div></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>Abstraction — Important Points</h2><div class="bullet"><span>•</span><div>An abstract class can define common behavior and abstract methods.</div></div><div class="bullet"><span>•</span><div>An abstract method declares behavior without providing its implementation.</div></div><div class="bullet"><span>•</span><div>A concrete subclass provides the missing implementation.</div></div></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>General Syntax</h2><div class="syntax-card"><pre class="code"><code>abstract class Shape {
+    abstract void draw();
+}</code></pre></div></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>Syntax — Understand the Parts</h2><div class="bullet"><span>•</span><div>Expose the essential operation while hiding implementation details.</div></div><div class="bullet"><span>•</span><div>Abstract classes can contain abstract methods.</div></div><div class="bullet"><span>•</span><div>A concrete subclass provides implementations for inherited abstract methods.</div></div></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>Example 1 · Abstract class</h2><pre class="code"><code>abstract class Shape {
+    abstract void draw();
+}</code></pre><button class="run-example-btn" data-java-code="abstract class Shape {
+    abstract void draw();
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>Example 1 · What to Notice</h2><div class="bullet"><span>•</span><div>Shape defines the required behavior without being instantiated directly.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>Example 2 · Concrete subclass</h2><pre class="code"><code>class Circle extends Shape {
+    void draw(){ System.out.println("Circle"); }
+}</code></pre><button circle");="" class="run-example-btn" data-java-code='class Circle extends Shape {
+    void draw(){ System.out.println("Circle"); }
+}' type="button" }="" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>Example 2 · What to Notice</h2><div class="bullet"><span>•</span><div>Circle provides the implementation.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>Example 3 · Use abstraction</h2><pre class="code"><code>Shape s = new Circle();
+s.draw();</code></pre><button class="run-example-btn" data-java-code="Shape s = new Circle();
+s.draw();" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>Example 3 · What to Notice</h2><div class="bullet"><span>•</span><div>The program uses the Shape type while the Circle supplies the behavior.</div></div><div class="bullet"><span>•</span><div>Focus on the new term before moving to the next example.</div></div></section><section class="slide"><div class="kicker">19 · Abstraction</div><h2>Quick Practice</h2><div class="bullet"><span>•</span><div>Write one small program using <strong>Abstraction</strong>.</div></div><div class="bullet"><span>•</span><div>Change one value and observe the result.</div></div><div class="bullet"><span>•</span><div>Explain each new keyword before running the program.</div></div></section><section class="slide center cover"><div class="kicker">20 · Integrated OOP Example</div><div class="title">BUILD A SMALL STUDENT CLASS</div><p class="subtitle">Use the terms in the correct order</p><div class="accent"></div></section><section class="slide"><div class="kicker">Integrated Example</div><h2>Step 1 · Define the Class</h2><pre class="code"><code>class Student {
+    String name;
+    int marks;
+}</code></pre><button class="run-example-btn" data-java-code="class Student {
+    String name;
+    int marks;
+}" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">Integrated Example</div><h2>Step 2 · Create the Object</h2><pre class="code"><code>Student s = new Student();</code></pre><button class="run-example-btn" data-java-code="Student s = new Student();" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">Integrated Example</div><h2>Step 3 · Initialize the Object</h2><pre class="code"><code>s.name = "Asha";
+s.marks = 90;</code></pre><button asha";="" class="run-example-btn" data-java-code='s.name = "Asha";
+s.marks = 90;' s.marks='90;"' type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">Integrated Example</div><h2>Step 4 · Add a Method</h2><pre class="code"><code>void show() {
+    System.out.println(name + " " + marks);
+}</code></pre><button "="" +="" class="run-example-btn" data-java-code='void show() {
+    System.out.println(name + " " + marks);
+}' marks);="" type="button" }"="">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">Integrated Example</div><h2>Step 5 · Call the Method</h2><pre class="code"><code>s.show();</code></pre><button class="run-example-btn" data-java-code="s.show();" type="button">⌘ Open Example in Code Lab</button></section><section class="slide"><div class="kicker">Integrated Example</div><h2>The Complete Beginner Example</h2><pre class="code"><code>class Student {
+    String name;
+    int marks;
+
+    void show() {
+        System.out.println(name + " " + marks);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.name = "Asha";
+        s.marks = 90;
+        s.show();
+    }
+}</code></pre><button "="" +="" ;="" args)="" class="" data-java-code="class Student {
+    String name;
+    int marks;
+
+    void show() {
+        System.out.println(name + " main="" main(string[]="" marks);="" public="" s="new" s.marks="90;" s.name="Asha" s.show();="" static="" student="" student();="" type="button" void="" {="" }="" }"="">▶ Run Example in Code Lab</button></section><section class="slide"><div class="kicker">Integrated Example</div><h2>What Happened?</h2><div class="bullet"><span>•</span><div><strong>Student</strong> is the class.</div></div><div class="bullet"><span>•</span><div><strong>s</strong> is the reference variable.</div></div><div class="bullet"><span>•</span><div><strong>new Student()</strong> creates the object.</div></div><div class="bullet"><span>•</span><div><strong>name</strong> and <strong>marks</strong> store state.</div></div><div class="bullet"><span>•</span><div><strong>show()</strong> provides behavior.</div></div></section><section class="slide center cover"><div class="kicker">Revision</div><div class="title">THE OOP LEARNING MAP</div><p class="subtitle">Class → Object → Reference → Constructor → Method → Advanced OOP</p><div class="accent"></div></section><section class="slide"><div class="kicker">Revision</div><h2>Before Moving to the Next Module</h2><div class="bullet"><span>•</span><div>Can you explain what a class is without using the word object?</div></div><div class="bullet"><span>•</span><div>Can you distinguish a reference variable from the object it refers to?</div></div><div class="bullet"><span>•</span><div>Can you write a class, create an object and initialize its fields?</div></div><div class="bullet"><span>•</span><div>Can you explain why a constructor has no return type?</div></div><div class="bullet"><span>•</span><div>Can you explain one example each of encapsulation, inheritance, polymorphism and abstraction?</div></div></section><section class="slide"><div class="kicker">Final Classroom Challenge</div><h2>Write This Without Looking at Notes</h2><div class="bullet"><span>•</span><div>Create a <strong>Book</strong> class with <strong>title</strong> and <strong>price</strong>.</div></div><div class="bullet"><span>•</span><div>Create a constructor to initialize both fields.</div></div><div class="bullet"><span>•</span><div>Create a <strong>show()</strong> method.</div></div><div class="bullet"><span>•</span><div>Create one Book object and display its details.</div></div></section><div aria-hidden="true" id="javaCodeLab">
+<div class="code-lab-window">
+<div class="code-lab-header">
+<div>
+<div class="code-lab-kicker">
+       LIVE CLASSROOM CODING
+      </div>
+<div class="code-lab-title">
+       Java Code Lab
+      </div>
+</div>
+<div class="code-lab-actions">
+<button class="lab-btn secondary" id="codeLabReset">
+       ↻ Reset
+      </button>
+<button class="lab-btn run" id="codeLabRun">
+       ▶ Run
+      </button>
+<button class="lab-btn close" id="codeLabClose">
+       ✕ Close
+      </button>
+</div>
+</div>
+<div class="code-lab-toolbar">
+<span class="lab-pill">
+      Java
+     </span>
+<span class="lab-hint">
+      Ctrl + Enter / ⌘ + Enter to run
+     </span>
+<span class="lab-hint">
+      Large-screen classroom editor
+     </span>
+<div class="code-theme-switcher">
+<span class="theme-label">
+       Editor:
+      </span>
+<button class="theme-btn active" id="codeThemeDark">
+       ● Dark
+      </button>
+<button class="theme-btn" id="codeThemeLight">
+       ○ Light
+      </button>
+</div>
+</div>
+<div class="code-lab-body">
+<div class="editor-panel">
+<div class="editor-titlebar">
+       Source Code
+       <span class="editor-status" id="codeLabStatus">
+        Ready
+       </span>
+</div>
+<div class="editor-wrap">
+<div class="line-numbers" id="codeLineNumbers">
+        1
+       </div>
+<textarea id="javaCodeEditor" spellcheck="false" wrap="off"></textarea>
+</div>
+</div>
+<div class="io-panel">
+<div class="io-box">
+<div class="io-title">
+        INPUT
+        <span>
+         (optional)
+        </span>
+</div>
+<textarea id="javaStdin" placeholder="Enter input for Scanner / stdin here..."></textarea>
+</div>
+<div class="io-box output-box">
+<div class="io-title">
+        OUTPUT
+       </div>
+<pre class="java-output" id="javaOutput">Run your Java program to see the output here.</pre>
+</div>
+</div>
+</div>
+<div class="code-lab-footer">
+     Java • OpenJDK classroom runtime
+    </div>
+</div>
+</div>
+<script>
+   (function(){
+'use strict';
+function initPresentation(){
+ const slides=Array.from(document.querySelectorAll('body > .slide')),stage=document.getElementById('slideStage'),frame=document.getElementById('slideFrame');
+ if(!slides.length||!stage||!frame)return;
+ const counter=document.getElementById('slideCounter'),progress=document.getElementById('slideProgress'),prev=document.getElementById('prevSlide'),next=document.getElementById('nextSlide'),exit=document.getElementById('slideExit'),present=document.getElementById('presentButton');
+ const clones=slides.map(s=>s.cloneNode(true)); clones.forEach(c=>frame.appendChild(c));
+ let current=0,returnScrollY=0,returnSlideIndex=0,startedFromNormal=false;
+ function fitFrame(){frame.style.width=window.innerWidth+'px';frame.style.height=window.innerHeight+'px';}
+ function show(n){current=Math.max(0,Math.min(clones.length-1,Number(n)||0));clones.forEach((c,i)=>c.classList.toggle('presentation-current',i===current));if(counter)counter.textContent=(current+1)+' / '+clones.length;if(progress)progress.style.width=((current+1)/clones.length*100)+'%';fitFrame();}
+ function getNormalCurrentSlide(){const top=window.scrollY||0,bottom=top+window.innerHeight;let best=0,bestVisible=-1;slides.forEach((s,i)=>{const r=s.getBoundingClientRect(),t=r.top+top,b=r.bottom+top,v=Math.max(0,Math.min(b,bottom)-Math.max(t,top));if(v>bestVisible){bestVisible=v;best=i;}});return best;}
+ function updateButton(active){if(!present)return;present.textContent=active?'✕ Exit':'▶ Present';present.title=active?'Exit presentation and return to the current page':'Start slide presentation from the current page';present.setAttribute('aria-label',present.title);}
+ function start(n){if(!stage.classList.contains('active')){returnScrollY=window.scrollY||0;returnSlideIndex=getNormalCurrentSlide();startedFromNormal=true;}show(typeof n==='number'?n:returnSlideIndex);stage.classList.add('active');document.body.style.overflow='hidden';updateButton(true);}
+ function close(){const restore=startedFromNormal;stage.classList.remove('active');document.body.style.overflow='';updateButton(false);if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});if(restore){requestAnimationFrame(()=>{window.scrollTo({top:returnScrollY,left:0,behavior:'instant'});requestAnimationFrame(()=>window.scrollTo(0,returnScrollY));});}startedFromNormal=false;}
+ function full(){document.documentElement.requestFullscreen?.().catch(()=>{});}
+ present?.addEventListener('click',()=>stage.classList.contains('active')?close():start(getNormalCurrentSlide()));prev?.addEventListener('click',()=>show(current-1));next?.addEventListener('click',()=>show(current+1));exit?.addEventListener('click',close);window.addEventListener('resize',()=>{if(stage.classList.contains('active'))fitFrame();});
+ document.addEventListener('keydown',e=>{if(!stage.classList.contains('active')||document.getElementById('javaCodeLab')?.classList.contains('open'))return;if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();show(current+1);}else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(current-1);}else if(e.key==='Home'){e.preventDefault();show(0);}else if(e.key==='End'){e.preventDefault();show(clones.length-1);}else if(e.key.toLowerCase()==='f'){e.preventDefault();full();}else if(e.key==='Escape'){e.preventDefault();close();}});
+ document.getElementById('slideViewport')?.addEventListener('dblclick',full);window.JavaPresentation={start,close,next:()=>show(current+1),previous:()=>show(current-1),goTo:n=>show(Number(n)||0),current:()=>current+1,total:()=>clones.length,currentNormalPage:()=>getNormalCurrentSlide()+1};show(0);
+}
+function init(){initPresentation();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+  </script>
+<script>
+   (function(){
+'use strict';
+function initSidebar(){
+ const sidebar=document.getElementById('topicSidebar'),toggle=document.getElementById('topicToggle'),backdrop=document.getElementById('topicBackdrop'),list=document.getElementById('topicList'),slides=Array.from(document.querySelectorAll('body > .slide'));if(!sidebar||!toggle||!backdrop||!list||!slides.length)return;
+ const seen=new Set(),entries=[];
+ function getKicker(s){return s.querySelector('.kicker')?.textContent.trim()||'';}
+ slides.forEach((s,i)=>{const raw=getKicker(s);if(!raw||raw.startsWith('Answer')||raw.startsWith('Classroom Quiz'))return;const m=raw.match(/^(\d+[A-Z]?)/);const key=m?'topic:'+m[1]:'other:'+raw;if(seen.has(key))return;seen.add(key);entries.push({key,label:raw.replace(/^\d+[A-Z]?\s*·\s*/,'')||raw,number:m?m[1]:'•',firstIndex:i});});
+ entries.forEach(e=>{const b=document.createElement('button');b.type='button';b.className='topic-btn';b.dataset.targetIndex=e.firstIndex;b.dataset.topicKey=e.key;b.innerHTML='<span class="topic-num">'+e.number+'</span><span class="topic-name">'+e.label+'</span>';b.addEventListener('click',()=>{const target=Number(b.dataset.targetIndex);if(document.getElementById('slideStage')?.classList.contains('active')&&window.JavaPresentation)window.JavaPresentation.goTo(target);else slides[target]?.scrollIntoView({behavior:'smooth',block:'start'});closeSidebar();});list.appendChild(b);});
+ function openSidebar(){sidebar.classList.add('open');backdrop.classList.add('show');document.body.classList.add('sidebar-open');toggle.textContent='×';toggle.setAttribute('aria-label','Close topics sidebar');}
+ function closeSidebar(){sidebar.classList.remove('open');backdrop.classList.remove('show');document.body.classList.remove('sidebar-open');toggle.textContent='☰';toggle.setAttribute('aria-label','Open topics sidebar');}
+ toggle.addEventListener('click',()=>sidebar.classList.contains('open')?closeSidebar():openSidebar());backdrop.addEventListener('click',closeSidebar);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sidebar.classList.contains('open'))closeSidebar();});
+ window.verifyTopicNavigation=()=>entries.map(e=>({topic:e.label,targetSlide:e.firstIndex+1}));window.goToTopic=label=>{const e=entries.find(x=>x.label.toLowerCase()===String(label).toLowerCase());if(!e)return false;if(document.getElementById('slideStage')?.classList.contains('active')&&window.JavaPresentation)window.JavaPresentation.goTo(e.firstIndex);else slides[e.firstIndex]?.scrollIntoView({behavior:'smooth',block:'start'});return true;};
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initSidebar);else initSidebar();
+})();
+  </script>
+<script>
+   (function(){
+ const stage=document.getElementById('slideStage'),zone=document.getElementById('presentationBottomHoverZone'),bar=document.querySelector('#slideStage .slidebar');if(!stage||!zone||!bar)return;let active=false;
+ function show(){if(active)document.body.classList.remove('presentation-controls-hidden');}function hide(){if(active&&!bar.matches(':hover')&&!zone.matches(':hover'))document.body.classList.add('presentation-controls-hidden');}
+ new MutationObserver(()=>{const on=stage.classList.contains('active');if(on&&!active){active=true;document.body.classList.add('presentation-controls-hidden');}else if(!on&&active){active=false;document.body.classList.remove('presentation-controls-hidden');}}).observe(stage,{attributes:true,attributeFilter:['class']});
+ zone.addEventListener('mouseenter',show);bar.addEventListener('mouseenter',show);zone.addEventListener('mouseleave',()=>requestAnimationFrame(hide));bar.addEventListener('mouseleave',()=>requestAnimationFrame(hide));document.addEventListener('mousemove',e=>{if(!active)return;if(window.innerHeight-e.clientY<=55)show();else hide();},{passive:true});
+})();
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js">
+</script>
+<script>
+   (function(){
+  'use strict';
+  const TIO_API='https://tio.run/cgi-bin/run/api/no-cache/';
+  const DEFAULT_CODE=`public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java!");
+    }
+}`;
+  const qs=id=>document.getElementById(id);
+  const normalise=v=>(v||'').replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  function wrapJavaSnippet(code){
+    const t=normalise(code).trim();
+    if(!t)return DEFAULT_CODE;
+    if(/\b(class|interface|enum|record)\s+\w+/.test(t)||/\bstatic\s+void\s+main\s*\(/.test(t))return t;
+    return `public class Main {\n    public static void main(String[] args) {\n${t.split('\n').map(line=>'        '+line).join('\n')}\n    }\n}`;
+  }
+  function updateLineNumbers(){
+    const ed=qs('javaCodeEditor'),ln=qs('codeLineNumbers');
+    if(!ed||!ln)return;
+    ln.textContent=Array.from({length:ed.value.split('\n').length},(_,i)=>i+1).join('\n');
+    ln.scrollTop=ed.scrollTop;
+  }
+  function openLab(code){
+    const lab=qs('javaCodeLab'),ed=qs('javaCodeEditor');
+    if(!lab||!ed)return;
+    document.body.classList.add('code-lab-open');
+    ed.value=normalise(code||DEFAULT_CODE);
+    qs('javaOutput').textContent='Run your Java program to see the output here.';
+    qs('javaStdin').value='';
+    qs('codeLabStatus').textContent='Ready';
+    lab.classList.add('open');
+    lab.setAttribute('aria-hidden','false');
+    updateLineNumbers();
+    setTimeout(()=>{ed.focus();ed.setSelectionRange(ed.value.length,ed.value.length);},60);
+  }
+  function closeLab(){
+    const lab=qs('javaCodeLab');
+    if(!lab)return;
+    document.body.classList.remove('code-lab-open');
+    lab.classList.remove('open');
+    lab.setAttribute('aria-hidden','true');
+  }
+  function setCodeTheme(theme){
+    const lab=qs('javaCodeLab'),dark=qs('codeThemeDark'),light=qs('codeThemeLight');
+    if(!lab)return;
+    const isLight=theme==='light';
+    lab.classList.toggle('editor-light',isLight);
+    lab.classList.toggle('editor-dark',!isLight);
+    dark?.classList.toggle('active',!isLight);
+    light?.classList.toggle('active',isLight);
+    if(dark)dark.textContent=isLight?'○ Dark':'● Dark';
+    if(light)light.textContent=isLight?'● Light':'○ Light';
+    try{localStorage.setItem('javaCodeLabTheme',isLight?'light':'dark');}catch(e){}
+  }
+  function buildTioRequest(code,input){
+    const parts=[];
+    const pushText=text=>{new TextEncoder().encode(text).forEach(b=>parts.push(b));};
+    const nul=()=>parts.push(0);
+    pushText('Vlang');nul();pushText('1');nul();pushText('java-openjdk');nul();
+    const codeBytes=new TextEncoder().encode(code);
+    pushText('F.code.tio');nul();pushText(String(codeBytes.length));nul();codeBytes.forEach(b=>parts.push(b));nul();
+    const inputBytes=new TextEncoder().encode(input||'');
+    pushText('F.input.tio');nul();pushText(String(inputBytes.length));nul();inputBytes.forEach(b=>parts.push(b));nul();
+    pushText('Vargs');nul();pushText('0');nul();parts.push('R'.charCodeAt(0));
+    return new Uint8Array(parts);
+  }
+  async function parseTioResponse(response){
+    let bytes=new Uint8Array(await response.arrayBuffer());
+    if(bytes.length>=2&&bytes[0]===0x1f&&bytes[1]===0x8b){
+      if(typeof DecompressionStream==='undefined')throw new Error('This browser does not support GZIP response decoding.');
+      const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+      bytes=new Uint8Array(await new Response(stream).arrayBuffer());
+    }
+    const text=new TextDecoder('utf-8').decode(bytes);
+    if(!text)return {output:'',error:'TIO returned an empty response.'};
+    const delimiter=text.slice(0,16);
+    if(delimiter.length===16){
+      const pieces=text.split(delimiter);
+      return {output:(pieces[1]||'').replace(/\r\n/g,'\n').replace(/\r/g,'\n').trimEnd(),error:''};
+    }
+    return {output:text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').trimEnd(),error:''};
+  }
+  async function runJava(){
+    const ed=qs('javaCodeEditor'),out=qs('javaOutput'),status=qs('codeLabStatus'),run=qs('codeLabRun'),stdin=qs('javaStdin');
+    if(!ed||!out||!status||!run)return;
+    const source=ed.value.trim();
+    if(!source)return;
+    if(/\b(class|interface|enum|record)\s+\w+/.test(source) && !/\bpublic\s+static\s+void\s+main\s*\(/.test(source)) {
+      out.textContent='This is a concept snippet, not a complete program.\n\nAdd a public static void main(String[] args) method, then press Run.';
+      status.textContent='Concept snippet';
+      return;
+    }
+    const code=wrapJavaSnippet(source);
+    if(!code.trim())return;
+    status.textContent='Running…';out.textContent='Compiling and running Java…';run.disabled=true;
+    try{
+      if(!window.pako||typeof window.pako.deflateRaw!=='function')throw new Error('The code execution engine is still loading. Please try Run again in a moment.');
+      const compressed=window.pako.deflateRaw(buildTioRequest(code,stdin?.value||''),{level:9});
+      const response=await fetch(TIO_API,{method:'POST',mode:'cors',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:compressed});
+      if(!response.ok){const serverText=await response.text().catch(()=> '');throw new Error('Execution service returned HTTP '+response.status+(serverText?': '+serverText.slice(0,300):'.'));}
+      const result=await parseTioResponse(response);
+      out.textContent=result.output||'Program finished successfully with no console output.';
+      status.textContent='Finished';
+    }catch(err){
+      out.textContent='Unable to run the Java program.\n\n'+(err?.message||String(err))+'\n\nIf this is the first run, wait a few seconds and try again.';
+      status.textContent='Execution unavailable';
+    }finally{run.disabled=false;}
+  }
+  function resetLab(){
+    const ed=qs('javaCodeEditor');if(!ed)return;
+    ed.value=DEFAULT_CODE;updateLineNumbers();
+    qs('javaStdin').value='';qs('javaOutput').textContent='Editor reset. Press Run to execute.';qs('codeLabStatus').textContent='Ready';
+  }
+  function bind(){
+    const open=qs('codeLabButton'),close=qs('codeLabClose'),run=qs('codeLabRun'),reset=qs('codeLabReset'),ed=qs('javaCodeEditor'),ln=qs('codeLineNumbers');
+    qs('codeThemeDark')?.addEventListener('click',()=>setCodeTheme('dark'));
+    qs('codeThemeLight')?.addEventListener('click',()=>setCodeTheme('light'));
+    let saved='dark';try{saved=localStorage.getItem('javaCodeLabTheme')||'dark';}catch(e){}
+    setCodeTheme(saved);
+    open?.addEventListener('click',()=>openLab());
+    close?.addEventListener('click',closeLab);
+    run?.addEventListener('click',runJava);
+    reset?.addEventListener('click',resetLab);
+    ed?.addEventListener('input',updateLineNumbers);
+    ed?.addEventListener('scroll',()=>{if(ln)ln.scrollTop=ed.scrollTop;});
+    ed?.addEventListener('keydown',e=>{
+      if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runJava();return;}
+      if(e.key==='Tab'){e.preventDefault();const a=ed.selectionStart,b=ed.selectionEnd;ed.value=ed.value.slice(0,a)+'    '+ed.value.slice(b);ed.selectionStart=ed.selectionEnd=a+4;updateLineNumbers();}
+    });
+    qs('javaCodeLab')?.addEventListener('click',e=>{if(e.target===e.currentTarget)closeLab();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&qs('javaCodeLab')?.classList.contains('open')){e.preventDefault();closeLab();}});
+    document.addEventListener('click',e=>{const btn=e.target.closest('.run-example-btn');if(!btn)return;e.stopPropagation();openLab(btn.getAttribute('data-java-code')||'');});
+    updateLineNumbers();
+    const runtime=qs('codeLabRuntime');if(runtime)runtime.textContent='Java • OpenJDK';
+    window.JavaCodeLab={open:openLab,close:closeLab,run:runJava,setTheme:setCodeTheme,reset:resetLab};
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+})();
+  </script>
+</body>
+</html>
