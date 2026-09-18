@@ -1,0 +1,3362 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Java Complete Fundamentals Presentation — Large Screen</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#e9eef4;color:#132033;font-family:"Segoe UI",Arial,sans-serif}
+.slide{width:100vw;height:100vh;min-height:650px;padding:7vh 9vw;display:flex;flex-direction:column;justify-content:center;background:#fff;page-break-after:always;overflow:hidden;position:relative}
+.slide:after{content:"OBJECT ORIENTED PROGRAMMING WITH JAVA";position:absolute;bottom:2.5vh;right:4vw;font-size:11px;letter-spacing:.15em;color:#a3afbd;font-weight:700}
+.kicker{font-size:clamp(13px,1vw,18px);font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#1265a8;margin-bottom:2vh}
+.title{font-size:clamp(55px,7vw,115px);line-height:1;letter-spacing:-.045em;margin:0;text-align:center;white-space:pre-line}
+h2{font-size:clamp(40px,4.8vw,72px);line-height:1.05;margin:0 0 2.5vh;letter-spacing:-.03em}
+.definition{font-size:clamp(27px,2.7vw,46px);line-height:1.25;max-width:1150px}
+.subtitle{font-size:clamp(23px,2vw,34px);color:#617087;text-align:center;margin-top:4vh}
+.bullet{font-size:clamp(25px,2.15vw,37px);line-height:1.45;margin:1.1vh 0;max-width:1180px}
+.bullet span{color:#1265a8;font-weight:800}
+.code{background:#0d1726;color:#f5f8fc;border-radius:20px;padding:2vw 2.5vw;font:clamp(22px,1.95vw,35px)/1.48 Consolas,"Courier New",monospace;white-space:pre-wrap;margin:0}
+.output{background:#f0f6fa;border:3px solid #1b7c70;border-radius:20px;padding:3vw;text-align:center;font:clamp(34px,3.8vw,66px) Consolas,"Courier New",monospace;max-width:1050px;min-width:45%;white-space:pre-line}
+.center{text-align:center;align-items:center}
+.cover{background:linear-gradient(135deg,#fff,#edf7ff)}
+.accent{width:100px;height:7px;border-radius:10px;background:#1265a8;margin:4vh auto 0}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5vw;margin-top:1vh}
+.card{background:#eef6fc;border:1px solid #dbeaf5;border-radius:20px;padding:1.7vw 2vw}
+.card h3{font-size:clamp(25px,2.1vw,37px);margin:0 0 .7vh;color:#132033}
+.card p{font-size:clamp(20px,1.55vw,28px);line-height:1.4;margin:.2em 0}
+.exercise{font-size:clamp(24px,1.95vw,34px);line-height:1.48;margin:1vh 0;max-width:1200px}
+.exercise b{color:#1265a8;margin-right:.3em}
+.indexrow{display:flex;justify-content:center;gap:0;margin-top:2vh}
+.indexrow span{padding:1vw 2vw;border:1px solid #cbd9e6;background:#fff;font-size:28px}
+.matrix{font:clamp(28px,2.4vw,44px) Consolas,monospace;margin-top:2vh;line-height:1.7}
+@media print{
+ @page{size:13.333in 7.5in;margin:0}
+ html,body{background:#fff}
+ .slide{width:13.333in;height:7.5in;min-height:0;padding:0.55in 0.9in;page-break-after:always;break-after:page}
+ .slide:after{display:block}
+ h2{font-size:38pt}.title{font-size:58pt}.definition{font-size:25pt}.bullet{font-size:20pt}
+ .code{font-size:16pt}.output{font-size:32pt}.exercise{font-size:19pt}.card h3{font-size:21pt}.card p{font-size:16pt}
+}
+
+/* ===== HIDABLE TOPIC SIDEBAR ===== */
+#topicToggle{position:fixed;z-index:10001;top:22px;left:22px;width:52px;height:52px;border:0;border-radius:14px;background:#132033;color:#fff;font-size:25px;font-weight:800;cursor:pointer;box-shadow:0 8px 24px rgba(18,32,51,.22);transition:.25s ease}
+#topicToggle:hover{transform:translateY(-2px);background:#1265a8}
+#topicSidebar{position:fixed;z-index:10000;top:0;left:0;height:100vh;width:330px;max-width:86vw;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-right:1px solid #d9e4ee;box-shadow:14px 0 45px rgba(20,40,65,.18);transform:translateX(-105%);transition:transform .3s ease;display:flex;flex-direction:column}
+#topicSidebar.open{transform:translateX(0)}
+.sidebar-head{padding:22px 20px 16px;border-bottom:1px solid #e2eaf1}
+.sidebar-head .mini-title{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#1265a8}
+.sidebar-head h3{margin:5px 0 0;font-size:23px;color:#132033}
+#topicList{overflow:auto;padding:12px 10px 22px}
+.topic-btn{width:100%;border:0;background:transparent;text-align:left;padding:11px 12px;border-radius:12px;color:#44566d;font-size:15px;font-weight:750;cursor:pointer;display:flex;align-items:center;gap:10px}
+.topic-btn:hover{background:#edf6fc;color:#1265a8}
+.topic-btn.active{background:#1265a8;color:#fff;box-shadow:0 6px 16px rgba(18,101,168,.22)}
+.topic-num{min-width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;background:#eaf2f8;color:#1265a8;font-size:12px;font-weight:900}
+.topic-btn.active .topic-num{background:rgba(255,255,255,.2);color:#fff}
+.topic-name{line-height:1.15}
+#topicBackdrop{position:fixed;z-index:9999;inset:0;background:rgba(8,22,38,.26);opacity:0;pointer-events:none;transition:.25s ease}
+#topicBackdrop.show{opacity:1;pointer-events:auto}
+body.sidebar-open{overflow:hidden}
+@media(max-width:700px){#topicToggle{top:14px;left:14px;width:46px;height:46px}#topicSidebar{width:300px}}
+@media print{#topicToggle,#topicSidebar,#topicBackdrop{display:none!important}}
+
+/* ===== CLASSROOM MCQ SLIDES ===== */
+.mcq-slide{background:linear-gradient(135deg,#f8fbff,#eef6ff)}
+.mcq-label{display:inline-flex;padding:8px 14px;border-radius:999px;background:#1265a8;color:#fff;font-size:14px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.mcq-question{font-size:clamp(30px,3vw,54px);line-height:1.15;font-weight:850;max-width:1150px;margin:3vh 0 4vh;color:#132033}
+.mcq-options{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1150px}
+.mcq-option{background:#fff;border:2px solid #d8e4ef;border-radius:18px;padding:18px 22px;font-size:clamp(20px,1.55vw,29px);font-weight:700;color:#34475d;box-shadow:0 8px 22px rgba(32,55,80,.07)}
+.mcq-option strong{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border-radius:10px;background:#eaf3fa;color:#1265a8;margin-right:12px}
+.mcq-answer{background:#132033;color:#fff}
+.mcq-answer .answer-box{margin-top:5vh;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:22px;padding:30px;max-width:900px}
+.mcq-answer .correct{font-size:clamp(28px,2.5vw,46px);font-weight:900;color:#8ee0bb}
+.mcq-answer .why{font-size:clamp(19px,1.45vw,27px);line-height:1.45;color:#dbe8f4;margin-top:12px}
+@media(max-width:750px){.mcq-options{grid-template-columns:1fr}}
+@media print{.mcq-slide,.mcq-answer{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* ===== PDF-LIKE SLIDE CHANGER ===== */
+#slideStage{position:fixed;z-index:9000;inset:0;background:#eef2f6;display:none;align-items:center;justify-content:center}
+#slideStage.active{display:flex}
+#slideViewport{position:relative;width:100vw;height:100vh;overflow:hidden}
+#slideFrame{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);transform-origin:center center;background:#fff;box-shadow:0 20px 70px rgba(10,30,55,.25);overflow:hidden}
+#slideFrame .slide{display:none!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;margin:0!important;box-sizing:border-box!important;overflow:hidden!important}
+#slideFrame .slide.presentation-current{display:block!important}
+.slidebar{position:absolute;left:0;right:0;bottom:0;height:66px;background:rgba(10,25,42,.94);display:flex;align-items:center;gap:12px;padding:0 18px;color:#fff;z-index:5}
+.slidebar button{border:0;border-radius:10px;background:rgba(255,255,255,.12);color:#fff;padding:10px 14px;font-size:18px;cursor:pointer}
+.slidebar button:hover{background:#1265a8}
+.slide-counter{font-weight:800;min-width:92px;text-align:center}
+.slide-progress{height:5px;flex:1;background:rgba(255,255,255,.15);border-radius:8px;overflow:hidden}
+.slide-progress>span{display:block;height:100%;width:0;background:#55b9f3;transition:width .2s}
+.slide-hint{font-size:13px;color:#b9c9d8}
+#slideExit{margin-left:auto}
+#presentButton{position:fixed;z-index:10001;top:22px;right:22px;border:0;border-radius:14px;background:#1265a8;color:#fff;padding:14px 18px;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 8px 24px rgba(18,101,168,.25)}
+#presentButton:hover{background:#0d4f86;transform:translateY(-2px)}
+@media(max-width:800px){.slide-hint{display:none}.slidebar{height:58px;padding:0 10px}.slidebar button{padding:8px 11px}}
+@media(max-width:700px){#presentButton{top:14px;right:14px;padding:11px 13px}}
+@media print{#slideStage,#presentButton{display:none!important}}
+
+/* ===== COMPLETE CLASSROOM MCQ SYSTEM ===== */
+.mcq-slide{background:linear-gradient(135deg,#f8fbff,#eef6ff)}
+.mcq-kicker{display:inline-flex;padding:7px 13px;border-radius:999px;background:#1265a8;color:#fff;font-size:13px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.mcq-question{font-size:clamp(30px,3vw,54px);line-height:1.15;font-weight:850;max-width:1180px;margin:2.8vh 0 3.5vh;color:#132033}
+.mcq-options{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1180px}
+.mcq-option{background:#fff;border:2px solid #d8e4ef;border-radius:18px;padding:17px 20px;font-size:clamp(19px,1.5vw,28px);font-weight:700;color:#34475d;box-shadow:0 8px 22px rgba(32,55,80,.07)}
+.mcq-letter{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border-radius:10px;background:#eaf3fa;color:#1265a8;margin-right:10px;font-weight:900}
+.mcq-answer-slide{background:linear-gradient(135deg,#132033,#1c3149);color:#fff}
+.mcq-answer-slide .kicker{color:#76c8ff}
+.mcq-answer-slide h2{color:#fff}
+.mcq-answer-slide .mcq-question{color:#fff}
+.mcq-answer-slide .mcq-option{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.18);color:#e9f1f8;box-shadow:none}
+.mcq-answer-slide .mcq-option.correct{background:#153e35;border:3px solid #52d39d;color:#fff;box-shadow:0 0 0 2px rgba(82,211,157,.16)}
+.mcq-answer-slide .mcq-option.correct .mcq-letter{background:#52d39d;color:#10271f}
+.mcq-answer-note{margin-top:2.5vh;font-size:clamp(18px,1.35vw,25px);color:#b9d0e2;max-width:1100px}
+.mcq-answer-note strong{color:#8ee0bb}
+@media(max-width:750px){.mcq-options{grid-template-columns:1fr}}
+@media print{.mcq-slide,.mcq-answer-slide{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* ===== FINAL SIDEBAR POLISH ===== */
+#topicList{scrollbar-width:thin;scrollbar-color:#9fb1c2 transparent}
+#topicList::-webkit-scrollbar{width:8px}
+#topicList::-webkit-scrollbar-thumb{background:#9fb1c2;border-radius:10px}
+.topic-btn{min-height:52px}
+.topic-btn .topic-num{flex-shrink:0}
+.topic-btn[data-topic-key^="quiz:"]{margin-top:7px;background:#fff7e9;color:#8a5a08}
+.topic-btn[data-topic-key^="quiz:"] .topic-num{background:#ffe0a3;color:#8a5a08}
+.topic-btn[data-topic-key^="quiz:"].active{background:#ed9b22;color:#fff}
+.topic-btn[data-topic-key^="quiz:"].active .topic-num{background:rgba(255,255,255,.22);color:#fff}
+</style>
+<style>
+.creator-details{
+  position:relative;
+  z-index:2;
+}
+</style><style>
+/* Enhanced classroom concept slides */
+.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4vw;margin-top:4vh}
+.concept-card{background:#fff;border:1px solid #dfe8f0;border-radius:22px;padding:1.7vw;box-shadow:0 10px 28px rgba(28,55,80,.08)}
+.concept-card .num{display:flex;width:42px;height:42px;border-radius:12px;background:#eaf4fb;color:#1265a8;align-items:center;justify-content:center;font-weight:900;font-size:17px;margin-bottom:1.2vh}
+.concept-card h3{font-size:clamp(21px,1.7vw,31px);margin:.4vh 0 .8vh;color:#132033}
+.concept-card p{font-size:clamp(16px,1.25vw,22px);line-height:1.42;color:#526277;margin:0}
+.flow-wrap{display:flex;align-items:center;justify-content:center;gap:1vw;margin:5vh auto;max-width:1250px;flex-wrap:wrap}
+.flow-step{min-width:190px;padding:1.4vw 1.2vw;background:#fff;border:2px solid #dbe7f0;border-radius:20px;text-align:center;box-shadow:0 9px 25px rgba(28,55,80,.08)}
+.flow-step strong{display:block;font-size:clamp(19px,1.5vw,27px);color:#132033}
+.flow-step small{display:block;margin-top:.6vh;font-size:clamp(14px,1.05vw,18px);color:#64758a}
+.flow-arrow{font-size:30px;font-weight:900;color:#1265a8}
+.note-strip{margin-top:3vh;padding:1.2vw 1.5vw;border-left:6px solid #1265a8;background:#eef7fd;border-radius:0 15px 15px 0;font-size:clamp(17px,1.3vw,23px);color:#34475d}
+@media(max-width:800px){.concept-grid{grid-template-columns:1fr}.flow-wrap{flex-direction:column}.flow-arrow{transform:rotate(90deg)}}
+@media print{.concept-card,.flow-step,.note-strip{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style><style>
+.syntax-card{max-width:1150px;margin:4vh auto 0;background:#132033;border-radius:22px;padding:2vw;box-shadow:0 14px 36px rgba(10,25,42,.18)}
+.syntax-card pre{margin:0;white-space:pre-wrap;font-family:"Consolas","JetBrains Mono",monospace;font-size:clamp(18px,1.55vw,29px);line-height:1.55;color:#eef6ff}
+.syntax-label{font-size:clamp(15px,1vw,19px);font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#6ec8ff;margin-bottom:1vh}
+</style><style>
+/* ===== DATA TYPE LEARNING TABLES ===== */
+.learning-table-wrap{max-width:1180px;margin:3.5vh auto 0;background:#fff;border:1px solid #dce7ef;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(25,55,80,.08)}
+.learning-table{width:100%;border-collapse:collapse;font-size:clamp(15px,1.18vw,22px)}
+.learning-table th{background:#132033;color:#fff;text-align:left;padding:14px 18px;font-weight:900}
+.learning-table td{padding:13px 18px;border-bottom:1px solid #e5edf3;color:#34475d;vertical-align:top}
+.learning-table tr:last-child td{border-bottom:0}
+.learning-table .type-name{font-weight:900;color:#1265a8}
+.learning-table .example{font-family:"Consolas","JetBrains Mono",monospace;font-weight:700}
+.learning-table-note{max-width:1180px;margin:2vh auto 0;font-size:clamp(16px,1.2vw,22px);color:#607187}
+</style><style>
+/* ===== TYPE INFERENCE & TYPE CASTING ===== */
+.var-callout{max-width:1120px;margin:3.5vh auto 0;padding:1.8vw 2vw;background:#132033;border-radius:22px;color:#fff;box-shadow:0 14px 34px rgba(10,25,42,.18)}
+.var-callout .big{font-family:"Consolas","JetBrains Mono",monospace;font-size:clamp(24px,2vw,38px);font-weight:900;color:#70c6ff}
+.var-callout p{font-size:clamp(17px,1.25vw,23px);line-height:1.45;margin:.8vh 0;color:#eaf3fb}
+.cast-table-wrap{max-width:1180px;margin:3.5vh auto 0;background:#fff;border:1px solid #dce7ef;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(25,55,80,.08)}
+.cast-table{width:100%;border-collapse:collapse;font-size:clamp(15px,1.15vw,21px)}
+.cast-table th{background:#132033;color:#fff;text-align:left;padding:13px 17px}
+.cast-table td{padding:12px 17px;border-bottom:1px solid #e5edf3;color:#34475d}
+.cast-table tr:last-child td{border-bottom:0}
+.cast-code{font-family:"Consolas","JetBrains Mono",monospace;font-weight:800;color:#1265a8}
+</style><style>
+/* ============================================================
+   LARGE-SCREEN CLASSROOM READABILITY — FINAL
+   Designed for projector / lecture-hall viewing.
+   ============================================================ */
+
+/* Concept cards: the previous 16–22px body text was too small. */
+.slide .concept-card{
+  padding:2.0vw 1.9vw;
+}
+.slide .concept-card .num{
+  width:50px;height:50px;border-radius:14px;
+  font-size:22px;margin-bottom:1.5vh;
+}
+.slide .concept-card h3{
+  font-size:clamp(28px,2.15vw,38px);
+  line-height:1.12;
+  margin:.5vh 0 1.1vh;
+}
+.slide .concept-card p{
+  font-size:clamp(24px,1.85vw,32px);
+  line-height:1.35;
+}
+
+/* Flow diagrams must be readable from the back of a classroom. */
+.slide .flow-step{
+  min-width:220px;
+  padding:1.7vw 1.5vw;
+}
+.slide .flow-step strong{
+  font-size:clamp(25px,1.9vw,34px);
+  line-height:1.15;
+}
+.slide .flow-step small{
+  font-size:clamp(19px,1.4vw,25px);
+  line-height:1.3;
+}
+.slide .flow-arrow{
+  font-size:38px;
+}
+
+/* Syntax/code: make the actual Java statement the visual focus. */
+.slide .syntax-card{
+  max-width:1220px;
+  padding:2.4vw 2.6vw;
+  border-radius:24px;
+}
+.slide .syntax-card .syntax-label{
+  font-size:clamp(20px,1.35vw,25px);
+  margin-bottom:1.5vh;
+}
+.slide .syntax-card pre{
+  font-size:clamp(29px,2.35vw,42px);
+  line-height:1.45;
+}
+
+/* Explanatory strips / callouts. */
+.slide .note-strip{
+  font-size:clamp(23px,1.7vw,30px);
+  line-height:1.35;
+  padding:1.35vw 1.7vw;
+}
+.slide .learning-table-note{
+  font-size:clamp(22px,1.6vw,28px);
+  line-height:1.35;
+}
+
+/* Tables: readable headers and cells from projector distance. */
+.slide .learning-table{
+  font-size:clamp(21px,1.55vw,28px);
+}
+.slide .learning-table th{
+  padding:17px 20px;
+  font-size:clamp(22px,1.6vw,29px);
+}
+.slide .learning-table td{
+  padding:16px 20px;
+  line-height:1.3;
+}
+
+/* Existing generic cards. */
+.slide .card h3{
+  font-size:clamp(28px,2.15vw,38px);
+}
+.slide .card p{
+  font-size:clamp(23px,1.7vw,30px);
+  line-height:1.35;
+}
+
+/* Variable/type callouts. */
+.slide .var-callout .big{
+  font-size:clamp(30px,2.5vw,44px);
+}
+.slide .var-callout p{
+  font-size:clamp(23px,1.7vw,30px);
+}
+
+/* Subtitle / definition support text. */
+.slide .subtitle{
+  font-size:clamp(26px,2.15vw,36px);
+}
+
+/* Keep bullets strong and projector-safe. */
+.slide .bullet{
+  font-size:clamp(27px,2.2vw,38px);
+  line-height:1.38;
+}
+
+/* On narrower displays, stack cards rather than shrinking text. */
+@media(max-width:1000px){
+  .slide .concept-grid,
+  .slide .cards{
+    grid-template-columns:1fr;
+  }
+}
+
+/* Print / PDF retains the enlarged typography. */
+@media print{
+  .slide .concept-card,
+  .slide .flow-step,
+  .slide .syntax-card,
+  .slide .learning-table-wrap,
+  .slide .note-strip{
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+}
+</style><style>
+/* ============================================================
+   PRESENTATION CONTROL BAR — AUTO HIDE
+   Hidden during presentation; revealed on pointer hover near
+   the bottom edge / over the control bar.
+   ============================================================ */
+.slidebar{
+  transition: transform .28s ease, opacity .28s ease;
+  will-change: transform, opacity;
+}
+body.presentation-controls-hidden .slidebar{
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+body.presentation-controls-hidden .slidebar:hover{
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Invisible hover zone along the bottom edge. */
+#slideStage #presentationBottomHoverZone{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:42px;
+  z-index:9998;
+  pointer-events:none;
+}
+#slideStage.active #presentationBottomHoverZone{
+  pointer-events:auto;
+}
+#slideStage.active #presentationBottomHoverZone:hover + .slidebar,
+#slideStage.active .slidebar:hover{
+  transform:translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* Keep the top/sidebar controls unaffected. */
+</style>
+
+<style>
+.slidebar{
+  box-shadow:0 -8px 24px rgba(10,25,42,.16);
+}
+</style>
+<style>
+/* Cursor-only presentation controls */
+#slideStage #presentationBottomHoverZone{
+  height:52px;
+  z-index:9999;
+}
+#slideStage.active .slidebar{
+  transition:transform .20s ease, opacity .20s ease;
+}
+body.presentation-controls-hidden #slideStage.active .slidebar{
+  transform:translateY(100%);
+  opacity:0;
+  pointer-events:none;
+}
+body:not(.presentation-controls-hidden) #slideStage.active .slidebar{
+  transform:translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
+</style><style>
+/* ============================================================
+   PRESENTATION MODE — SAME SIZE AS NORMAL VIEW
+   + Footer safety when controls are visible
+   ============================================================ */
+#slideStage.active #slideFrame{
+  width:100vw !important;
+  height:100vh !important;
+  left:0 !important;
+  top:0 !important;
+  transform:none !important;
+}
+#slideStage.active #slideFrame .slide{
+  width:100vw !important;
+  height:100vh !important;
+}
+#slideStage.active #slideFrame .slide:after{
+  bottom:2.5vh;
+  transition:bottom .18s ease;
+}
+body:not(.presentation-controls-hidden) #slideStage.active #slideFrame .slide:after{
+  bottom:10vh;
+}
+</style><style>
+/* Present button becomes a clear Exit control while presenting. */
+#presentButton[data-presentation-active="true"]{
+  background:#132033;
+}
+#presentButton[data-presentation-active="true"]:hover{
+  background:#0d4f86;
+}
+</style>
+<style>
+/* ============================================================
+   JAVA CODE LAB — LARGE SCREEN CLASSROOM UI
+   ============================================================ */
+.code-lab-top-btn{
+  position:fixed;
+  top:24px;
+  right:190px;
+  z-index:10050;
+  border:0;
+  border-radius:16px;
+  padding:15px 21px;
+  background:#132033;
+  color:#fff;
+  font:800 18px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.2px;
+  box-shadow:0 10px 25px rgba(10,25,42,.18);
+  cursor:pointer;
+}
+.code-lab-top-btn:hover{background:#0d4f86;transform:translateY(-1px)}
+.code-lab-overlay{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+  background:rgba(9,20,34,.72);
+  backdrop-filter:blur(5px);
+}
+.code-lab-overlay.open{display:flex}
+.code-lab-window{
+  width:min(1500px,96vw);
+  height:min(900px,92vh);
+  min-height:620px;
+  background:#f7fafc;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+  display:flex;
+  flex-direction:column;
+}
+.code-lab-header{
+  background:#132033;
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:18px 22px;
+}
+.code-lab-kicker{
+  color:#72c7ff;
+  font:900 14px/1 system-ui,sans-serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+.code-lab-title{
+  font:900 30px/1.1 system-ui,sans-serif;
+}
+.code-lab-actions{display:flex;gap:10px;align-items:center}
+.lab-btn{
+  border:0;border-radius:12px;padding:13px 18px;
+  font:800 17px/1 system-ui,sans-serif;cursor:pointer;
+}
+.lab-btn.run{background:#1b78c0;color:#fff}
+.lab-btn.secondary{background:#e7eef5;color:#132033}
+.lab-btn.close{background:#26384d;color:#fff}
+.lab-btn:hover{filter:brightness(1.08)}
+.code-lab-toolbar{
+  min-height:44px;padding:8px 18px;display:flex;align-items:center;gap:12px;
+  background:#eaf2f8;border-bottom:1px solid #d5e2eb;
+}
+.lab-pill{
+  background:#132033;color:#fff;border-radius:999px;padding:7px 14px;
+  font:800 15px/1 system-ui,sans-serif;
+}
+.lab-hint{font:700 15px/1.2 system-ui,sans-serif;color:#52667c}
+.code-lab-body{
+  flex:1;min-height:0;display:grid;grid-template-columns:1.65fr .85fr;
+  gap:14px;padding:14px;background:#dfe8ef;
+}
+.editor-panel,.io-box{
+  background:#fff;border:1px solid #d4e0e8;border-radius:17px;overflow:hidden;
+  box-shadow:0 8px 22px rgba(20,45,70,.08);
+}
+.editor-panel{display:flex;flex-direction:column;min-height:0}
+.editor-titlebar,.io-title{
+  background:#eef4f8;color:#132033;font:900 15px/1 system-ui,sans-serif;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:12px 15px;border-bottom:1px solid #d7e3eb;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.editor-status{font-size:13px;color:#1671b5;text-transform:none;letter-spacing:0}
+.editor-wrap{
+  flex:1;min-height:0;display:grid;grid-template-columns:58px 1fr;
+  background:#0f1724;
+}
+.line-numbers{
+  padding:20px 12px 20px 8px;
+  text-align:right;user-select:none;overflow:hidden;
+  color:#60758d;background:#0b1320;
+  font:700 21px/1.58 "Cascadia Mono","Consolas","Courier New",monospace;
+}
+#javaCodeEditor{
+  width:100%;height:100%;resize:none;border:0;outline:0;
+  padding:20px 20px 24px 16px;
+  background:#0f1724;color:#f1f6fb;
+  caret-color:#70c6ff;
+  font:700 23px/1.58 "Cascadia Mono","Consolas","Courier New",monospace;
+  tab-size:4;
+}
+#javaCodeEditor::selection{background:#245a82;color:#fff}
+.io-panel{display:grid;grid-template-rows:0.72fr 1.28fr;gap:14px;min-height:0}
+.io-box{display:flex;flex-direction:column;min-height:0}
+.io-title span{font-size:12px;color:#718398;text-transform:none;letter-spacing:0}
+#javaStdin{
+  flex:1;min-height:0;border:0;outline:0;resize:none;
+  padding:16px;
+  font:650 20px/1.5 "Cascadia Mono","Consolas",monospace;color:#24374c;
+}
+.output-box{background:#0b1320;color:#e9f4ff}
+.output-box .io-title{background:#132033;color:#fff;border-bottom-color:#2a4057}
+.java-output{
+  flex:1;margin:0;padding:18px;overflow:auto;white-space:pre-wrap;
+  font:700 20px/1.55 "Cascadia Mono","Consolas","Courier New",monospace;
+  color:#e9f4ff;
+}
+.code-lab-footer{
+  display:flex;justify-content:space-between;gap:20px;
+  padding:10px 18px;background:#132033;color:#aebed0;
+  font:600 13px/1.3 system-ui,sans-serif;
+}
+.run-example-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  margin:10px 0 0;
+  border:0;border-radius:10px;padding:11px 16px;
+  background:#146fb2;color:#fff;
+  font:800 16px/1 system-ui,sans-serif;
+  cursor:pointer;box-shadow:0 7px 18px rgba(20,111,178,.18);
+}
+.run-example-btn:hover{background:#0d568d;transform:translateY(-1px)}
+.slide .syntax-card .run-example-btn{display:block;margin:12px auto 0}
+@media(max-width:1050px){
+  .code-lab-window{height:94vh}
+  .code-lab-body{grid-template-columns:1fr}
+  .io-panel{grid-template-columns:1fr 1fr;grid-template-rows:1fr}
+  #javaCodeEditor{font-size:20px}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+
+<style>
+/* ============================================================
+   CODE LAB — UI FIXES
+   ============================================================ */
+
+/* Modal must sit above all presentation/sidebar controls. */
+.code-lab-overlay{
+  z-index:20000 !important;
+}
+
+/* When Code Lab is open, hide the global navigation controls so
+   they can never cover the Lab header/action buttons. */
+body.code-lab-open #codeLabButton,
+body.code-lab-open #presentButton,
+body.code-lab-open #topicSidebar{
+  display:none !important;
+}
+
+/* The Lab window owns the complete visible workspace. */
+.code-lab-window{
+  width:min(1540px,97vw);
+  height:min(900px,93vh);
+}
+
+/* Make the line-number column behave like a real code gutter. */
+.line-numbers{
+  width:70px;
+  box-sizing:border-box;
+  white-space:pre !important;
+  overflow:hidden !important;
+  word-break:normal !important;
+  overflow-wrap:normal !important;
+  text-align:right;
+  padding-right:14px;
+}
+
+/* Keep the editor toolbar/buttons clear of any global UI. */
+.code-lab-header{
+  position:relative;
+  z-index:2;
+}
+.code-lab-actions{
+  flex-shrink:0;
+}
+
+/* Large, projector-friendly controls. */
+.lab-btn{
+  min-height:48px;
+  padding:13px 19px;
+  font-size:18px;
+}
+#javaCodeEditor{
+  font-size:24px;
+  line-height:1.55;
+}
+.java-output{
+  font-size:21px;
+  line-height:1.5;
+}
+</style>
+
+<style>
+/* ============================================================
+   CODE LAB — THEME SWITCHER + CLEAN OUTPUT
+   ============================================================ */
+.code-lab-toolbar{
+  flex-wrap:wrap;
+}
+.code-theme-switcher{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:4px;
+  border-radius:12px;
+  background:#dbe7ef;
+}
+.theme-label{
+  font:800 14px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:#52667c;
+  padding:0 5px;
+}
+.theme-btn{
+  border:0;
+  border-radius:9px;
+  padding:8px 12px;
+  cursor:pointer;
+  background:transparent;
+  color:#3e5268;
+  font:800 14px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+.theme-btn.active{
+  background:#132033;
+  color:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.12);
+}
+
+/* Dark editor (default) */
+#javaCodeLab.editor-dark .editor-wrap{
+  background:#0f1724;
+}
+#javaCodeLab.editor-dark #javaCodeEditor{
+  background:#0f1724;
+  color:#f1f6fb;
+  caret-color:#70c6ff;
+}
+#javaCodeLab.editor-dark .line-numbers{
+  background:#0b1320;
+  color:#60758d;
+}
+#javaCodeLab.editor-dark .output-box{
+  background:#0b1320;
+}
+#javaCodeLab.editor-dark .java-output{
+  background:#0b1320;
+  color:#e9f4ff;
+}
+
+/* Light editor */
+#javaCodeLab.editor-light .editor-wrap{
+  background:#f7f9fb;
+  border-top:1px solid #d9e2ea;
+}
+#javaCodeLab.editor-light #javaCodeEditor{
+  background:#ffffff;
+  color:#172638;
+  caret-color:#146fb2;
+}
+#javaCodeLab.editor-light .line-numbers{
+  background:#eef3f7;
+  color:#6d7f91;
+}
+#javaCodeLab.editor-light .output-box{
+  background:#ffffff;
+}
+#javaCodeLab.editor-light .output-box .io-title{
+  background:#eef4f8;
+  color:#132033;
+  border-bottom-color:#d7e3eb;
+}
+#javaCodeLab.editor-light .java-output{
+  background:#ffffff;
+  color:#172638;
+}
+
+/* Keep input readable in both themes. */
+#javaCodeLab.editor-light #javaStdin{
+  background:#fff;
+  color:#24374c;
+}
+#javaCodeLab.editor-dark #javaStdin{
+  background:#fff;
+  color:#24374c;
+}
+
+/* Cleaner footer: no service/provider wording during teaching. */
+.code-lab-footer{
+  justify-content:center;
+}
+.code-lab-footer span:first-child{
+  display:none;
+}
+.code-lab-footer #codeLabRuntime{
+  font-weight:800;
+  color:#c3d4e4;
+}
+
+/* Make the theme controls comfortable on a projector. */
+.theme-btn{
+  min-height:38px;
+  font-size:15px;
+}
+</style>
+
+<style>
+/* ===== MODULE 2 PRESENTATION ENHANCEMENTS ===== */
+.module-index{max-width:1250px;margin:2vh auto 0}
+.module-index table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #dce7ef;border-radius:18px;overflow:hidden;font-size:clamp(20px,1.55vw,28px)}
+.module-index th{background:#132033;color:#fff;text-align:left;padding:16px 20px}
+.module-index td{padding:15px 20px;border-bottom:1px solid #e5edf3;color:#34475d;vertical-align:top}
+.module-index tr:last-child td{border-bottom:0}
+.module-index .num{font-weight:900;color:#1265a8;width:90px}
+.syntax-table{max-width:1220px;margin:2.5vh auto 0;border:1px solid #dce7ef;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 10px 28px rgba(25,55,80,.08)}
+.syntax-table table{width:100%;border-collapse:collapse;font-size:clamp(19px,1.45vw,27px)}
+.syntax-table th{background:#132033;color:#fff;text-align:left;padding:15px 18px}
+.syntax-table td{padding:14px 18px;border-bottom:1px solid #e5edf3;color:#34475d;vertical-align:top}
+.syntax-table tr:last-child td{border-bottom:0}
+.syntax-table code{font-family:"Consolas","JetBrains Mono",monospace;font-weight:800;color:#1265a8}
+.example-label{display:inline-flex;padding:7px 13px;border-radius:999px;background:#eaf4fb;color:#1265a8;font-size:14px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.5vh}
+.output.small{font-size:clamp(25px,2.7vw,46px);white-space:pre-line}
+.practice-grid{display:grid;grid-template-columns:1fr 1fr;gap:1vw 2vw;max-width:1200px}
+@media(max-width:900px){.practice-grid{grid-template-columns:1fr}.module-index table,.syntax-table table{font-size:18px}}
+</style>
+
+
+<style>
+/* ===== REQUESTED GENERAL SYNTAX STYLE ===== */
+.generic-syntax-card{
+  width:min(980px,82vw);
+  margin:2vh auto 0;
+  padding:3.1vh 3.5vw;
+  background:#132033;
+  color:#f7fbff;
+  border-radius:24px;
+  box-shadow:0 18px 45px rgba(19,32,51,.18);
+  text-align:left;
+}
+.generic-syntax-label{
+  color:#61c0ff;
+  font-size:clamp(18px,1.55vw,28px);
+  font-weight:900;
+  letter-spacing:.14em;
+  margin-bottom:1.8vh;
+}
+.generic-syntax-card pre{
+  margin:0;
+  white-space:pre-wrap;
+  font:clamp(27px,2.35vw,43px)/1.5 "Consolas","JetBrains Mono","Courier New",monospace;
+}
+.syntax-explain-table{
+  width:min(1280px,88vw);
+  margin:1.5vh auto 0;
+  border:1px solid #d7e4ee;
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 12px 30px rgba(25,55,80,.08);
+}
+.syntax-explain-table table{width:100%;border-collapse:collapse;font-size:clamp(18px,1.45vw,27px)}
+.syntax-explain-table th{background:#132033;color:#fff;text-align:left;padding:16px 20px}
+.syntax-explain-table td{padding:15px 20px;border-bottom:1px solid #e5edf3;vertical-align:top;color:#34475d}
+.syntax-explain-table tr:last-child td{border-bottom:0}
+.syntax-explain-table code{font-family:"Consolas","JetBrains Mono",monospace;font-weight:800;color:#1265a8;white-space:pre-wrap}
+.example-slide .code{
+  font-size:clamp(19px,1.5vw,29px);
+  line-height:1.42;
+  max-height:58vh;
+  overflow:hidden;
+}
+.example-slide h2{margin-bottom:1vh}
+.example-slide .run-example-btn{
+  width:100%;
+  justify-content:flex-start;
+  min-height:48px;
+  font-size:clamp(16px,1.15vw,22px);
+}
+</style>
+
+
+<style id="urgent-layout-fixes">
+/* TOC: keep the complete index inside the viewport */
+.index-slide{
+  justify-content:flex-start !important;
+  padding-top:10vh !important;
+  padding-bottom:7vh !important;
+}
+.index-slide h2{
+  margin-bottom:2vh;
+}
+.index-slide .module-index{
+  width:min(1250px,86vw);
+  max-width:none;
+  margin:0 auto;
+}
+.index-slide .module-index table{
+  font-size:clamp(16px,1.18vw,22px);
+}
+.index-slide .module-index th{
+  padding:11px 16px;
+}
+.index-slide .module-index td{
+  padding:9px 16px;
+  line-height:1.18;
+}
+.index-slide .module-index .num{
+  width:64px;
+}
+
+/* General Syntax: one concept, one clean pattern */
+.generic-syntax-card{
+  width:min(900px,78vw);
+  padding:3vh 3.2vw;
+}
+.generic-syntax-card pre{
+  font-size:clamp(25px,2.05vw,38px);
+  line-height:1.38;
+}
+</style>
+
+
+<style id="practice-and-sidebar-fixes">
+.practice-grid{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:1.4vh !important;
+  width:min(1250px,88vw) !important;
+  margin-top:1vh !important;
+}
+.practice-grid .exercise{
+  width:100% !important;
+  margin:0 !important;
+  padding:0.55vh 0 !important;
+  font-size:clamp(20px,1.65vw,30px) !important;
+  line-height:1.35 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+.practice-grid .exercise b{
+  color:#1265a8;
+  margin-right:.55em;
+}
+
+/* Hierarchical topic navigation */
+#topicSidebar .sidebar-head{
+  padding-bottom:12px;
+}
+.sidebar-module{
+  padding:10px 14px 6px;
+  color:#1265a8;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.sidebar-topic{
+  margin-left:10px;
+}
+.sidebar-topic .topic-num{
+  width:34px;
+  min-width:34px;
+  height:34px;
+  border-radius:9px;
+}
+.sidebar-topic .topic-name{
+  line-height:1.2;
+}
+</style>
+
+</head>
+<body>
+<button id="codeLabButton" class="code-lab-top-btn" type="button" title="Open Java Code Lab">⌘ Code Lab</button>
+<button id="presentButton" title="Start slide presentation">▶ Present</button>
+<button aria-label="Open topics sidebar" id="topicToggle" title="Open topics">☰</button>
+<div id="topicBackdrop"></div>
+<aside aria-label="Presentation topics" id="topicSidebar">
+<div class="sidebar-head"><div class="mini-title">Object Oriented Programming with Java</div><h3>Module 2 · Topics</h3></div>
+<nav id="topicList"></nav>
+</aside>
+<section class="slide center cover"><div class="kicker">Object Oriented Programming with Java</div><div class="title">MODULE 2</div><p class="subtitle">INTRODUCTION TO OOP</p><div class="accent"></div><div class="creator-details" style="margin-top:5vh;text-align:center;font-size:clamp(18px,1.35vw,27px);line-height:1.5;color:#526277;"><div style="font-weight:900;text-transform:uppercase;letter-spacing:.12em;font-size:clamp(14px,1vw,19px);color:#1265a8;margin-bottom:.8vh;">Prepared by:</div><div style="font-weight:900;font-size:clamp(25px,2vw,38px);color:#132033;margin-bottom:.5vh;">Prof. Mohammed Siraj B</div><div>Asst Professor Stage-III,</div><div>School of Engineering,</div><div>St Aloysius (Deemed to be University), Mangalore</div></div></section><section class="slide index-slide"><div class="kicker">Module 2 · Index</div><h2>What We Will Learn</h2><div class="module-index"><table><thead><tr><th>No.</th><th>Topic</th><th>Focus</th></tr></thead><tbody><tr><td class="num">01</td><td><strong>Class Fundamentals</strong></td><td>Class blueprint and object creation</td></tr><tr><td class="num">02</td><td><strong>Declaring Objects</strong></td><td>Creating and initializing objects</td></tr><tr><td class="num">03</td><td><strong>Object Reference Variables</strong></td><td>References, aliases, and null</td></tr><tr><td class="num">04</td><td><strong>Methods</strong></td><td>Reusable behavior through methods</td></tr><tr><td class="num">05</td><td><strong>Constructors</strong></td><td>Object initialization with constructors</td></tr><tr><td class="num">06</td><td><strong>this Keyword</strong></td><td>Current-object reference and constructor chaining</td></tr><tr><td class="num">07</td><td><strong>Garbage Collection</strong></td><td>Automatic memory management</td></tr><tr><td class="num">08</td><td><strong>Method Overloading</strong></td><td>Compile-time polymorphism</td></tr><tr><td class="num">09</td><td><strong>Passing Objects to Methods</strong></td><td>Passing object references to methods</td></tr><tr><td class="num">10</td><td><strong>Returning Objects from Methods</strong></td><td>Returning object references</td></tr><tr><td class="num">11</td><td><strong>Recursion</strong></td><td>Self-calling methods and base cases</td></tr></tbody></table></div></section><section class="slide center cover"><div class="kicker">02 · Class Fundamentals</div><div class="title">CLASS FUNDAMENTALS</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · Class Fundamentals</div><h2>Definition</h2><p class="definition">A <strong>class</strong> is a blueprint that defines the data and behavior of objects. It groups fields, constructors, and methods into one logical unit.</p></section><section class="slide"><div class="kicker">02 · Class Fundamentals</div><h2>In Simple Words</h2><div class="bullet"><span>•</span> <strong>Class = blueprint:</strong> it describes what an object has and what it can do.</div><div class="bullet"><span>•</span> <strong>Fields</strong> store the state of an object.</div><div class="bullet"><span>•</span> <strong>Methods</strong> define the behavior of an object.</div><div class="bullet"><span>•</span> A class definition does not create an object by itself.</div><div class="bullet"><span>•</span> Objects are created from a class using <strong>new</strong>.</div></section><section class="slide"><div class="kicker">02 · Class Fundamentals</div><h2>General Syntax</h2><div class="generic-syntax-card"><div class="generic-syntax-label">GENERAL SYNTAX</div><pre>class ClassName {
+
+    dataType fieldName;
+
+}</pre></div></section><section class="slide"><div class="kicker">02 · Class Fundamentals</div><h2>Syntax Explanation</h2><div class="syntax-explain-table"><table><thead><tr><th>Syntax</th><th>What it means</th></tr></thead><tbody><tr><td><code>class ClassName { ... }</code></td><td>Defines a new class.</td></tr><tr><td><code>dataType fieldName;</code></td><td>Stores object state.</td></tr><tr><td><code>returnType methodName(...) { ... }</code></td><td>Defines object behavior.</td></tr><tr><td><code>ClassName obj = new ClassName();</code></td><td>Creates an object from the class.</td></tr></tbody></table></div></section><section class="slide example-slide"><div class="kicker">02 · Class Fundamentals</div><div class="example-label">Example 1</div><h2>See It in Action</h2><pre class="code">class Student {
+
+    int marks = 85;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+        System.out.println(s.marks);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Student {
+
+    int marks = 85;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+        System.out.println(s.marks);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Class Fundamentals</div><h2>Example 1 · Output</h2><div class="output small">85</div></section><section class="slide example-slide"><div class="kicker">02 · Class Fundamentals</div><div class="example-label">Example 2</div><h2>See It in Action</h2><pre class="code">class Rectangle {
+
+    int length = 10;
+
+    int width = 5;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Rectangle r = new Rectangle();
+
+        System.out.println(r.length * r.width);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Rectangle {
+
+    int length = 10;
+
+    int width = 5;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Rectangle r = new Rectangle();
+
+        System.out.println(r.length * r.width);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Class Fundamentals</div><h2>Example 2 · Output</h2><div class="output small">50</div></section><section class="slide example-slide"><div class="kicker">02 · Class Fundamentals</div><div class="example-label">Example 3</div><h2>See It in Action</h2><pre class="code">class Lamp {
+
+    boolean on = true;
+
+    void show() {
+
+        System.out.println(on ? &quot;ON&quot; : &quot;OFF&quot;);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Lamp l = new Lamp();
+
+        l.show();
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Lamp {
+
+    boolean on = true;
+
+    void show() {
+
+        System.out.println(on ? &quot;ON&quot; : &quot;OFF&quot;);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Lamp l = new Lamp();
+
+        l.show();
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Class Fundamentals</div><h2>Example 3 · Output</h2><div class="output small">ON</div></section><section class="slide"><div class="kicker">02 · Class Fundamentals</div><h2>Practice Programs</h2><div class="practice-grid"><div class="exercise"><b>1.</b> Create a <code>Book</code> class with title and price fields and display them.</div><div class="exercise"><b>2.</b> Create a <code>Mobile</code> class with brand and model fields.</div><div class="exercise"><b>3.</b> Create a <code>Circle</code> class with radius and a method to calculate area.</div><div class="exercise"><b>4.</b> Create a <code>Student</code> class with name, USN, and marks.</div><div class="exercise"><b>5.</b> Create an <code>Employee</code> class with id, name, and salary.</div></div></section><section class="slide center cover"><div class="kicker">02 · Declaring Objects</div><div class="title">DECLARING OBJECTS</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · Declaring Objects</div><h2>Definition</h2><p class="definition">Declaring an object means creating a reference variable of a class type and, when required, using <strong>new</strong> to create the actual object in memory.</p></section><section class="slide"><div class="kicker">02 · Declaring Objects</div><h2>In Simple Words</h2><div class="bullet"><span>•</span> First, the class defines the object type.</div><div class="bullet"><span>•</span> A reference variable can be declared without immediately creating an object.</div><div class="bullet"><span>•</span> <code>new</code> creates an object and returns its reference.</div><div class="bullet"><span>•</span> The dot operator <code>.</code> accesses fields and methods through the reference.</div><div class="bullet"><span>•</span> An object can be created and assigned in a single statement.</div></section><section class="slide"><div class="kicker">02 · Declaring Objects</div><h2>General Syntax</h2><div class="generic-syntax-card"><div class="generic-syntax-label">GENERAL SYNTAX</div><pre>ClassName objectName = new ClassName();</pre></div></section><section class="slide"><div class="kicker">02 · Declaring Objects</div><h2>Syntax Explanation</h2><div class="syntax-explain-table"><table><thead><tr><th>Syntax</th><th>What it means</th></tr></thead><tbody><tr><td><code>ClassName obj;</code></td><td>Declares a reference variable.</td></tr><tr><td><code>new ClassName();</code></td><td>Creates an object.</td></tr><tr><td><code>ClassName obj = new ClassName();</code></td><td>Creates and assigns an object.</td></tr><tr><td><code>obj.memberName</code></td><td>Uses the reference to access a member.</td></tr></tbody></table></div></section><section class="slide example-slide"><div class="kicker">02 · Declaring Objects</div><div class="example-label">Example 1</div><h2>See It in Action</h2><pre class="code">class Car {
+
+    String brand = &quot;Toyota&quot;;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Car c = new Car();
+
+        System.out.println(c.brand);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Car {
+
+    String brand = &quot;Toyota&quot;;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Car c = new Car();
+
+        System.out.println(c.brand);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Declaring Objects</div><h2>Example 1 · Output</h2><div class="output small">Toyota</div></section><section class="slide example-slide"><div class="kicker">02 · Declaring Objects</div><div class="example-label">Example 2</div><h2>See It in Action</h2><pre class="code">class Student {
+
+    String name = &quot;Aisha&quot;;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s;
+
+        s = new Student();
+
+        System.out.println(s.name);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Student {
+
+    String name = &quot;Aisha&quot;;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s;
+
+        s = new Student();
+
+        System.out.println(s.name);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Declaring Objects</div><h2>Example 2 · Output</h2><div class="output small">Aisha</div></section><section class="slide example-slide"><div class="kicker">02 · Declaring Objects</div><div class="example-label">Example 3</div><h2>See It in Action</h2><pre class="code">class Circle {
+
+    double r = 4;
+
+    double area() {
+
+        return Math.PI * r * r;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Circle c = new Circle();
+
+        System.out.printf(&quot;%.2f%n&quot;, c.area());
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Circle {
+
+    double r = 4;
+
+    double area() {
+
+        return Math.PI * r * r;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Circle c = new Circle();
+
+        System.out.printf(&quot;%.2f%n&quot;, c.area());
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Declaring Objects</div><h2>Example 3 · Output</h2><div class="output small">50.27</div></section><section class="slide"><div class="kicker">02 · Declaring Objects</div><h2>Practice Programs</h2><div class="practice-grid"><div class="exercise"><b>1.</b> Declare and create an object of a <code>Book</code> class.</div><div class="exercise"><b>2.</b> Declare an object first and create it later.</div><div class="exercise"><b>3.</b> Create two <code>Student</code> objects and display different names.</div><div class="exercise"><b>4.</b> Create a <code>Rectangle</code> object and display its area.</div><div class="exercise"><b>5.</b> Create a <code>BankAccount</code> object and call a display method.</div></div></section><section class="slide center cover"><div class="kicker">02 · Object Reference Variables</div><div class="title">OBJECT REFERENCE VARIABLES</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · Object Reference Variables</div><h2>Definition</h2><p class="definition">An <strong>object reference variable</strong> stores a reference to an object rather than storing the complete object itself. Multiple references can refer to the same object.</p></section><section class="slide"><div class="kicker">02 · Object Reference Variables</div><h2>In Simple Words</h2><div class="bullet"><span>•</span> A reference variable has a class type, such as <code>Student s</code>.</div><div class="bullet"><span>•</span> It can refer to an object created with <code>new</code>.</div><div class="bullet"><span>•</span> Two references may point to the <strong>same object</strong>.</div><div class="bullet"><span>•</span> Assigning one reference to another copies the reference, not the object.</div><div class="bullet"><span>•</span> <code>null</code> means the reference currently refers to no object.</div></section><section class="slide"><div class="kicker">02 · Object Reference Variables</div><h2>General Syntax</h2><div class="generic-syntax-card"><div class="generic-syntax-label">GENERAL SYNTAX</div><pre>ClassName reference = object;</pre></div></section><section class="slide"><div class="kicker">02 · Object Reference Variables</div><h2>Syntax Explanation</h2><div class="syntax-explain-table"><table><thead><tr><th>Syntax</th><th>What it means</th></tr></thead><tbody><tr><td><code>ClassName a;</code></td><td>Declares a reference.</td></tr><tr><td><code>a = new ClassName();</code></td><td>Makes the reference point to a new object.</td></tr><tr><td><code>ClassName b = a;</code></td><td>Both references point to the same object.</td></tr><tr><td><code>ClassName a = null;</code></td><td>Reference points to no object.</td></tr></tbody></table></div></section><section class="slide example-slide"><div class="kicker">02 · Object Reference Variables</div><div class="example-label">Example 1</div><h2>See It in Action</h2><pre class="code">class Student {
+
+    String name = &quot;Ravi&quot;;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student a = new Student();
+
+        Student b = a;
+
+        System.out.println(a == b);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Student {
+
+    String name = &quot;Ravi&quot;;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student a = new Student();
+
+        Student b = a;
+
+        System.out.println(a == b);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Object Reference Variables</div><h2>Example 1 · Output</h2><div class="output small">true</div></section><section class="slide example-slide"><div class="kicker">02 · Object Reference Variables</div><div class="example-label">Example 2</div><h2>See It in Action</h2><pre class="code">class Box {
+
+    int value = 10;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Box a = new Box();
+
+        Box b = a;
+
+        b.value = 50;
+
+        System.out.println(a.value);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Box {
+
+    int value = 10;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Box a = new Box();
+
+        Box b = a;
+
+        b.value = 50;
+
+        System.out.println(a.value);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Object Reference Variables</div><h2>Example 2 · Output</h2><div class="output small">50</div></section><section class="slide example-slide"><div class="kicker">02 · Object Reference Variables</div><div class="example-label">Example 3</div><h2>See It in Action</h2><pre class="code">class Car {
+
+    String model = &quot;Swift&quot;;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Car c = null;
+
+        System.out.println(c == null);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Car {
+
+    String model = &quot;Swift&quot;;
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Car c = null;
+
+        System.out.println(c == null);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Object Reference Variables</div><h2>Example 3 · Output</h2><div class="output small">true</div></section><section class="slide"><div class="kicker">02 · Object Reference Variables</div><h2>Practice Programs</h2><div class="practice-grid"><div class="exercise"><b>1.</b> Create two references to one <code>Student</code> object and prove they are aliases.</div><div class="exercise"><b>2.</b> Change a field through one reference and observe it through another.</div><div class="exercise"><b>3.</b> Write a program that checks whether a reference is <code>null</code>.</div><div class="exercise"><b>4.</b> Create two separate objects and compare their references with <code>==</code>.</div><div class="exercise"><b>5.</b> Explain the difference between an object and its reference variable.</div></div></section><section class="slide center cover"><div class="kicker">02 · Methods</div><div class="title">METHODS</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · Methods</div><h2>Definition</h2><p class="definition">A <strong>method</strong> is a named block of code inside a class that performs a specific operation. Methods improve reuse, structure, and readability.</p></section><section class="slide"><div class="kicker">02 · Methods</div><h2>In Simple Words</h2><div class="bullet"><span>•</span> A method may take <strong>parameters</strong> as input.</div><div class="bullet"><span>•</span> A method may return a value or use <code>void</code> when it returns nothing.</div><div class="bullet"><span>•</span> Methods are invoked using an object reference for instance methods.</div><div class="bullet"><span>•</span> Method parameters receive values from the caller.</div><div class="bullet"><span>•</span> A method can be called multiple times with different arguments.</div></section><section class="slide"><div class="kicker">02 · Methods</div><h2>General Syntax</h2><div class="generic-syntax-card"><div class="generic-syntax-label">GENERAL SYNTAX</div><pre>returnType methodName(parameters) {
+
+    statements;
+
+}</pre></div></section><section class="slide"><div class="kicker">02 · Methods</div><h2>Syntax Explanation</h2><div class="syntax-explain-table"><table><thead><tr><th>Syntax</th><th>What it means</th></tr></thead><tbody><tr><td><code>void methodName() { ... }</code></td><td>Method performs an action and returns nothing.</td></tr><tr><td><code>void methodName(type p) { ... }</code></td><td>Accepts input values.</td></tr><tr><td><code>type methodName(...) { return value; }</code></td><td>Computes and returns a value.</td></tr><tr><td><code>obj.methodName(arguments);</code></td><td>Invokes the method.</td></tr></tbody></table></div></section><section class="slide example-slide"><div class="kicker">02 · Methods</div><div class="example-label">Example 1</div><h2>See It in Action</h2><pre class="code">class Greeting {
+
+    void sayHello() {
+
+        System.out.println(&quot;Hello, Java!&quot;);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        new Greeting().sayHello();
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Greeting {
+
+    void sayHello() {
+
+        System.out.println(&quot;Hello, Java!&quot;);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        new Greeting().sayHello();
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Methods</div><h2>Example 1 · Output</h2><div class="output small">Hello, Java!</div></section><section class="slide example-slide"><div class="kicker">02 · Methods</div><div class="example-label">Example 2</div><h2>See It in Action</h2><pre class="code">class Calculator {
+
+    int add(int a, int b) {
+
+        return a + b;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Calculator c = new Calculator();
+
+        System.out.println(c.add(10, 20));
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Calculator {
+
+    int add(int a, int b) {
+
+        return a + b;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Calculator c = new Calculator();
+
+        System.out.println(c.add(10, 20));
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Methods</div><h2>Example 2 · Output</h2><div class="output small">30</div></section><section class="slide example-slide"><div class="kicker">02 · Methods</div><div class="example-label">Example 3</div><h2>See It in Action</h2><pre class="code">class Student {
+
+    void show(String name, int marks) {
+
+        System.out.println(name + &quot; scored &quot; + marks);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        new Student().show(&quot;Asha&quot;, 92);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Student {
+
+    void show(String name, int marks) {
+
+        System.out.println(name + &quot; scored &quot; + marks);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        new Student().show(&quot;Asha&quot;, 92);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Methods</div><h2>Example 3 · Output</h2><div class="output small">Asha scored 92</div></section><section class="slide"><div class="kicker">02 · Methods</div><h2>Practice Programs</h2><div class="practice-grid"><div class="exercise"><b>1.</b> Write a method that prints a welcome message.</div><div class="exercise"><b>2.</b> Write a method that accepts two integers and prints their sum.</div><div class="exercise"><b>3.</b> Write a method that returns the largest of two numbers.</div><div class="exercise"><b>4.</b> Write a method that checks whether a number is even.</div><div class="exercise"><b>5.</b> Write a method that calculates the area of a rectangle.</div></div></section><section class="slide center cover"><div class="kicker">02 · Constructors</div><div class="title">CONSTRUCTORS</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · Constructors</div><h2>Definition</h2><p class="definition">A <strong>constructor</strong> is a special member of a class used to initialize objects. It has the same name as the class and has no return type.</p></section><section class="slide"><div class="kicker">02 · Constructors</div><h2>In Simple Words</h2><div class="bullet"><span>•</span> Constructors run automatically when an object is created with <code>new</code>.</div><div class="bullet"><span>•</span> A class can have more than one constructor.</div><div class="bullet"><span>•</span> A <strong>no-argument constructor</strong> initializes an object without parameters.</div><div class="bullet"><span>•</span> A <strong>parameterized constructor</strong> receives initial values.</div><div class="bullet"><span>•</span> A <strong>copy constructor</strong> is a programmer-defined constructor that initializes one object from another.</div></section><section class="slide"><div class="kicker">02 · Constructors</div><h2>General Syntax</h2><div class="generic-syntax-card"><div class="generic-syntax-label">GENERAL SYNTAX</div><pre>ClassName(parameters) {
+
+    statements;
+
+}</pre></div></section><section class="slide"><div class="kicker">02 · Constructors</div><h2>Syntax Explanation</h2><div class="syntax-explain-table"><table><thead><tr><th>Syntax</th><th>What it means</th></tr></thead><tbody><tr><td><code>ClassName() { ... }</code></td><td>Initializes an object without arguments.</td></tr><tr><td><code>ClassName(type p1, ...) { ... }</code></td><td>Initializes using supplied values.</td></tr><tr><td><code>ClassName(ClassName other) { ... }</code></td><td>Copies selected state from another object.</td></tr><tr><td><code>ClassName obj = new ClassName(...);</code></td><td>Invokes the matching constructor.</td></tr></tbody></table></div></section><section class="slide example-slide"><div class="kicker">02 · Constructors</div><div class="example-label">Example 1</div><h2>See It in Action</h2><pre class="code">class Student {
+
+    String name;
+
+    Student() {
+
+        name = &quot;Unknown&quot;;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+        System.out.println(s.name);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Student {
+
+    String name;
+
+    Student() {
+
+        name = &quot;Unknown&quot;;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+        System.out.println(s.name);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Constructors</div><h2>Example 1 · Output</h2><div class="output small">Unknown</div></section><section class="slide example-slide"><div class="kicker">02 · Constructors</div><div class="example-label">Example 2</div><h2>See It in Action</h2><pre class="code">class Student {
+
+    String name;
+
+    int marks;
+
+    Student(String studentName, int studentMarks) {
+
+        name = studentName;
+
+        marks = studentMarks;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student student = new Student(&quot;Asha&quot;, 95);
+
+        System.out.println(student.name);
+
+        System.out.println(student.marks);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Student {
+
+    String name;
+
+    int marks;
+
+    Student(String studentName, int studentMarks) {
+
+        name = studentName;
+
+        marks = studentMarks;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student student = new Student(&quot;Asha&quot;, 95);
+
+        System.out.println(student.name);
+
+        System.out.println(student.marks);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Constructors</div><h2>Example 2 · Output</h2><div class="output small">Asha 95</div></section><section class="slide example-slide"><div class="kicker">02 · Constructors</div><div class="example-label">Example 3</div><h2>See It in Action</h2><pre class="code">class Point {
+
+    int x;
+
+    int y;
+
+    Point(int pointX, int pointY) {
+
+        x = pointX;
+
+        y = pointY;
+
+    }
+
+    Point(Point originalPoint) {
+
+        x = originalPoint.x;
+
+        y = originalPoint.y;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Point firstPoint = new Point(3, 4);
+
+        Point secondPoint = new Point(firstPoint);
+
+        System.out.println(secondPoint.x);
+
+        System.out.println(secondPoint.y);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Point {
+
+    int x;
+
+    int y;
+
+    Point(int pointX, int pointY) {
+
+        x = pointX;
+
+        y = pointY;
+
+    }
+
+    Point(Point originalPoint) {
+
+        x = originalPoint.x;
+
+        y = originalPoint.y;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Point firstPoint = new Point(3, 4);
+
+        Point secondPoint = new Point(firstPoint);
+
+        System.out.println(secondPoint.x);
+
+        System.out.println(secondPoint.y);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Constructors</div><h2>Example 3 · Output</h2><div class="output small">3, 4</div></section><section class="slide"><div class="kicker">02 · Constructors</div><h2>Practice Programs</h2><div class="practice-grid"><div class="exercise"><b>1.</b> Create a no-argument constructor for a <code>Book</code> class.</div><div class="exercise"><b>2.</b> Create a parameterized constructor for <code>Employee</code>.</div><div class="exercise"><b>3.</b> Write a copy constructor for a <code>Point</code> class.</div><div class="exercise"><b>4.</b> Create overloaded constructors for a <code>Rectangle</code>.</div><div class="exercise"><b>5.</b> Explain when Java supplies a compiler-generated default constructor.</div></div></section><section class="slide center cover"><div class="kicker">02 · this Keyword</div><div class="title">THIS KEYWORD</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · this Keyword</div><h2>Definition</h2><p class="definition">The <strong>this</strong> keyword refers to the current object. It is commonly used to distinguish instance fields from parameters and to invoke another constructor or method of the current object.</p></section><section class="slide"><div class="kicker">02 · this Keyword</div><h2>In Simple Words</h2><div class="bullet"><span>•</span> <code>this.field</code> explicitly refers to the current object's field.</div><div class="bullet"><span>•</span> <code>this()</code> calls another constructor in the same class.</div><div class="bullet"><span>•</span> <code>this.method()</code> explicitly calls the current object's method.</div><div class="bullet"><span>•</span> It removes ambiguity when parameter names match field names.</div><div class="bullet"><span>•</span> In a constructor, <code>this</code> refers to the object currently being initialized.</div></section><section class="slide"><div class="kicker">02 · this Keyword</div><h2>General Syntax</h2><div class="generic-syntax-card"><div class="generic-syntax-label">GENERAL SYNTAX</div><pre>this.fieldName = value;</pre></div></section><section class="slide"><div class="kicker">02 · this Keyword</div><h2>Syntax Explanation</h2><div class="syntax-explain-table"><table><thead><tr><th>Syntax</th><th>What it means</th></tr></thead><tbody><tr><td><code>this.field = field;</code></td><td>Distinguishes a field from a parameter.</td></tr><tr><td><code>this.method();</code></td><td>Calls another method of the same object.</td></tr><tr><td><code>this(...);</code></td><td>Calls another constructor in the same class.</td></tr><tr><td><code>return this;</code></td><td>Returns the current object reference.</td></tr></tbody></table></div></section><section class="slide example-slide"><div class="kicker">02 · this Keyword</div><div class="example-label">Example 1</div><h2>See It in Action</h2><pre class="code">class Student {
+
+    String name;
+
+    Student(String name) {
+
+        this.name = name;
+
+    }
+
+    void show() {
+
+        System.out.println(this.name);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        new Student(&quot;Asha&quot;).show();
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Student {
+
+    String name;
+
+    Student(String name) {
+
+        this.name = name;
+
+    }
+
+    void show() {
+
+        System.out.println(this.name);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        new Student(&quot;Asha&quot;).show();
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · this Keyword</div><h2>Example 1 · Output</h2><div class="output small">Asha</div></section><section class="slide example-slide"><div class="kicker">02 · this Keyword</div><div class="example-label">Example 2</div><h2>See It in Action</h2><pre class="code">class Box {
+
+    int value;
+
+    Box() {
+
+        this(10);
+
+    }
+
+    Box(int value) {
+
+        this.value = value;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        System.out.println(new Box().value);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Box {
+
+    int value;
+
+    Box() {
+
+        this(10);
+
+    }
+
+    Box(int value) {
+
+        this.value = value;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        System.out.println(new Box().value);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · this Keyword</div><h2>Example 2 · Output</h2><div class="output small">10</div></section><section class="slide example-slide"><div class="kicker">02 · this Keyword</div><div class="example-label">Example 3</div><h2>See It in Action</h2><pre class="code">class Counter {
+
+    int count;
+
+    Counter increment() {
+
+        this.count++;
+
+        return this;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Counter c = new Counter();
+
+        c.increment().increment();
+
+        System.out.println(c.count);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Counter {
+
+    int count;
+
+    Counter increment() {
+
+        this.count++;
+
+        return this;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Counter c = new Counter();
+
+        c.increment().increment();
+
+        System.out.println(c.count);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · this Keyword</div><h2>Example 3 · Output</h2><div class="output small">2</div></section><section class="slide"><div class="kicker">02 · this Keyword</div><h2>Practice Programs</h2><div class="practice-grid"><div class="exercise"><b>1.</b> Use <code>this</code> to assign constructor parameters to fields.</div><div class="exercise"><b>2.</b> Use <code>this()</code> to chain two constructors.</div><div class="exercise"><b>3.</b> Write a method that returns <code>this</code>.</div><div class="exercise"><b>4.</b> Use <code>this.method()</code> to call another instance method.</div><div class="exercise"><b>5.</b> Explain why <code>this</code> is useful when field and parameter names are identical.</div></div></section><section class="slide center cover"><div class="kicker">02 · Garbage Collection</div><div class="title">GARBAGE COLLECTION</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · Garbage Collection</div><h2>Definition</h2><p class="definition"><strong>Garbage collection</strong> is Java's automatic memory-management process that identifies objects that are no longer reachable and can reclaim their memory.</p></section><section class="slide"><div class="kicker">02 · Garbage Collection</div><h2>In Simple Words</h2><div class="bullet"><span>•</span> Java automatically manages object memory; programmers normally do not call <code>free()</code>.</div><div class="bullet"><span>•</span> An object becomes eligible for collection when it is no longer reachable from live references.</div><div class="bullet"><span>•</span> <code>System.gc()</code> requests garbage collection; it does <strong>not</strong> guarantee immediate collection.</div><div class="bullet"><span>•</span> Garbage collection helps reduce manual memory-management errors.</div><div class="bullet"><span>•</span> Object eligibility and actual collection are different events.</div></section><section class="slide"><div class="kicker">02 · Garbage Collection</div><h2>General Syntax</h2><div class="generic-syntax-card"><div class="generic-syntax-label">GENERAL SYNTAX</div><pre>object = null;</pre></div></section><section class="slide"><div class="kicker">02 · Garbage Collection</div><h2>Syntax Explanation</h2><div class="syntax-explain-table"><table><thead><tr><th>Syntax</th><th>What it means</th></tr></thead><tbody><tr><td><code>obj = null;</code></td><td>May make an object unreachable if no other reference exists.</td></tr><tr><td><code>System.gc();</code></td><td>Requests that the JVM consider garbage collection.</td></tr><tr><td><code>Runtime.getRuntime().gc();</code></td><td>Another way to request GC.</td></tr><tr><td><code>no live reference → object</code></td><td>An unreachable object is eligible for collection.</td></tr></tbody></table></div></section><section class="slide example-slide"><div class="kicker">02 · Garbage Collection</div><div class="example-label">Example 1</div><h2>See It in Action</h2><pre class="code">class Demo {
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Demo d = new Demo();
+
+        d = null;
+
+        System.out.println(&quot;Object is now unreachable from d&quot;);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Demo {
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Demo d = new Demo();
+
+        d = null;
+
+        System.out.println(&quot;Object is now unreachable from d&quot;);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Garbage Collection</div><h2>Example 1 · Output</h2><div class="output small">Object is now unreachable from d</div></section><section class="slide example-slide"><div class="kicker">02 · Garbage Collection</div><div class="example-label">Example 2</div><h2>See It in Action</h2><pre class="code">class Demo {
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Demo a = new Demo();
+
+        Demo b = a;
+
+        a = null;
+
+        System.out.println(b != null);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Demo {
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Demo a = new Demo();
+
+        Demo b = a;
+
+        a = null;
+
+        System.out.println(b != null);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Garbage Collection</div><h2>Example 2 · Output</h2><div class="output small">true</div></section><section class="slide example-slide"><div class="kicker">02 · Garbage Collection</div><div class="example-label">Example 3</div><h2>See It in Action</h2><pre class="code">class Demo {
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Demo d = new Demo();
+
+        d = null;
+
+        System.gc();
+
+        System.out.println(&quot;GC requested&quot;);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Demo {
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Demo d = new Demo();
+
+        d = null;
+
+        System.gc();
+
+        System.out.println(&quot;GC requested&quot;);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Garbage Collection</div><h2>Example 3 · Output</h2><div class="output small">GC requested</div></section><section class="slide"><div class="kicker">02 · Garbage Collection</div><h2>Practice Programs</h2><div class="practice-grid"><div class="exercise"><b>1.</b> Create an object and make its only reference <code>null</code>.</div><div class="exercise"><b>2.</b> Create two references to one object and remove only one reference.</div><div class="exercise"><b>3.</b> Write a program that requests garbage collection.</div><div class="exercise"><b>4.</b> Explain the difference between <strong>unreachable</strong> and <strong>collected</strong>.</div><div class="exercise"><b>5.</b> Explain why <code>System.gc()</code> should not be treated as a guarantee.</div></div></section><section class="slide center cover"><div class="kicker">02 · Method Overloading</div><div class="title">METHOD OVERLOADING</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · Method Overloading</div><h2>Definition</h2><p class="definition"><strong>Method overloading</strong> occurs when a class has multiple methods with the same name but different parameter lists. It is a form of compile-time polymorphism.</p></section><section class="slide"><div class="kicker">02 · Method Overloading</div><h2>In Simple Words</h2><div class="bullet"><span>•</span> Overloaded methods use the <strong>same method name</strong>.</div><div class="bullet"><span>•</span> The parameter list must differ by number, type, or order of parameters.</div><div class="bullet"><span>•</span> Changing only the return type does <strong>not</strong> create a valid overload.</div><div class="bullet"><span>•</span> Java selects the applicable method at compile time.</div><div class="bullet"><span>•</span> Overloading improves readability when operations are conceptually related.</div></section><section class="slide"><div class="kicker">02 · Method Overloading</div><h2>General Syntax</h2><div class="generic-syntax-card"><div class="generic-syntax-label">GENERAL SYNTAX</div><pre>returnType methodName(parameterList) {
+
+    statements;
+
+}</pre></div></section><section class="slide"><div class="kicker">02 · Method Overloading</div><h2>Syntax Explanation</h2><div class="syntax-explain-table"><table><thead><tr><th>Syntax</th><th>What it means</th></tr></thead><tbody><tr><td><code>add(int a, int b)</code></td><td>Two parameters.</td></tr><tr><td><code>add(double a, double b)</code></td><td>Different parameter types.</td></tr><tr><td><code>show(int x, String s)</code></td><td>Order of parameter types differs.</td></tr><tr><td><code>int add(int a) / double add(int a)</code></td><td>Return type alone is insufficient.</td></tr></tbody></table></div></section><section class="slide example-slide"><div class="kicker">02 · Method Overloading</div><div class="example-label">Example 1</div><h2>See It in Action</h2><pre class="code">class Calculator {
+
+    int add(int a, int b) {
+
+        return a + b;
+
+    }
+
+    int add(int a, int b, int c) {
+
+        return a + b + c;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Calculator c = new Calculator();
+
+        System.out.println(c.add(2, 3));
+
+        System.out.println(c.add(1, 2, 3));
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Calculator {
+
+    int add(int a, int b) {
+
+        return a + b;
+
+    }
+
+    int add(int a, int b, int c) {
+
+        return a + b + c;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Calculator c = new Calculator();
+
+        System.out.println(c.add(2, 3));
+
+        System.out.println(c.add(1, 2, 3));
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Method Overloading</div><h2>Example 1 · Output</h2><div class="output small">5
+6</div></section><section class="slide example-slide"><div class="kicker">02 · Method Overloading</div><div class="example-label">Example 2</div><h2>See It in Action</h2><pre class="code">class Printer {
+
+    void print(int x) {
+
+        System.out.println(&quot;int: &quot; + x);
+
+    }
+
+    void print(String x) {
+
+        System.out.println(&quot;String: &quot; + x);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Printer p = new Printer();
+
+        p.print(10);
+
+        p.print(&quot;Java&quot;);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Printer {
+
+    void print(int x) {
+
+        System.out.println(&quot;int: &quot; + x);
+
+    }
+
+    void print(String x) {
+
+        System.out.println(&quot;String: &quot; + x);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Printer p = new Printer();
+
+        p.print(10);
+
+        p.print(&quot;Java&quot;);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Method Overloading</div><h2>Example 2 · Output</h2><div class="output small">int: 10
+String: Java</div></section><section class="slide example-slide"><div class="kicker">02 · Method Overloading</div><div class="example-label">Example 3</div><h2>See It in Action</h2><pre class="code">class Area {
+
+    double area(int side) {
+
+        return side * side;
+
+    }
+
+    double area(double r) {
+
+        return Math.PI * r * r;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Area a = new Area();
+
+        System.out.println(a.area(5));
+
+        System.out.printf(&quot;%.2f%n&quot;, a.area(2.0));
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Area {
+
+    double area(int side) {
+
+        return side * side;
+
+    }
+
+    double area(double r) {
+
+        return Math.PI * r * r;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Area a = new Area();
+
+        System.out.println(a.area(5));
+
+        System.out.printf(&quot;%.2f%n&quot;, a.area(2.0));
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Method Overloading</div><h2>Example 3 · Output</h2><div class="output small">25.0
+12.57</div></section><section class="slide"><div class="kicker">02 · Method Overloading</div><h2>Practice Programs</h2><div class="practice-grid"><div class="exercise"><b>1.</b> Overload an <code>add()</code> method for 2 and 3 integers.</div><div class="exercise"><b>2.</b> Overload a <code>display()</code> method for int and String.</div><div class="exercise"><b>3.</b> Create overloaded constructors for a class.</div><div class="exercise"><b>4.</b> Write overloaded <code>area()</code> methods for a square and circle.</div><div class="exercise"><b>5.</b> Explain why changing only the return type does not overload a method.</div></div></section><section class="slide center cover"><div class="kicker">02 · Passing Objects to Methods</div><div class="title">PASSING OBJECTS TO METHODS</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · Passing Objects to Methods</div><h2>Definition</h2><p class="definition">Java allows an object reference to be passed as a method argument. The method receives a copy of the reference value, so it can access or modify the referenced object's state.</p></section><section class="slide"><div class="kicker">02 · Passing Objects to Methods</div><h2>In Simple Words</h2><div class="bullet"><span>•</span> An object can be supplied as a method argument.</div><div class="bullet"><span>•</span> The parameter type is the class name.</div><div class="bullet"><span>•</span> Changes to the object's fields can be visible to the caller.</div><div class="bullet"><span>•</span> Java is <strong>pass-by-value</strong>; for objects, the value passed is a copy of the reference.</div><div class="bullet"><span>•</span> Reassigning the parameter reference does not reassign the caller's reference.</div></section><section class="slide"><div class="kicker">02 · Passing Objects to Methods</div><h2>General Syntax</h2><div class="generic-syntax-card"><div class="generic-syntax-label">GENERAL SYNTAX</div><pre>returnType methodName(ClassName object) {
+
+    statements;
+
+}</pre></div></section><section class="slide"><div class="kicker">02 · Passing Objects to Methods</div><h2>Syntax Explanation</h2><div class="syntax-explain-table"><table><thead><tr><th>Syntax</th><th>What it means</th></tr></thead><tbody><tr><td><code>void method(ClassName obj) { ... }</code></td><td>Accepts an object reference.</td></tr><tr><td><code>method(object);</code></td><td>Passes the reference value.</td></tr><tr><td><code>obj.field</code></td><td>Reads or changes object state.</td></tr><tr><td><code>obj.field = value;</code></td><td>Mutation can be visible to the caller.</td></tr></tbody></table></div></section><section class="slide example-slide"><div class="kicker">02 · Passing Objects to Methods</div><div class="example-label">Example 1</div><h2>See It in Action</h2><pre class="code">class Student {
+
+    int marks = 70;
+
+}
+
+public class Main {
+
+    static void addBonus(Student s) {
+
+        s.marks += 5;
+
+    }
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+        addBonus(s);
+
+        System.out.println(s.marks);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Student {
+
+    int marks = 70;
+
+}
+
+public class Main {
+
+    static void addBonus(Student s) {
+
+        s.marks += 5;
+
+    }
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+        addBonus(s);
+
+        System.out.println(s.marks);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Passing Objects to Methods</div><h2>Example 1 · Output</h2><div class="output small">75</div></section><section class="slide example-slide"><div class="kicker">02 · Passing Objects to Methods</div><div class="example-label">Example 2</div><h2>See It in Action</h2><pre class="code">class Box {
+
+    int value;
+
+    Box(int value) {
+
+        this.value = value;
+
+    }
+
+}
+
+public class Main {
+
+    static void show(Box b) {
+
+        System.out.println(b.value);
+
+    }
+
+    public static void main(String[] args) {
+
+        show(new Box(42));
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Box {
+
+    int value;
+
+    Box(int value) {
+
+        this.value = value;
+
+    }
+
+}
+
+public class Main {
+
+    static void show(Box b) {
+
+        System.out.println(b.value);
+
+    }
+
+    public static void main(String[] args) {
+
+        show(new Box(42));
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Passing Objects to Methods</div><h2>Example 2 · Output</h2><div class="output small">42</div></section><section class="slide example-slide"><div class="kicker">02 · Passing Objects to Methods</div><div class="example-label">Example 3</div><h2>See It in Action</h2><pre class="code">class Counter {
+
+    int value = 10;
+
+}
+
+public class Main {
+
+    static void change(Counter c) {
+
+        c.value = 99;
+
+        c = new Counter();
+
+        c.value = 5;
+
+    }
+
+    public static void main(String[] args) {
+
+        Counter c = new Counter();
+
+        change(c);
+
+        System.out.println(c.value);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Counter {
+
+    int value = 10;
+
+}
+
+public class Main {
+
+    static void change(Counter c) {
+
+        c.value = 99;
+
+        c = new Counter();
+
+        c.value = 5;
+
+    }
+
+    public static void main(String[] args) {
+
+        Counter c = new Counter();
+
+        change(c);
+
+        System.out.println(c.value);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Passing Objects to Methods</div><h2>Example 3 · Output</h2><div class="output small">99</div></section><section class="slide"><div class="kicker">02 · Passing Objects to Methods</div><h2>Practice Programs</h2><div class="practice-grid"><div class="exercise"><b>1.</b> Pass a <code>Student</code> object to a method that adds grace marks.</div><div class="exercise"><b>2.</b> Pass a <code>Rectangle</code> object to a method that prints its area.</div><div class="exercise"><b>3.</b> Pass an <code>Employee</code> object to a method that increases salary.</div><div class="exercise"><b>4.</b> Demonstrate that changing a field is visible to the caller.</div><div class="exercise"><b>5.</b> Demonstrate that reassigning the parameter does not replace the caller's reference.</div></div></section><section class="slide center cover"><div class="kicker">02 · Returning Objects from Methods</div><div class="title">RETURNING OBJECTS FROM METHODS</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · Returning Objects from Methods</div><h2>Definition</h2><p class="definition">A method can return an object reference. The return type is the class name, and the caller receives a reference to the returned object.</p></section><section class="slide"><div class="kicker">02 · Returning Objects from Methods</div><h2>In Simple Words</h2><div class="bullet"><span>•</span> The method return type can be a class type.</div><div class="bullet"><span>•</span> The <code>return</code> statement returns an object reference.</div><div class="bullet"><span>•</span> The caller can store the returned reference in a variable.</div><div class="bullet"><span>•</span> A method can create and return a new object.</div><div class="bullet"><span>•</span> A returned object can be used immediately with the dot operator.</div></section><section class="slide"><div class="kicker">02 · Returning Objects from Methods</div><h2>General Syntax</h2><div class="generic-syntax-card"><div class="generic-syntax-label">GENERAL SYNTAX</div><pre>ClassName methodName() {
+
+    return object;
+
+}</pre></div></section><section class="slide"><div class="kicker">02 · Returning Objects from Methods</div><h2>Syntax Explanation</h2><div class="syntax-explain-table"><table><thead><tr><th>Syntax</th><th>What it means</th></tr></thead><tbody><tr><td><code>ClassName methodName(...)</code></td><td>Declares an object-returning method.</td></tr><tr><td><code>return obj;</code></td><td>Returns an existing object.</td></tr><tr><td><code>return new ClassName(...);</code></td><td>Creates and returns an object.</td></tr><tr><td><code>ClassName x = method();</code></td><td>Stores the returned reference.</td></tr></tbody></table></div></section><section class="slide example-slide"><div class="kicker">02 · Returning Objects from Methods</div><div class="example-label">Example 1</div><h2>See It in Action</h2><pre class="code">class Student {
+
+    String name;
+
+    Student(String name) {
+
+        this.name = name;
+
+    }
+
+}
+
+public class Main {
+
+    static Student createStudent() {
+
+        return new Student(&quot;Ravi&quot;);
+
+    }
+
+    public static void main(String[] args) {
+
+        Student s = createStudent();
+
+        System.out.println(s.name);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Student {
+
+    String name;
+
+    Student(String name) {
+
+        this.name = name;
+
+    }
+
+}
+
+public class Main {
+
+    static Student createStudent() {
+
+        return new Student(&quot;Ravi&quot;);
+
+    }
+
+    public static void main(String[] args) {
+
+        Student s = createStudent();
+
+        System.out.println(s.name);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Returning Objects from Methods</div><h2>Example 1 · Output</h2><div class="output small">Ravi</div></section><section class="slide example-slide"><div class="kicker">02 · Returning Objects from Methods</div><div class="example-label">Example 2</div><h2>See It in Action</h2><pre class="code">class Point {
+
+    int x, y;
+
+    Point(int x, int y) {
+
+        this.x = x;
+
+        this.y = y;
+
+    }
+
+}
+
+public class Main {
+
+    static Point move(Point p) {
+
+        return new Point(p.x + 2, p.y + 3);
+
+    }
+
+    public static void main(String[] args) {
+
+        Point q = move(new Point(1, 4));
+
+        System.out.println(q.x + &quot;, &quot; + q.y);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Point {
+
+    int x, y;
+
+    Point(int x, int y) {
+
+        this.x = x;
+
+        this.y = y;
+
+    }
+
+}
+
+public class Main {
+
+    static Point move(Point p) {
+
+        return new Point(p.x + 2, p.y + 3);
+
+    }
+
+    public static void main(String[] args) {
+
+        Point q = move(new Point(1, 4));
+
+        System.out.println(q.x + &quot;, &quot; + q.y);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Returning Objects from Methods</div><h2>Example 2 · Output</h2><div class="output small">3, 7</div></section><section class="slide example-slide"><div class="kicker">02 · Returning Objects from Methods</div><div class="example-label">Example 3</div><h2>See It in Action</h2><pre class="code">class Counter {
+
+    int value;
+
+    Counter(int value) {
+
+        this.value = value;
+
+    }
+
+    Counter next() {
+
+        return new Counter(value + 1);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Counter c = new Counter(10);
+
+        System.out.println(c.next().value);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="class Counter {
+
+    int value;
+
+    Counter(int value) {
+
+        this.value = value;
+
+    }
+
+    Counter next() {
+
+        return new Counter(value + 1);
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Counter c = new Counter(10);
+
+        System.out.println(c.next().value);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Returning Objects from Methods</div><h2>Example 3 · Output</h2><div class="output small">11</div></section><section class="slide"><div class="kicker">02 · Returning Objects from Methods</div><h2>Practice Programs</h2><div class="practice-grid"><div class="exercise"><b>1.</b> Write a method that creates and returns a <code>Student</code> object.</div><div class="exercise"><b>2.</b> Write a method that returns a new <code>Rectangle</code> after changing its dimensions.</div><div class="exercise"><b>3.</b> Return the larger of two <code>Point</code> or data objects based on a field.</div><div class="exercise"><b>4.</b> Return a newly constructed <code>Employee</code> from a method.</div><div class="exercise"><b>5.</b> Explain the difference between returning an object and returning a primitive value.</div></div></section><section class="slide center cover"><div class="kicker">02 · Recursion</div><div class="title">RECURSION</div><div class="accent"></div></section><section class="slide"><div class="kicker">02 · Recursion</div><h2>Definition</h2><p class="definition"><strong>Recursion</strong> is a technique in which a method calls itself to solve a problem by reducing it to smaller instances of the same problem.</p></section><section class="slide"><div class="kicker">02 · Recursion</div><h2>In Simple Words</h2><div class="bullet"><span>•</span> Every recursive solution needs a <strong>base case</strong>.</div><div class="bullet"><span>•</span> The recursive case makes progress toward the base case.</div><div class="bullet"><span>•</span> Each call creates a new stack frame.</div><div class="bullet"><span>•</span> Recursion is useful for factorials, tree traversal, divide-and-conquer, and similar problems.</div><div class="bullet"><span>•</span> Without a terminating base case, recursion can cause <code>StackOverflowError</code>.</div></section><section class="slide"><div class="kicker">02 · Recursion</div><h2>General Syntax</h2><div class="generic-syntax-card"><div class="generic-syntax-label">GENERAL SYNTAX</div><pre>returnType methodName(parameters) {
+
+    return methodName(smallerInput);
+
+}</pre></div></section><section class="slide"><div class="kicker">02 · Recursion</div><h2>Syntax Explanation</h2><div class="syntax-explain-table"><table><thead><tr><th>Syntax</th><th>What it means</th></tr></thead><tbody><tr><td><code>returnType methodName(parameters) { ... }</code></td><td>Defines the recursive method.</td></tr><tr><td><code>if (condition) return value;</code></td><td>Stops recursion.</td></tr><tr><td><code>return methodName(smallerInput);</code></td><td>Solves a smaller instance.</td></tr><tr><td><code>input becomes smaller</code></td><td>Moves toward termination.</td></tr></tbody></table></div></section><section class="slide example-slide"><div class="kicker">02 · Recursion</div><div class="example-label">Example 1</div><h2>See It in Action</h2><pre class="code">public class Main {
+
+    static int factorial(int n) {
+
+        if (n &lt;= 1) return 1;
+
+        return n * factorial(n - 1);
+
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(factorial(5));
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="public class Main {
+
+    static int factorial(int n) {
+
+        if (n &lt;= 1) return 1;
+
+        return n * factorial(n - 1);
+
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(factorial(5));
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Recursion</div><h2>Example 1 · Output</h2><div class="output small">120</div></section><section class="slide example-slide"><div class="kicker">02 · Recursion</div><div class="example-label">Example 2</div><h2>See It in Action</h2><pre class="code">public class Main {
+
+    static int sum(int n) {
+
+        if (n == 0) return 0;
+
+        return n + sum(n - 1);
+
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(sum(5));
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="public class Main {
+
+    static int sum(int n) {
+
+        if (n == 0) return 0;
+
+        return n + sum(n - 1);
+
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(sum(5));
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Recursion</div><h2>Example 2 · Output</h2><div class="output small">15</div></section><section class="slide example-slide"><div class="kicker">02 · Recursion</div><div class="example-label">Example 3</div><h2>See It in Action</h2><pre class="code">public class Main {
+
+    static void countdown(int n) {
+
+        if (n == 0) return;
+
+        System.out.println(n);
+
+        countdown(n - 1);
+
+    }
+
+    public static void main(String[] args) {
+
+        countdown(3);
+
+    }
+
+}</pre><button class="run-example-btn" type="button" data-java-code="public class Main {
+
+    static void countdown(int n) {
+
+        if (n == 0) return;
+
+        System.out.println(n);
+
+        countdown(n - 1);
+
+    }
+
+    public static void main(String[] args) {
+
+        countdown(3);
+
+    }
+
+}">▶ Run Example in Code Lab</button></section><section class="slide center"><div class="kicker">02 · Recursion</div><h2>Example 3 · Output</h2><div class="output small">3
+2
+1</div></section><section class="slide"><div class="kicker">02 · Recursion</div><h2>Practice Programs</h2><div class="practice-grid"><div class="exercise"><b>1.</b> Write a recursive method to calculate factorial.</div><div class="exercise"><b>2.</b> Write a recursive method to find the sum of 1 to n.</div><div class="exercise"><b>3.</b> Write a recursive method to print numbers from n down to 1.</div><div class="exercise"><b>4.</b> Write a recursive method to calculate Fibonacci terms.</div><div class="exercise"><b>5.</b> Identify the base case and recursive case in a recursive method.</div></div></section><section class="slide"><div class="kicker">02 · Module 2</div><h2>OOP Learning Map</h2><div class="cards"><div class="card"><h3>Define</h3><p>Class → object → reference</p></div><div class="card"><h3>Build</h3><p>Methods → constructors → this</p></div><div class="card"><h3>Manage</h3><p>References → garbage collection</p></div><div class="card"><h3>Model</h3><p>Overloading → passing → returning → recursion</p></div></div></section><section class="slide"><div class="kicker">02 · Module 2</div><h2>Final Practice Set</h2><div class="exercise"><b>1.</b> Design a <code>Student</code> class using fields, methods, and overloaded constructors.</div><div class="exercise"><b>2.</b> Use <code>this</code> to resolve field/parameter ambiguity.</div><div class="exercise"><b>3.</b> Pass a <code>Student</code> object to a method that updates its marks.</div><div class="exercise"><b>4.</b> Return a new object from a method and display its state.</div><div class="exercise"><b>5.</b> Implement factorial or Fibonacci using recursion with a clear base case.</div></section>
+<div aria-label="Presentation slide changer" id="slideStage">
+<div id="slideViewport">
+<div id="slideFrame"></div>
+<div id="presentationBottomHoverZone" aria-hidden="true"></div>
+<div class="slidebar">
+<button id="prevSlide" title="Previous slide">←</button>
+<button id="nextSlide" title="Next slide">→</button>
+<span class="slide-counter" id="slideCounter">1 / 1</span>
+<div class="slide-progress"><span id="slideProgress"></span></div>
+<span class="slide-hint">← → Navigate · Space Next · Home / End · F Fullscreen · Esc Exit</span>
+<button id="slideExit" title="Exit presentation mode">✕ Exit</button>
+</div>
+</div>
+</div>
+<script>
+(function(){
+  const sourceSlides=[...document.querySelectorAll('body > .slide')].filter(function(slide){ return !slide.closest('#slideFrame'); });
+  const stage=document.getElementById('slideStage'), frame=document.getElementById('slideFrame');
+  if(!stage||!frame||!sourceSlides.length)return;
+  const counter=document.getElementById('slideCounter'),progress=document.getElementById('slideProgress');
+  const prev=document.getElementById('prevSlide'),next=document.getElementById('nextSlide');
+  const exit=document.getElementById('slideExit'),present=document.getElementById('presentButton');
+  const clones=sourceSlides.map(sl=>sl.cloneNode(true));
+  clones.forEach(c=>frame.appendChild(c));
+  let current=0;
+
+  /*
+   * Return state for the normal document.
+   * We save the exact scroll position before entering Presentation Mode,
+   * then restore it when Exit is pressed or Escape is used.
+   */
+  let returnScrollY=0;
+  let returnSlideIndex=0;
+  let presentationWasStartedFromNormalPage=false;
+
+  function fitFrame(){
+    /*
+     * The HTML slides are designed as full-viewport classroom slides.
+     * Keep Presentation Mode the same visual size as the normal view.
+     */
+    const vw=window.innerWidth;
+    const vh=window.innerHeight;
+    frame.style.width=vw+'px';
+    frame.style.height=vh+'px';
+  }
+
+  function show(n){
+    current=Math.max(0,Math.min(clones.length-1,n));
+    clones.forEach((c,i)=>c.classList.toggle('presentation-current',i===current));
+    counter.textContent=(current+1)+' / '+clones.length;
+    progress.style.width=((current+1)/clones.length*100)+'%';
+    fitFrame();
+  }
+
+  function updatePresentButton(isPresenting){
+    if(!present) return;
+
+    if(isPresenting){
+      present.textContent='✕ Exit';
+      present.title='Exit presentation and return to the current page';
+      present.setAttribute('aria-label','Exit presentation and return to the current page');
+      present.dataset.presentationActive='true';
+    }else{
+      present.textContent='▶ Present';
+      present.title='Start slide presentation from the current page';
+      present.setAttribute('aria-label','Start slide presentation from the current page');
+      present.dataset.presentationActive='false';
+    }
+  }
+
+  /*
+   * Find the slide currently visible in the normal scrolling document.
+   * This function is intentionally defined before every caller.
+   */
+  function getNormalCurrentSlide(){
+    const viewportTop=window.scrollY || window.pageYOffset || 0;
+    const viewportBottom=viewportTop+window.innerHeight;
+
+    let bestIndex=0;
+    let bestVisible=-1;
+
+    sourceSlides.forEach((slide,i)=>{
+      const r=slide.getBoundingClientRect();
+      const top=r.top+viewportTop;
+      const bottom=r.bottom+viewportTop;
+      const visible=Math.max(
+        0,
+        Math.min(bottom,viewportBottom)-Math.max(top,viewportTop)
+      );
+
+      if(visible>bestVisible){
+        bestVisible=visible;
+        bestIndex=i;
+      }
+    });
+
+    return bestIndex;
+  }
+
+  function start(n){
+    /*
+     * Present button starts from the slide currently visible in the
+     * normal document. Save the exact browser position so Exit returns
+     * to precisely the same place.
+     */
+    if(!stage.classList.contains('active')){
+      returnScrollY=window.scrollY;
+      returnSlideIndex=getNormalCurrentSlide();
+      presentationWasStartedFromNormalPage=true;
+    }
+
+    if(typeof n!=='number' || !Number.isFinite(n)){
+      n=returnSlideIndex;
+    }
+
+    show(n);
+    stage.classList.add('active');
+    document.body.style.overflow='hidden';
+    updatePresentButton(true);
+    fitFrame();
+  }
+
+  function close(){
+    const shouldRestore=presentationWasStartedFromNormalPage;
+
+    stage.classList.remove('active');
+    document.body.style.overflow='';
+    updatePresentButton(false);
+
+    if(document.fullscreenElement){
+      document.exitFullscreen?.().catch(()=>{});
+    }
+
+    /*
+     * Restore the exact normal-page position after Presentation Mode
+     * has been removed. This keeps the user on the same page/slide.
+     */
+    if(shouldRestore){
+      requestAnimationFrame(()=>{
+        window.scrollTo({
+          top:returnScrollY,
+          left:0,
+          behavior:'instant'
+        });
+
+        /*
+         * A second frame protects against browser layout settling.
+         */
+        requestAnimationFrame(()=>{
+          window.scrollTo(0,returnScrollY);
+        });
+      });
+    }
+
+    presentationWasStartedFromNormalPage=false;
+  }
+
+  function full(){document.documentElement.requestFullscreen?.().catch(()=>{});}
+
+  /*
+   * The top-right Present button is now a true toggle:
+   * Present → enter from current page
+   * Exit → leave presentation and return to that exact page
+   */
+  present?.addEventListener('click',()=>{
+    if(stage.classList.contains('active')){
+      close();
+      return;
+    }
+
+    const currentPage=getNormalCurrentSlide();
+    start(currentPage);
+  });
+  prev?.addEventListener('click',()=>show(current-1));
+  next?.addEventListener('click',()=>show(current+1));
+  exit?.addEventListener('click',close);
+  window.addEventListener('resize',()=>{if(stage.classList.contains('active'))fitFrame();});
+  document.addEventListener('keydown',e=>{
+    if(!stage.classList.contains('active'))return;
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();show(current+1);}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(current-1);}
+    else if(e.key==='Home'){e.preventDefault();show(0);}
+    else if(e.key==='End'){e.preventDefault();show(clones.length-1);}
+    else if(e.key.toLowerCase()==='f'){e.preventDefault();full();}
+    else if(e.key==='Escape'){e.preventDefault();close();}
+  });
+  document.getElementById('slideViewport')?.addEventListener('dblclick',full);
+  window.JavaPresentation={
+    start,
+    close,
+    next:()=>show(current+1),
+    previous:()=>show(current-1),
+    goTo:n=>show(Number(n)||0),
+    current:()=>current+1,
+    currentNormalPage:()=>getNormalCurrentSlide()+1,
+    total:()=>clones.length
+  };
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+
+  function initTopicSidebar() {
+    const sidebar = document.getElementById('topicSidebar');
+    const toggle = document.getElementById('topicToggle');
+    const backdrop = document.getElementById('topicBackdrop');
+    const list = document.getElementById('topicList');
+
+    // Only the original slides are used for navigation targets.
+    const slides = Array.from(document.querySelectorAll('body > .slide'));
+    if (!sidebar || !toggle || !backdrop || !list || !slides.length) return;
+
+    function getKicker(slide) {
+      const el = slide.querySelector('.kicker');
+      return el ? el.textContent.trim() : '';
+    }
+
+    function getId(raw) {
+      const match = raw.match(/^(\d+[A-Z]?)/);
+      return match ? match[1] : '';
+    }
+
+    function sidebarLabel(raw) {
+      const id = getId(raw);
+      const subtopics = {
+        '06A': 'Data Types — Type Inference (var)',
+        '06B': 'Data Types — Type Casting',
+        '09A': 'Control Statements — if Statement',
+        '09B': 'Control Statements — if-else Statement',
+        '09C': 'Control Statements — else-if Ladder',
+        '09D': 'Control Statements — switch Statement',
+        '09E': 'Control Statements — for Loop',
+        '09F': 'Control Statements — while Loop',
+        '09G': 'Control Statements — do-while Loop',
+        '09H': 'Control Statements — break Statement',
+        '09I': 'Control Statements — continue Statement',
+        '10A': 'Operators — Arithmetic Operators',
+        '10B': 'Operators — Relational Operators',
+        '10C': 'Operators — Logical Operators',
+        '10D': 'Operators — Bitwise Operators',
+        '10E': 'Operators — Ternary Operator'
+      };
+
+      if (subtopics[id]) return subtopics[id];
+
+      if (raw.indexOf('Classroom Check ·') === 0) {
+        return 'Classroom Quiz — ' + raw.split('·').slice(1).join('·').trim();
+      }
+
+      if (raw.indexOf('Classroom Quiz ·') === 0) {
+        return 'Classroom Quiz — ' + raw.split('·').slice(1).join('·').trim();
+      }
+
+      if (raw.indexOf('Answer ·') === 0) {
+        return 'Quiz Answers — ' + raw.split('·').slice(1, -1).join('·').trim();
+      }
+
+      return raw.replace(/^\d+[A-Z]?\s*·\s*/, '').trim();
+    }
+
+    // Build a clean hierarchical Module 2 navigation.
+    // Each topic gets its own entry even though the slide kicker uses "02".
+    const moduleTopics = [
+      { no: '01', name: 'Class Fundamentals' },
+      { no: '02', name: 'Declaring Objects' },
+      { no: '03', name: 'Object Reference Variables' },
+      { no: '04', name: 'Methods' },
+      { no: '05', name: 'Constructors' },
+      { no: '06', name: 'this Keyword' },
+      { no: '07', name: 'Garbage Collection' },
+      { no: '08', name: 'Method Overloading' },
+      { no: '09', name: 'Passing Objects to Methods' },
+      { no: '10', name: 'Returning Objects from Methods' },
+      { no: '11', name: 'Recursion' }
+    ];
+
+    list.innerHTML = '';
+
+    // Module heading — hierarchy level 0.
+    const moduleHeading = document.createElement('div');
+    moduleHeading.className = 'sidebar-module';
+    moduleHeading.textContent = 'MODULE 2 · INTRODUCTION TO OOP';
+    list.appendChild(moduleHeading);
+
+    // Topic entries — hierarchy level 1.
+    moduleTopics.forEach(function (topic) {
+      let targetIndex = -1;
+
+      slides.forEach(function (slide, index) {
+        if (targetIndex !== -1) return;
+        const raw = getKicker(slide);
+        if (raw.indexOf('· ' + topic.name) !== -1) {
+          targetIndex = index;
+        }
+      });
+
+      if (targetIndex === -1) return;
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'topic-btn sidebar-topic';
+      button.dataset.targetIndex = String(targetIndex);
+      button.dataset.topicKey = 'module2:' + topic.name;
+
+      const num = document.createElement('span');
+      num.className = 'topic-num';
+      num.textContent = topic.no;
+
+      const name = document.createElement('span');
+      name.className = 'topic-name';
+      name.textContent = topic.name;
+
+      button.appendChild(num);
+      button.appendChild(name);
+
+      button.addEventListener('click', function () {
+        const target = Number(button.dataset.targetIndex);
+
+        if (
+          document.getElementById('slideStage') &&
+          document.getElementById('slideStage').classList.contains('active') &&
+          window.JavaPresentation &&
+          typeof window.JavaPresentation.goTo === 'function'
+        ) {
+          window.JavaPresentation.goTo(target);
+        } else if (slides[target]) {
+          slides[target].scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+
+        closeSidebar();
+      });
+
+      list.appendChild(button);
+    });
+
+    function openSidebar() {
+      sidebar.classList.add('open');
+      backdrop.classList.add('show');
+      document.body.classList.add('sidebar-open');
+      toggle.textContent = '×';
+      toggle.setAttribute('aria-label', 'Close topics sidebar');
+      toggle.setAttribute('title', 'Close topics');
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('show');
+      document.body.classList.remove('sidebar-open');
+      toggle.textContent = '☰';
+      toggle.setAttribute('aria-label', 'Open topics sidebar');
+      toggle.setAttribute('title', 'Open topics');
+    }
+
+    toggle.addEventListener('click', function () {
+      if (sidebar.classList.contains('open')) closeSidebar();
+      else openSidebar();
+    });
+
+    backdrop.addEventListener('click', closeSidebar);
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && sidebar.classList.contains('open')) {
+        closeSidebar();
+      }
+    });
+
+    // Highlight the topic currently visible in normal scrolling mode.
+    const observer = new IntersectionObserver(function (observations) {
+      observations.forEach(function (observation) {
+        if (!observation.isIntersecting) return;
+
+        const raw = getKicker(observation.target);
+        let activeName = null;
+
+        moduleTopics.forEach(function (topic) {
+          if (raw.indexOf('· ' + topic.name) !== -1) {
+            activeName = topic.name;
+          }
+        });
+
+        Array.from(list.children).forEach(function (button) {
+          button.classList.toggle(
+            'active',
+            activeName !== null &&
+            button.dataset.topicKey === 'module2:' + activeName
+          );
+        });
+      });
+    }, { threshold: 0.60 });
+
+    slides.forEach(function (slide) {
+      observer.observe(slide);
+    });
+
+    // Public verification helper.
+    window.verifyTopicNavigation = function () {
+      const result = moduleTopics.map(function (topic) {
+        let targetIndex = -1;
+
+        slides.forEach(function (slide, index) {
+          if (targetIndex !== -1) return;
+          const raw = getKicker(slide);
+          if (raw.indexOf('· ' + topic.name) !== -1) {
+            targetIndex = index;
+          }
+        });
+
+        return {
+          topic: topic.name,
+          targetSlide: targetIndex + 1,
+          kicker: targetIndex >= 0 ? getKicker(slides[targetIndex]) : ''
+        };
+      });
+
+      console.table(result);
+      return result;
+    };
+
+    // Expose a deterministic topic jump helper for testing.
+    window.goToTopic = function (label) {
+      const wanted = String(label).trim().toLowerCase();
+      let target = -1;
+
+      moduleTopics.forEach(function (topic) {
+        if (topic.name.toLowerCase() === wanted) {
+          slides.forEach(function (slide, index) {
+            if (target !== -1) return;
+            const raw = getKicker(slide);
+            if (raw.indexOf('· ' + topic.name) !== -1) {
+              target = index;
+            }
+          });
+        }
+      });
+
+      if (target < 0) {
+        console.warn('Topic not found:', label);
+        return false;
+      }
+
+      if (
+        document.getElementById('slideStage') &&
+        document.getElementById('slideStage').classList.contains('active') &&
+        window.JavaPresentation
+      ) {
+        window.JavaPresentation.goTo(target);
+      } else {
+        slides[target].scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+
+      return true;
+    };
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTopicSidebar);
+  } else {
+    initTopicSidebar();
+  }
+})();
+</script>
+
+<script>
+(function(){
+  'use strict';
+
+  function initCursorOnlyPresentationControls(){
+    const controls = document.querySelector('#slideStage .slidebar');
+    const zone = document.getElementById('presentationBottomHoverZone');
+    const stage = document.getElementById('slideStage');
+    if(!controls || !zone || !stage) return;
+
+    let presentationActive = false;
+
+    function showControls(){
+      if(!presentationActive) return;
+      document.body.classList.remove('presentation-controls-hidden');
+    }
+
+    function hideControls(){
+      if(!presentationActive) return;
+      if(controls.matches(':hover') || zone.matches(':hover')) return;
+      document.body.classList.add('presentation-controls-hidden');
+    }
+
+    function enterPresentation(){
+      presentationActive = true;
+      /* Start hidden. Mouse movement is the only reveal mechanism. */
+      document.body.classList.add('presentation-controls-hidden');
+    }
+
+    function exitPresentation(){
+      presentationActive = false;
+      document.body.classList.remove('presentation-controls-hidden');
+    }
+
+    const observer = new MutationObserver(function(){
+      const active = stage.classList.contains('active');
+
+      if(active && !presentationActive){
+        enterPresentation();
+      }else if(!active && presentationActive){
+        exitPresentation();
+      }
+    });
+
+    observer.observe(stage,{
+      attributes:true,
+      attributeFilter:['class']
+    });
+
+    if(stage.classList.contains('active')){
+      enterPresentation();
+    }
+
+    /* Mouse over the bottom area = show. */
+    zone.addEventListener('mouseenter', showControls);
+    controls.addEventListener('mouseenter', showControls);
+
+    /* Leave the bottom area = hide. */
+    zone.addEventListener('mouseleave', function(){
+      requestAnimationFrame(hideControls);
+    });
+    controls.addEventListener('mouseleave', function(){
+      requestAnimationFrame(hideControls);
+    });
+
+    /*
+     * If the cursor is already near the bottom while changing slides,
+     * keep/show the controls. Slide changes and keyboard presses themselves
+     * never reveal the bar.
+     */
+    document.addEventListener('mousemove', function(e){
+      if(!presentationActive) return;
+
+      const fromBottom = window.innerHeight - e.clientY;
+
+      if(fromBottom <= 55){
+        showControls();
+      }else if(!controls.matches(':hover') && !zone.matches(':hover')){
+        hideControls();
+      }
+    }, {passive:true});
+
+    /*
+     * Deliberately NO keydown listener here.
+     * ← → Space Home End will never make the bottom bar appear.
+     */
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',initCursorOnlyPresentationControls);
+  }else{
+    initCursorOnlyPresentationControls();
+  }
+})();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  const b=document.getElementById('presentButton');
+  const st=document.getElementById('slideStage');
+  if(b && st && !st.classList.contains('active')){
+    b.textContent='▶ Present';
+    b.title='Start slide presentation from the current page';
+    b.setAttribute('aria-label','Start slide presentation from the current page');
+    b.dataset.presentationActive='false';
+  }
+});
+</script>
+<!-- ============================================================
+     JAVA CODE LAB
+     Browser editor + sandboxed remote Java execution via Piston.
+     ============================================================ -->
+<div id="javaCodeLab" class="code-lab-overlay" aria-hidden="true">
+  <div class="code-lab-window" role="dialog" aria-modal="true" aria-labelledby="codeLabTitle">
+    <div class="code-lab-header">
+      <div>
+        <div class="code-lab-kicker">LIVE CLASSROOM CODING</div>
+        <div id="codeLabTitle" class="code-lab-title">Java Code Lab</div>
+      </div>
+      <div class="code-lab-actions">
+        <button id="codeLabReset" type="button" class="lab-btn secondary">↻ Reset</button>
+        <button id="codeLabRun" type="button" class="lab-btn run">▶ Run</button>
+        <button id="codeLabClose" type="button" class="lab-btn close">✕ Close</button>
+      </div>
+    </div>
+
+    <div class="code-lab-toolbar">
+      <span class="lab-pill">Java</span>
+      <span class="lab-hint">Ctrl + Enter / ⌘ + Enter to run</span>
+      <span class="lab-hint">Large-screen classroom editor</span>
+      <div class="code-theme-switcher" role="group" aria-label="Editor theme">
+        <span class="theme-label">Editor:</span>
+        <button id="codeThemeDark" class="theme-btn active" type="button">● Dark</button>
+        <button id="codeThemeLight" class="theme-btn" type="button">○ Light</button>
+      </div>
+    </div>
+
+    <div class="code-lab-body">
+      <div class="editor-panel">
+        <div class="editor-titlebar">
+          <span>Source Code</span>
+          <span id="codeLabStatus" class="editor-status">Ready</span>
+        </div>
+        <div class="editor-wrap">
+          <div id="codeLineNumbers" class="line-numbers" aria-hidden="true">1</div>
+          <textarea id="javaCodeEditor" spellcheck="false" wrap="off"
+            aria-label="Java source code editor"></textarea>
+        </div>
+      </div>
+
+      <div class="io-panel">
+        <div class="io-box">
+          <div class="io-title">INPUT <span>(optional)</span></div>
+          <textarea id="javaStdin" spellcheck="false"
+            placeholder="Enter input for Scanner / stdin here..."></textarea>
+        </div>
+        <div class="io-box output-box">
+          <div class="io-title">OUTPUT</div>
+          <pre id="javaOutput" class="java-output">Run your Java program to see the output here.</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-lab-footer">
+      <span>Java • OpenJDK</span>
+      <span id="codeLabRuntime">Java runtime: loading…</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  const TIO_API='https://tio.run/cgi-bin/run/api/no-cache/';
+  const DEFAULT_CODE=`public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java!");
+    }
+}`;
+
+  function qs(id){return document.getElementById(id);}
+
+  function escapeForEditor(v){
+    return (v||'').replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  }
+
+  function wrapJavaSnippet(code){
+    const t=code.trim();
+    if(/\b(class|interface|enum|record)\s+\w+/.test(t) || /\bstatic\s+void\s+main\s*\(/.test(t)){
+      return t;
+    }
+    return `public class Main {
+    public static void main(String[] args) {
+${t.split('\n').map(line=>'        '+line).join('\n')}
+    }
+}`;
+  }
+
+  function updateLineNumbers(){
+    const ed=qs('javaCodeEditor'), ln=qs('codeLineNumbers');
+    if(!ed||!ln)return;
+    const count=ed.value.split('\n').length;
+    ln.textContent=Array.from({length:count},(_,i)=>i+1).join('\n');
+    ln.scrollTop=ed.scrollTop;
+  }
+
+  function openLab(code){
+    const lab=qs('javaCodeLab'), ed=qs('javaCodeEditor');
+    document.body.classList.add('code-lab-open');
+    if(!lab||!ed)return;
+    ed.value=escapeForEditor(code||DEFAULT_CODE);
+    qs('javaOutput').textContent='Run your Java program to see the output here.';
+    qs('javaStdin').value='';
+    qs('codeLabStatus').textContent='Ready';
+    lab.classList.add('open');
+    lab.setAttribute('aria-hidden','false');
+    updateLineNumbers();
+    setTimeout(()=>{ed.focus(); ed.setSelectionRange(ed.value.length,ed.value.length)},60);
+  }
+
+  function closeLab(){
+    const lab=qs('javaCodeLab');
+    if(!lab)return;
+    document.body.classList.remove('code-lab-open');
+    lab.classList.remove('open');
+    lab.setAttribute('aria-hidden','true');
+  }
+
+  async function loadRuntime(){
+    const el=qs('codeLabRuntime');
+    if(el) el.textContent='Java • OpenJDK';
+  }
+
+  function utf8Bytes(text){
+    return new TextEncoder().encode(text);
+  }
+
+  function buildTioRequest(code,input){
+    /*
+     * TIO request format:
+     * V + variable + NUL + argument-count + NUL + value + NUL
+     * F + filename + NUL + byte-length + NUL + contents + NUL
+     * R
+     *
+     * The request is then raw-DEFLATE compressed.
+     */
+    const parts=[];
+    const pushText=(text)=>{
+      const bytes=utf8Bytes(text);
+      for(const b of bytes) parts.push(b);
+    };
+    const nul=()=>parts.push(0);
+
+    pushText('Vlang'); nul(); pushText('1'); nul(); pushText('java-openjdk'); nul();
+
+    const codeBytes=utf8Bytes(code);
+    pushText('F.code.tio'); nul(); pushText(String(codeBytes.length)); nul();
+    codeBytes.forEach(b=>parts.push(b)); nul();
+
+    const inputBytes=utf8Bytes(input||'');
+    pushText('F.input.tio'); nul(); pushText(String(inputBytes.length)); nul();
+    inputBytes.forEach(b=>parts.push(b)); nul();
+
+    /* No command-line arguments for classroom examples. */
+    pushText('Vargs'); nul(); pushText('0'); nul();
+
+    parts.push('R'.charCodeAt(0));
+    return new Uint8Array(parts);
+  }
+
+  async function parseTioResponse(response){
+    /*
+     * TIO may return the execution result as application/octet-stream
+     * containing a GZIP payload. Browsers do not necessarily decompress
+     * this merely because it is an HTTP response body, so handle it here.
+     */
+    let bytes=new Uint8Array(await response.arrayBuffer());
+
+    const isGzip =
+      bytes.length >= 2 &&
+      bytes[0] === 0x1f &&
+      bytes[1] === 0x8b;
+
+    if(isGzip){
+      if(typeof DecompressionStream==='undefined'){
+        throw new Error('This browser does not support GZIP response decoding.');
+      }
+      const stream=new Blob([bytes])
+        .stream()
+        .pipeThrough(new DecompressionStream('gzip'));
+      bytes=new Uint8Array(await new Response(stream).arrayBuffer());
+    }
+
+    const text=new TextDecoder('utf-8').decode(bytes);
+
+    if(!text){
+      return {output:'',error:'TIO returned an empty response.'};
+    }
+
+    /*
+     * TIO response format:
+     *   16-byte delimiter
+     *   result/output
+     *   same 16-byte delimiter
+     *   error/debug information
+     *
+     * We display ONLY the result/output field.
+     */
+    const delimiter=text.slice(0,16);
+    if(delimiter.length===16){
+      const pieces=text.split(delimiter);
+      const result=pieces.length>1 ? pieces[1] : text;
+      return {
+        output:result
+          .replace(/\r\n/g,'\n')
+          .replace(/\r/g,'\n')
+          .trimEnd(),
+        error:''
+      };
+    }
+
+    return {
+      output:text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').trimEnd(),
+      error:''
+    };
+  }
+
+  async function runJava(){
+    const ed=qs('javaCodeEditor'), out=qs('javaOutput'), status=qs('codeLabStatus');
+    const stdin=qs('javaStdin').value;
+    if(!ed)return;
+
+    const code=wrapJavaSnippet(ed.value);
+    if(!code.trim())return;
+
+    status.textContent='Running…';
+    out.textContent='Compiling and running Java…';
+    qs('codeLabRun').disabled=true;
+
+    try{
+      if(!window.pako || typeof window.pako.deflateRaw!=='function'){
+        throw new Error('The code execution engine is still loading. Please try Run again in a moment.');
+      }
+
+      const request=buildTioRequest(code,stdin);
+      const compressed=window.pako.deflateRaw(request,{level:9});
+
+      /*
+       * text/plain keeps this a simple CORS POST (no JSON preflight).
+       * TIO consumes the compressed request body directly.
+       */
+      const response=await fetch(TIO_API,{
+        method:'POST',
+        mode:'cors',
+        headers:{'Content-Type':'text/plain;charset=UTF-8'},
+        body:compressed
+      });
+
+      if(!response.ok){
+        const serverText=await response.text().catch(()=> '');
+        throw new Error(
+          'Execution service returned HTTP '+response.status+
+          (serverText ? ': '+serverText.slice(0,300) : '.')
+        );
+      }
+
+      const result=await parseTioResponse(response);
+
+      let text=result.output||'';
+
+      if(!text.trim()){
+        text='Program finished successfully with no console output.';
+      }
+
+      out.textContent=text;
+      status.textContent='Finished';
+    }catch(err){
+      out.textContent=
+        'Unable to run the Java program.\\n\\n'+
+        err.message+
+        '\n\nIf this is the first run, wait a few seconds and try again.';
+      status.textContent='Execution unavailable';
+    }finally{
+      qs('codeLabRun').disabled=false;
+    }
+  }
+
+  function setCodeTheme(theme){
+    const lab=qs('javaCodeLab');
+    const dark=qs('codeThemeDark');
+    const light=qs('codeThemeLight');
+    if(!lab)return;
+
+    const isLight=theme==='light';
+    lab.classList.toggle('editor-light',isLight);
+    lab.classList.toggle('editor-dark',!isLight);
+
+    dark?.classList.toggle('active',!isLight);
+    light?.classList.toggle('active',isLight);
+
+    if(dark) dark.textContent=isLight?'○ Dark':'● Dark';
+    if(light) light.textContent=isLight?'● Light':'○ Light';
+
+    try{localStorage.setItem('javaCodeLabTheme',theme)}catch(e){}
+  }
+
+  function resetLab(){
+    const ed=qs('javaCodeEditor');
+    if(ed){
+      ed.value=DEFAULT_CODE;
+      updateLineNumbers();
+      qs('javaOutput').textContent='Editor reset. Press Run to execute.';
+      qs('codeLabStatus').textContent='Ready';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){
+    const open=qs('codeLabButton');
+    const close=qs('codeLabClose');
+    const run=qs('codeLabRun');
+    const reset=qs('codeLabReset');
+    const ed=qs('javaCodeEditor');
+    const ln=qs('codeLineNumbers');
+    const themeDark=qs('codeThemeDark');
+    const themeLight=qs('codeThemeLight');
+
+    themeDark?.addEventListener('click',()=>setCodeTheme('dark'));
+    themeLight?.addEventListener('click',()=>setCodeTheme('light'));
+
+    let savedTheme='dark';
+    try{savedTheme=localStorage.getItem('javaCodeLabTheme')||'dark'}catch(e){}
+    setCodeTheme(savedTheme);
+
+    open?.addEventListener('click',()=>openLab());
+    close?.addEventListener('click',closeLab);
+    run?.addEventListener('click',runJava);
+    reset?.addEventListener('click',resetLab);
+
+    ed?.addEventListener('input',updateLineNumbers);
+    ed?.addEventListener('scroll',()=>{if(ln)ln.scrollTop=ed.scrollTop});
+
+    ed?.addEventListener('keydown',function(e){
+      if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){
+        e.preventDefault();runJava();return;
+      }
+      if(e.key==='Tab'){
+        e.preventDefault();
+        const a=ed.selectionStart,b=ed.selectionEnd;
+        ed.value=ed.value.slice(0,a)+'    '+ed.value.slice(b);
+        ed.selectionStart=ed.selectionEnd=a+4;
+        updateLineNumbers();
+      }
+    });
+
+    qs('javaCodeLab')?.addEventListener('click',function(e){
+      if(e.target===this)closeLab();
+    });
+
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape' && qs('javaCodeLab')?.classList.contains('open')){
+        e.preventDefault();closeLab();
+      }
+    });
+
+    document.querySelectorAll('.run-example-btn').forEach(btn=>{
+      btn.addEventListener('click',function(e){
+        e.stopPropagation();
+        openLab(this.getAttribute('data-java-code')||'');
+      });
+    });
+
+    updateLineNumbers();
+    loadRuntime();
+  });
+})();
+</script>
+</body>
+</html>
