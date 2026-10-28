@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>Java Module 3 — Inheritance, Abstraction and Polymorphism</title>
+<style>
+:root{--bg:#e9eef4;--paper:#fff;--ink:#132033;--muted:#617087;--accent:#146fb2;--soft:#eef6fa;--line:#dbe5ec}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;overflow-x:hidden}
+.slide{width:100vw;min-height:100vh;margin:0 auto;padding:7vh 9vw 9vh;display:flex;flex-direction:column;justify-content:flex-start;position:relative;background:var(--paper);border-bottom:1px solid var(--line);overflow:hidden;page-break-after:always}
+.slide:after{content:"Object Oriented Programming with Java · Module 3";position:absolute;bottom:2.2vh;left:6vw;color:#7c8b9b;font:800 11px/1 system-ui;letter-spacing:.12em}
+.kicker{font-size:clamp(16px,1vw,19px);font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:2vh}
+h2{font-size:clamp(40px,4.5vw,70px);line-height:1.04;margin:.2vh 0 2.5vh;letter-spacing:-.025em}
+.title{font-size:clamp(48px,6.6vw,104px);font-weight:950;line-height:1;letter-spacing:-.04em;white-space:pre-line}
+.subtitle{font-size:clamp(20px,1.7vw,30px);color:var(--muted);max-width:1100px;line-height:1.35;margin:3vh auto}
+.center{text-align:center}.cover{background:linear-gradient(180deg,#fff,#f4f8fb);justify-content:center}
+.cover .kicker{margin-bottom:3vh}.accent{width:100px;height:7px;border-radius:10px;background:var(--accent);margin:4vh auto 0}
+.definition{font-size:clamp(28px,2.3vw,40px);line-height:1.38;color:#31465c;max-width:1250px;margin:1vh 0 2.5vh}
+.bullet{display:flex;gap:15px;font-size:clamp(25px,1.8vw,34px);line-height:1.4;margin:1vh 0;max-width:1250px}.bullet span{color:var(--accent);font-weight:950}
+.code{font:700 clamp(18px,1.4vw,26px)/1.45 "Cascadia Mono","Consolas","Courier New",monospace;background:#0f1724;color:#f1f6fb;border-radius:18px;padding:1.6vw 2vw;overflow:auto;white-space:pre;max-height:58vh;max-width:1250px;margin:0}
+.run-example-btn{display:inline-flex;align-items:center;gap:7px;margin:14px 0 0;border:0;border-radius:10px;padding:13px 17px;background:#146fb2;color:#fff;font:800 17px/1 system-ui;cursor:pointer;width:max-content}
+.output{background:#0b1320;color:#e9f4ff;border-radius:18px;padding:2vw 2.5vw;font:800 clamp(27px,2.2vw,40px)/1.5 "Cascadia Mono","Consolas",monospace;white-space:pre-wrap;text-align:left;max-width:1100px;margin:1vh 0}
+.note-strip{font-size:17px;font-weight:750;color:#4d6174;background:#eef6fa;border-left:5px solid #146fb2;border-radius:10px;padding:14px 18px;max-width:1100px;margin-top:1.5vh}
+.exercise{font-size:clamp(24px,1.7vw,32px);line-height:1.35;background:#f8fbfd;border:1px solid var(--line);padding:1.1vw 1.4vw;border-radius:14px;margin:1vh 0;max-width:1250px}
+.learning-table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px;max-width:1250px}
+.learning-table{width:100%;border-collapse:collapse;font-size:clamp(20px,1.45vw,27px)}
+.learning-table th{background:#132033;color:#fff;text-align:left;padding:16px 18px}
+.learning-table td{padding:15px 18px;border-bottom:1px solid var(--line);background:#fff}
+.learning-table tr:nth-child(even) td{background:#f4f8fb}.learning-table code{font:800 .92em "Consolas",monospace;color:#146fb2}
+.diagram-row{display:flex;gap:18px;margin-top:1vh}.diagram-card{border:1px solid var(--line);background:#f3f8fc;border-radius:18px;padding:20px 24px;font-size:clamp(21px,1.55vw,29px);font-weight:750;color:#31465c;max-width:1100px}
+.pass{color:#187544;font-weight:950}
+#presentButton,#topicToggle,#codeLabButton{position:fixed;top:18px;z-index:9000;border:0;border-radius:13px;padding:13px 17px;background:#132033;color:#fff;font:800 16px/1 system-ui;cursor:pointer;box-shadow:0 10px 25px rgba(10,25,42,.18)}
+#presentButton{right:18px;background:#146fb2}#topicToggle{right:145px}#codeLabButton{right:265px}
+#topicBackdrop{position:fixed;inset:0;background:rgba(9,20,34,.42);z-index:8999;display:none}#topicBackdrop.show{display:block}
+#topicSidebar{position:fixed;top:0;left:0;width:min(420px,88vw);height:100vh;background:#fff;z-index:9001;transform:translateX(-102%);transition:.22s;box-shadow:20px 0 60px rgba(10,25,42,.18);overflow:auto}
+#topicSidebar.open{transform:translateX(0)}.sidebar-head{padding:28px 24px 18px;border-bottom:1px solid var(--line)}.mini-title{font-size:13px;font-weight:900;color:#146fb2;text-transform:uppercase;letter-spacing:.1em}.sidebar-head h3{font-size:27px;margin:8px 0}
+.topic-btn{display:flex;gap:14px;width:100%;border:0;background:#fff;padding:14px 20px;text-align:left;border-bottom:1px solid #eef2f5;cursor:pointer}.topic-btn:hover{background:#edf4f8}.topic-num{font-weight:950;color:#146fb2;min-width:40px}.topic-name{font-weight:750;color:#24374c;font-size:15px}
+#slideStage{position:fixed;inset:0;z-index:15000;background:#0b1320;display:none}#slideStage.active{display:block}#slideFrame{width:100vw;height:100vh}#slideFrame .slide{display:none;width:100vw;height:100vh;min-height:100vh;margin:0;padding:7vh 8vw 10vh;overflow:hidden;border:0}#slideFrame .slide.presentation-current{display:flex}
+.slidebar{position:fixed;left:0;right:0;bottom:0;height:68px;background:rgba(19,32,51,.97);display:flex;align-items:center;gap:12px;padding:10px 16px;color:#fff;z-index:16000}
+.slidebar button{border:0;background:#25384d;color:#fff;border-radius:10px;padding:10px 15px;font-size:19px;cursor:pointer}.slide-counter{font-weight:900;min-width:90px;text-align:center}.slide-progress{height:5px;background:#31465c;flex:1;border-radius:5px;overflow:hidden}.slide-progress span{display:block;height:100%;background:#4aa3dc;width:0}.slide-hint{font-size:12px;color:#c4d1dc}
+#javaCodeLab{position:fixed;inset:0;z-index:20000;display:none;align-items:center;justify-content:center;padding:8px;background:rgba(9,20,34,.58)}#javaCodeLab.open{display:flex}
+.code-lab-window{width:99.5vw;height:99vh;background:#f8fafc;border:1px solid #cbd5e1;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(15,23,42,.28)}
+.code-lab-header{display:flex;justify-content:space-between;gap:18px;padding:12px 18px;background:#ffffff;color:#1f2937;border-bottom:1px solid #d8dee8}.code-lab-kicker{font-size:12px;font-weight:900;letter-spacing:.12em;color:#0078d4}.code-lab-title{font-size:25px;font-weight:950;color:#111827}.code-lab-actions{display:flex;gap:8px}.lab-btn{min-height:44px;padding:11px 16px;border:0;border-radius:9px;font-weight:800;font-size:16px;cursor:pointer}.lab-btn.secondary{background:#e4edf3;color:#132033}.lab-btn.run{background:#146fb2;color:#fff}.lab-btn.close{background:#33485e;color:#fff}
+.code-lab-toolbar{display:flex;align-items:center;gap:10px;padding:9px 14px;background:#f3f6fa;border-bottom:1px solid #d9e2ea;flex-wrap:wrap}.lab-pill{background:#e1efff;color:#075ca8;border-radius:7px;padding:7px 12px;font-weight:900;border:1px solid #b8d9f7}.lab-hint{font-size:13px;color:#617087;font-weight:700}
+.code-lab-body{display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,.58fr);gap:10px;padding:10px;flex:1;min-height:0;background:#edf1f5}.editor-panel,.io-box{display:flex;flex-direction:column;min-height:0;border:1px solid #d7dde5;border-radius:8px;overflow:hidden;background:#fff}.editor-titlebar,.io-title{padding:10px 13px;background:#f8fafc;border-bottom:1px solid #d7e3eb;font-weight:900;color:#334155}.editor-status{float:right;color:#146fb2}.editor-wrap{display:grid;grid-template-columns:54px minmax(0,1fr);flex:1;min-height:0;background:#ffffff}.editor-surface{position:relative;min-width:0;min-height:0;overflow:hidden;background:#ffffff}#javaSyntaxLayer,#javaCodeEditor{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:14px 18px;border:0;font:500 21px/1.55 "Cascadia Code","Consolas","Courier New",monospace;letter-spacing:0;tab-size:4;white-space:pre;overflow:auto;word-break:normal}#javaSyntaxLayer{pointer-events:none;color:#1f2328;background:#ffffff;overflow:hidden;scrollbar-width:none}#javaSyntaxLayer::-webkit-scrollbar{display:none}#javaSyntaxLayer code{font:inherit}#javaCodeEditor{z-index:2;resize:none;outline:none;background:transparent;color:transparent;-webkit-text-fill-color:transparent;caret-color:#111827;selection-background-color:#b6d7ff}#javaCodeEditor::selection{background:rgba(0,120,212,.24)}.tok-keyword{color:#0000ff}.tok-string{color:#a31515}.tok-comment{color:#008000;font-style:italic}.tok-number{color:#098658}.tok-type{color:#267f99}.tok-annotation{color:#795e26}.tok-operator{color:#333333}.line-numbers{padding:14px 12px 14px 0;text-align:right;overflow:hidden;color:#858b94;background:#f3f4f6;border-right:1px solid #e1e4e8;font:500 21px/1.55 "Cascadia Code","Consolas",monospace;white-space:pre}
+#javaCodeEditor{width:100%;height:100%;resize:none;border:0;outline:0;padding:14px 18px;background:transparent;color:transparent;-webkit-text-fill-color:transparent;caret-color:#111827;font:500 21px/1.55 "Cascadia Code","Consolas",monospace;white-space:pre;overflow:auto}
+.io-panel{display:grid;grid-template-rows:.75fr 1.25fr;gap:12px;min-height:0}#javaStdin{flex:1;min-height:0;border:0;outline:0;resize:none;padding:14px;font:600 16px/1.5 Consolas,monospace}
+.output-box{background:#0b1320}.java-output{flex:1;margin:0;padding:16px;overflow:auto;white-space:pre-wrap;font:600 17px/1.5 Consolas,monospace;color:#1f2937;background:#ffffff}
+.code-lab-footer{display:flex;justify-content:center;padding:7px;background:#f8fafc;color:#64748b;border-top:1px solid #e2e8f0;font-weight:800;font-size:12px}
+
+/* Dedicated projected-code view */
+.code-focus-btn{display:inline-flex;align-items:center;gap:8px;margin:14px 10px 0 0;border:1px solid #146fb2;border-radius:10px;padding:13px 17px;background:#fff;color:#145b8d;font:850 17px/1 system-ui;cursor:pointer;width:max-content}
+#codeFocus{position:fixed;inset:0;z-index:25000;display:none;background:#eef3f7;color:#132033}
+#codeFocus.open{display:flex;flex-direction:column}
+.code-focus-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:#132033;color:#fff;min-height:76px;flex-wrap:wrap}
+.code-focus-heading{flex:1;min-width:220px}.code-focus-eyebrow{font-size:12px;font-weight:900;letter-spacing:.14em;color:#72bce9;text-transform:uppercase}.code-focus-title{font-size:clamp(19px,2vw,28px);font-weight:900;margin-top:3px}
+.code-focus-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.focus-btn{border:0;border-radius:9px;padding:11px 14px;min-height:42px;font:850 16px/1 system-ui;cursor:pointer;background:#e3edf4;color:#132033}.focus-btn.primary{background:#146fb2;color:#fff}.focus-btn.close{background:#34495e;color:#fff}
+.code-focus-meta{display:flex;align-items:center;gap:12px;padding:10px 22px;background:#e0eaf1;border-bottom:1px solid #cad8e2;color:#3d5267;font-size:14px;font-weight:750}.code-focus-meta .grow{flex:1}
+#focusCodeViewport{flex:1;min-height:0;overflow:auto;background:#ffffff;padding:24px clamp(18px,4vw,64px)}
+#focusCodeText{margin:0;color:#1f2328;font:500 27px/1.5 "Cascadia Code","Consolas","Courier New",monospace;white-space:pre;tab-size:4;min-width:max-content}
+.code-focus-footer{padding:10px 20px;background:#132033;color:#c5d6e5;font-size:13px;font-weight:750;display:flex;gap:14px;justify-content:space-between;flex-wrap:wrap}
+.code-lab-window.expanded{width:100vw;height:100vh;border-radius:0}.code-lab-window.expanded .code-lab-body{grid-template-columns:minmax(0,2.2fr) minmax(250px,.52fr)}.code-lab-toolbar .zoom-controls{margin-left:auto;display:flex;gap:7px;align-items:center}.zoom-controls button{border:0;border-radius:8px;padding:8px 12px;background:#dce8f0;color:#132033;font-weight:900;font-size:16px;cursor:pointer}
+#javaCodeEditor{font-size:21px}.line-numbers{font-size:21px}
+@media(max-width:900px){.code-focus-header{padding:12px}.code-focus-actions{width:100%}.code-focus-actions .focus-btn{flex:1}#focusCodeViewport{padding:16px}.code-focus-meta{flex-wrap:wrap}.code-lab-window{width:100vw;height:100vh;border-radius:0}}
+@media(max-width:900px){
+#javaCodeLab{padding:0;align-items:stretch;justify-content:stretch}
+.code-lab-window{width:100vw;height:100dvh;max-height:100dvh;min-height:0;border-radius:0;border:0}
+.code-lab-header{flex:0 0 auto;min-height:54px;padding:7px 10px;gap:8px;align-items:center}
+.code-lab-kicker{font-size:9px;letter-spacing:.07em}.code-lab-title{font-size:17px}.code-lab-actions{gap:5px}.code-lab-actions .lab-btn{min-height:38px;padding:8px 10px;font-size:13px}
+.code-lab-toolbar{flex:0 0 auto;position:relative;z-index:2;gap:6px;padding:7px;background:#f3f6fa}
+.lab-hint{display:none}.lab-pill{font-size:11px;padding:6px 8px}
+.code-lab-toolbar .zoom-controls{margin-left:auto;display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.zoom-controls button{padding:8px 9px;font-size:14px;min-height:36px}.zoom-controls .lab-btn{min-height:36px;padding:8px 10px;font-size:13px}
+.code-lab-body{flex:1 1 auto;min-height:0;grid-template-columns:1fr;grid-template-rows:minmax(0,1.6fr) minmax(150px,.7fr);gap:6px;padding:6px;overflow:hidden}
+.editor-panel{min-height:0}.editor-titlebar,.io-title{padding:7px 9px;font-size:12px}
+.editor-wrap{grid-template-columns:38px minmax(0,1fr)}#javaSyntaxLayer,#javaCodeEditor{padding:10px 12px;font-size:18px;line-height:1.45}.line-numbers{padding:10px 8px 10px 0;font-size:18px;line-height:1.45}
+.io-panel{grid-template-columns:1fr 1fr;grid-template-rows:1fr;gap:6px;min-height:0}#javaStdin{font-size:14px;padding:9px}.java-output{font-size:14px;padding:9px}
+.code-lab-footer{display:none}
+.slide{padding-left:6vw;padding-right:6vw}.slide .code{font-size:16px}.slidebar .slide-hint{display:none}}
+@media(max-width:480px){.code-lab-header{padding:5px 7px}.code-lab-title{font-size:15px}.code-lab-actions .lab-btn{padding:7px 8px;font-size:12px}.code-lab-toolbar{align-items:flex-start}.code-lab-toolbar .zoom-controls{width:100%;margin-left:0;justify-content:space-between}.zoom-controls button{flex:1}.code-lab-body{grid-template-rows:minmax(0,1.5fr) minmax(130px,.65fr)}}
+
+/* Diagrammatic OOP models: labeled nodes, explicit relationships and readable contrast */
+.concept-diagram{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;max-width:1500px;margin:3vh 0 0;padding:12px 0}.diagram-node{min-width:190px;max-width:260px;padding:18px 22px;border:2px solid #7aaed4;border-radius:14px;background:#edf7ff;color:#15344d;text-align:center;box-shadow:0 6px 16px rgba(22,72,110,.08);display:flex;flex-direction:column;gap:5px}.diagram-node strong{font-size:clamp(22px,1.8vw,30px)}.diagram-node span{font-size:clamp(15px,1.1vw,19px);color:#47647b}.diagram-node small{font:600 clamp(15px,1.1vw,18px)/1.3 Consolas,monospace;color:#075ca8}.parent-node{background:#eaf4ff;border-color:#3b82c4}.child-node{background:#eefbf3;border-color:#58a779}.diagram-arrow{font-size:clamp(18px,1.4vw,24px);font-weight:900;color:#526b80;text-align:center;white-space:nowrap}.multilevel-diagram{flex-direction:column;gap:7px}.multilevel-diagram .diagram-node{min-width:280px}
+
+
+/* Large-hall presentation typography: designed for 16:9 projection and readable hierarchy */
+:root{--hall-accent:#0b6fb5;--hall-ink:#122033}
+.slide{padding:5.5vh 7vw 8vh;gap:.35vh}
+.slide:after{font-size:12px;bottom:1.8vh;letter-spacing:.08em}
+.slide .kicker{font-size:clamp(18px,1.45vw,25px);line-height:1.15;margin-bottom:1.2vh;letter-spacing:.1em}
+.slide h2{font-size:clamp(44px,4vw,72px);line-height:1.04;margin:.3vh 0 1.6vh;letter-spacing:-.025em}
+.slide .title{font-size:clamp(54px,6.2vw,108px);line-height:1.02;letter-spacing:-.035em}
+.slide .subtitle{font-size:clamp(25px,2.1vw,38px);line-height:1.28;margin:2vh auto;max-width:1400px}
+.slide .definition{font-size:clamp(31px,2.35vw,43px);line-height:1.28;max-width:1450px;margin:.5vh 0 1.4vh}
+.slide .bullet{font-size:clamp(29px,2.05vw,38px);line-height:1.25;gap:16px;margin:.75vh 0;max-width:1450px}
+.slide .code{font-size:clamp(21px,1.65vw,31px);line-height:1.32;padding:1.1vw 1.5vw;max-height:51vh;max-width:100%;border-radius:14px}
+.slide .output{font-size:clamp(28px,2.2vw,42px);line-height:1.35;padding:1.5vw 2vw;max-width:100%;max-height:45vh;overflow:auto}
+.slide .note-strip{font-size:clamp(19px,1.35vw,25px);line-height:1.3;padding:12px 16px;margin-top:1vh;max-width:100%}
+.slide .exercise{font-size:clamp(27px,1.85vw,35px);line-height:1.25;padding:1vw 1.25vw;margin:.65vh 0;max-width:100%}
+.slide .learning-table{font-size:clamp(23px,1.55vw,30px)}
+.slide .learning-table th,.slide .learning-table td{padding:12px 15px}
+.slide .diagram-row{gap:22px;align-items:center;flex-wrap:wrap;margin-top:1vh}
+.slide .diagram-card,.slide .diagram-node{font-size:clamp(24px,1.8vw,34px);padding:18px 24px}
+.slide .run-example-btn{font-size:clamp(18px,1.25vw,23px);padding:14px 20px;margin-top:10px}
+#slideFrame .slide{padding:5.5vh 7vw 9vh;gap:.35vh}
+#slideFrame .slide h2{font-size:clamp(44px,4vw,72px)}
+#slideFrame .slide .definition{font-size:clamp(31px,2.35vw,43px);line-height:1.28}
+#slideFrame .slide .bullet{font-size:clamp(29px,2.05vw,38px);line-height:1.25}
+#slideFrame .slide .code{font-size:clamp(21px,1.65vw,31px);line-height:1.32;max-height:49vh}
+#slideFrame .slide .note-strip{font-size:clamp(19px,1.35vw,25px)}
+#slideFrame .slide .exercise{font-size:clamp(27px,1.85vw,35px)}
+/* Fit-to-slide guard: content remains accessible instead of being cut off on unusual screens */
+.slide .learning-table-wrap{max-width:100%;max-height:48vh;overflow:auto}
+.slide .diagram-row{max-width:100%}
+@media (max-width:1100px){
+ .slide,#slideFrame .slide{padding:5vh 5vw 9vh}
+ .slide .definition,#slideFrame .slide .definition{font-size:clamp(26px,3.2vw,36px)}
+ .slide .bullet,#slideFrame .slide .bullet{font-size:clamp(24px,2.8vw,32px)}
+ .slide .code,#slideFrame .slide .code{font-size:clamp(18px,2.1vw,25px);max-height:47vh}
+ .slide h2,#slideFrame .slide h2{font-size:clamp(38px,5vw,56px)}
+}
+@media (max-height:700px) and (min-width:800px){
+ .slide,#slideFrame .slide{padding-top:4vh;padding-bottom:7vh}
+ .slide .definition,#slideFrame .slide .definition{font-size:clamp(27px,2vw,35px);line-height:1.2}
+ .slide .bullet,#slideFrame .slide .bullet{font-size:clamp(25px,1.8vw,32px);line-height:1.18;margin:.45vh 0}
+ .slide .code,#slideFrame .slide .code{max-height:44vh;font-size:clamp(19px,1.45vw,27px)}
+}
+@media print{.slide{break-after:page}}
+
+</style>
+</head>
+<body>
+<button id="codeLabButton" type="button">⌘ Code Lab</button><button id="topicToggle" type="button">☰ Topics</button><button id="presentButton" type="button">▶ Present</button>
+<div id="topicBackdrop"></div><aside id="topicSidebar"><div class="sidebar-head"><div class="mini-title">Object Oriented Programming with Java</div><h3>Module 3 Topics</h3></div><nav id="topicList"></nav></aside>
+<div id="slideStage"><div id="slideFrame"></div><div class="slidebar"><button id="prevSlide">←</button><button id="nextSlide">→</button><span class="slide-counter" id="slideCounter">1 / 1</span><div class="slide-progress"><span id="slideProgress"></span></div><span class="slide-hint">← → Navigate · Space Next · Home / End · F Fullscreen · Esc Exit</span><button id="slideExit">✕ Exit</button></div></div>
+<section class="slide center cover"><div class="kicker">Object Oriented Programming with Java · 256MUIC220</div><div class="title">MODULE 3<br>INHERITANCE, ABSTRACTION<br>&amp; POLYMORPHISM</div><p class="subtitle">Beginner-first classroom presentation · 17 independent concepts</p><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Module roadmap</div><h2>Concepts covered</h2><div class="bullet"><span>•</span><div><strong>01.</strong> Inheritance</div></div><div class="bullet"><span>•</span><div><strong>02.</strong> The super Keyword</div></div><div class="bullet"><span>•</span><div><strong>03.</strong> Multilevel Inheritance</div></div><div class="bullet"><span>•</span><div><strong>04.</strong> Order of Constructor Execution</div></div><div class="bullet"><span>•</span><div><strong>05.</strong> Method Overloading</div></div><div class="bullet"><span>•</span><div><strong>06.</strong> Method Overriding</div></div><div class="bullet"><span>•</span><div><strong>07.</strong> Dynamic Method Dispatch</div></div><div class="bullet"><span>•</span><div><strong>08.</strong> Abstract Classes</div></div><div class="bullet"><span>•</span><div><strong>09.</strong> Abstract Methods</div></div><div class="bullet"><span>•</span><div><strong>10.</strong> The final Keyword</div></div><div class="bullet"><span>•</span><div><strong>11.</strong> The Object Class</div></div><div class="bullet"><span>•</span><div><strong>12.</strong> Interface Default Methods</div></div><div class="bullet"><span>•</span><div><strong>13.</strong> Static Interface Methods</div></div><div class="bullet"><span>•</span><div><strong>14.</strong> Private Interface Methods</div></div><div class="bullet"><span>•</span><div><strong>15.</strong> Compile-Time Polymorphism</div></div><div class="bullet"><span>•</span><div><strong>16.</strong> Runtime Polymorphism</div></div><div class="bullet"><span>•</span><div><strong>17.</strong> Encapsulation</div></div></section>
+<section class="slide center cover"><div class="kicker">01 · Module 3 concept</div><div class="title">INHERITANCE</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>Definition</h2><p class="definition">Inheritance allows a subclass to reuse accessible fields and methods from a superclass.</p></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>In simple words</h2><p class="definition">A child class gets common behaviour from a parent class and can add its own features.</p><div class="diagram-row concept-diagram"><div class="diagram-node parent-node"><strong>Animal</strong><span>Superclass</span><small>eat()</small></div><div class="diagram-arrow">↓ extends</div><div class="diagram-node child-node"><strong>Dog</strong><span>Subclass</span><small>bark() + eat()</small></div></div></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>General syntax</h2><pre class="code"><code>class Dog extends Animal {
+    // add Dog-specific behaviour
+}</code></pre></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>class Dog</code></td><td>Declares the subclass</td></tr><tr><td><code>extends Animal</code></td><td>Inherits from Animal</td></tr><tr><td><code>Class body</code></td><td>Adds or specializes behaviour</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class Animal {
+        void eat() { System.out.println(&quot;Eating&quot;); }
+    }
+    static class Dog extends Animal {
+        void bark() { System.out.println(&quot;Barking&quot;); }
+    }
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.eat();
+        d.bark();
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Animal {
+        void eat() { System.out.println(&quot;Eating&quot;); }
+    }
+    static class Dog extends Animal {
+        void bark() { System.out.println(&quot;Barking&quot;); }
+    }
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.eat();
+        d.bark();
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>Output — Example 1</h2><pre class="output">Eating
+Barking</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class Vehicle {
+        int speed = 60;
+    }
+    static class Car extends Vehicle {
+        void show() { System.out.println(speed); }
+    }
+    public static void main(String[] args) {
+        new Car().show();
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Vehicle {
+        int speed = 60;
+    }
+    static class Car extends Vehicle {
+        void show() { System.out.println(speed); }
+    }
+    public static void main(String[] args) {
+        new Car().show();
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>Output — Example 2</h2><pre class="output">60</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static class Person {
+        void speak() { System.out.println(&quot;Hello&quot;); }
+    }
+    static class Student extends Person { }
+    public static void main(String[] args) {
+        new Student().speak();
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Person {
+        void speak() { System.out.println(&quot;Hello&quot;); }
+    }
+    static class Student extends Person { }
+    public static void main(String[] args) {
+        new Student().speak();
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>Output — Example 3</h2><pre class="output">Hello</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Create Device and Phone classes using inheritance.</div><div class="exercise"><strong>2.</strong> Create Employee and Manager classes that reuse a display method.</div><div class="exercise"><strong>3.</strong> Explain the IS-A relationship using a real-world example.</div></section>
+<section class="slide "><div class="kicker">Inheritance</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Purpose</td><td>Reuse and extend behaviour</td></tr><tr><td>Keyword</td><td>extends</td></tr><tr><td>Relationship</td><td>IS-A</td></tr><tr><td>Benefit</td><td>Less duplicated code</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">02 · Module 3 concept</div><div class="title">THE SUPER KEYWORD</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>Definition</h2><p class="definition">super refers to members of the immediate superclass.</p></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>In simple words</h2><p class="definition">Use super to call a parent constructor, access a hidden parent field, or call an overridden parent method.</p><div class="diagram-row"><div class="diagram-card">Use super to call a parent constructor, access a hidden parent field, or call an overridden parent method.</div></div></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>General syntax</h2><pre class="code"><code>super();
+super.fieldName;
+super.methodName();</code></pre></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>super()</code></td><td>Calls the superclass constructor</td></tr><tr><td><code>super.fieldName</code></td><td>Accesses a superclass field</td></tr><tr><td><code>super.methodName()</code></td><td>Calls the superclass method</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class Parent { int value = 10; }
+    static class Child extends Parent {
+        int value = 20;
+        void show() { System.out.println(super.value); }
+    }
+    public static void main(String[] args) { new Child().show(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Parent { int value = 10; }
+    static class Child extends Parent {
+        int value = 20;
+        void show() { System.out.println(super.value); }
+    }
+    public static void main(String[] args) { new Child().show(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>Output — Example 1</h2><pre class="output">10</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class Animal {
+        void sound() { System.out.println(&quot;Animal sound&quot;); }
+    }
+    static class Dog extends Animal {
+        @Override void sound() {
+            super.sound();
+            System.out.println(&quot;Bark&quot;);
+        }
+    }
+    public static void main(String[] args) { new Dog().sound(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Animal {
+        void sound() { System.out.println(&quot;Animal sound&quot;); }
+    }
+    static class Dog extends Animal {
+        @Override void sound() {
+            super.sound();
+            System.out.println(&quot;Bark&quot;);
+        }
+    }
+    public static void main(String[] args) { new Dog().sound(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>Output — Example 2</h2><pre class="output">Animal sound
+Bark</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static class Parent {
+        Parent() { System.out.println(&quot;Parent&quot;); }
+    }
+    static class Child extends Parent {
+        Child() { super(); System.out.println(&quot;Child&quot;); }
+    }
+    public static void main(String[] args) { new Child(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Parent {
+        Parent() { System.out.println(&quot;Parent&quot;); }
+    }
+    static class Child extends Parent {
+        Child() { super(); System.out.println(&quot;Child&quot;); }
+    }
+    public static void main(String[] args) { new Child(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>Output — Example 3</h2><pre class="output">Parent
+Child</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Use super to access a hidden parent field.</div><div class="exercise"><strong>2.</strong> Override a method and call the parent implementation.</div><div class="exercise"><strong>3.</strong> Call a parameterized parent constructor using super(...).</div></section>
+<section class="slide "><div class="kicker">The super Keyword</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Constructor</td><td>super()</td></tr><tr><td>Field</td><td>super.fieldName</td></tr><tr><td>Method</td><td>super.methodName()</td></tr><tr><td>Rule</td><td>Constructor call must be first statement</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">03 · Module 3 concept</div><div class="title">MULTILEVEL INHERITANCE</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>Definition</h2><p class="definition">Multilevel inheritance occurs when a class inherits from a class that already inherits from another class.</p></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>In simple words</h2><p class="definition">The inheritance chain can be read as A → B → C: B extends A, and C extends B.</p><div class="diagram-row concept-diagram multilevel-diagram"><div class="diagram-node parent-node"><strong>Animal</strong><span>Level 1 · base class</span></div><div class="diagram-arrow">↓ extends</div><div class="diagram-node child-node"><strong>Mammal</strong><span>Level 2 · inherits Animal</span></div><div class="diagram-arrow">↓ extends</div><div class="diagram-node child-node"><strong>Dog</strong><span>Level 3 · inherits Mammal</span></div></div></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>General syntax</h2><pre class="code"><code>class B extends A { }
+class C extends B { }</code></pre></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>A</code></td><td>Base class</td></tr><tr><td><code>B extends A</code></td><td>Second level</td></tr><tr><td><code>C extends B</code></td><td>Third level</td></tr><tr><td><code>Result</code></td><td>C can use accessible members inherited through the chain</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class A { void one() { System.out.println(&quot;A&quot;); } }
+    static class B extends A { void two() { System.out.println(&quot;B&quot;); } }
+    static class C extends B { void three() { System.out.println(&quot;C&quot;); } }
+    public static void main(String[] args) {
+        C obj = new C();
+        obj.one(); obj.two(); obj.three();
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class A { void one() { System.out.println(&quot;A&quot;); } }
+    static class B extends A { void two() { System.out.println(&quot;B&quot;); } }
+    static class C extends B { void three() { System.out.println(&quot;C&quot;); } }
+    public static void main(String[] args) {
+        C obj = new C();
+        obj.one(); obj.two(); obj.three();
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>Output — Example 1</h2><pre class="output">A
+B
+C</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class LivingThing { void live() { System.out.println(&quot;Living&quot;); } }
+    static class Animal extends LivingThing { }
+    static class Dog extends Animal { }
+    public static void main(String[] args) { new Dog().live(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class LivingThing { void live() { System.out.println(&quot;Living&quot;); } }
+    static class Animal extends LivingThing { }
+    static class Dog extends Animal { }
+    public static void main(String[] args) { new Dog().live(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>Output — Example 2</h2><pre class="output">Living</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static class A { int x = 5; }
+    static class B extends A { int y = 7; }
+    static class C extends B {
+        void show() { System.out.println(x + y); }
+    }
+    public static void main(String[] args) { new C().show(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class A { int x = 5; }
+    static class B extends A { int y = 7; }
+    static class C extends B {
+        void show() { System.out.println(x + y); }
+    }
+    public static void main(String[] args) { new C().show(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>Output — Example 3</h2><pre class="output">12</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Create Person → Employee → Manager classes.</div><div class="exercise"><strong>2.</strong> Draw a three-level hierarchy and identify the superclass at each level.</div><div class="exercise"><strong>3.</strong> Predict which inherited methods are accessible from the final subclass.</div></section>
+<section class="slide "><div class="kicker">Multilevel Inheritance</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Structure</td><td>A → B → C</td></tr><tr><td>Keyword</td><td>extends at each level</td></tr><tr><td>Reuse</td><td>Accessible members pass down the chain</td></tr><tr><td>Caution</td><td>Keep hierarchies understandable</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">04 · Module 3 concept</div><div class="title">ORDER OF CONSTRUCTOR EXECUTION</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>Definition</h2><p class="definition">When a subclass object is created, superclass constructors execute before subclass constructors.</p></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>In simple words</h2><p class="definition">Java initializes the parent part first, then continues down to the child class.</p><div class="diagram-row"><div class="diagram-card">Java initializes the parent part first, then continues down to the child class.</div></div></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>General syntax</h2><pre class="code"><code>class Child extends Parent {
+    Child() {
+        super();
+        // child initialization
+    }
+}</code></pre></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>new Child()</code></td><td>Starts object construction</td></tr><tr><td><code>super()</code></td><td>Runs the parent constructor first</td></tr><tr><td><code>Child constructor</code></td><td>Runs after the parent constructor finishes</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class Parent { Parent() { System.out.println(&quot;Parent&quot;); } }
+    static class Child extends Parent { Child() { System.out.println(&quot;Child&quot;); } }
+    public static void main(String[] args) { new Child(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Parent { Parent() { System.out.println(&quot;Parent&quot;); } }
+    static class Child extends Parent { Child() { System.out.println(&quot;Child&quot;); } }
+    public static void main(String[] args) { new Child(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>Output — Example 1</h2><pre class="output">Parent
+Child</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class A { A() { System.out.println(&quot;A&quot;); } }
+    static class B extends A { B() { System.out.println(&quot;B&quot;); } }
+    static class C extends B { C() { System.out.println(&quot;C&quot;); } }
+    public static void main(String[] args) { new C(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class A { A() { System.out.println(&quot;A&quot;); } }
+    static class B extends A { B() { System.out.println(&quot;B&quot;); } }
+    static class C extends B { C() { System.out.println(&quot;C&quot;); } }
+    public static void main(String[] args) { new C(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>Output — Example 2</h2><pre class="output">A
+B
+C</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static class Base { Base(int n) { System.out.println(n); } }
+    static class Item extends Base {
+        Item() { super(7); System.out.println(&quot;Item&quot;); }
+    }
+    public static void main(String[] args) { new Item(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Base { Base(int n) { System.out.println(n); } }
+    static class Item extends Base {
+        Item() { super(7); System.out.println(&quot;Item&quot;); }
+    }
+    public static void main(String[] args) { new Item(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>Output — Example 3</h2><pre class="output">7
+Item</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Predict constructor output for a three-level hierarchy.</div><div class="exercise"><strong>2.</strong> Add a parameterized superclass constructor and call it with super(10).</div><div class="exercise"><strong>3.</strong> Explain why the superclass constructor executes first.</div></section>
+<section class="slide "><div class="kicker">Order of Constructor Execution</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>First</td><td>Superclass constructor</td></tr><tr><td>Next</td><td>Subclass constructor</td></tr><tr><td>Chain</td><td>Topmost parent to final child</td></tr><tr><td>Remember</td><td>super(...) must be first in constructor</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">05 · Module 3 concept</div><div class="title">METHOD OVERLOADING</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>Definition</h2><p class="definition">Method overloading means defining methods with the same name but different parameter lists.</p></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>In simple words</h2><p class="definition">Use one meaningful method name for related operations that accept different inputs.</p><div class="diagram-row"><div class="diagram-card">Use one meaningful method name for related operations that accept different inputs.</div></div></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>General syntax</h2><pre class="code"><code>int add(int a, int b) { ... }
+int add(int a, int b, int c) { ... }</code></pre></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>Same method name</code></td><td>Shared operation</td></tr><tr><td><code>Different parameters</code></td><td>Number, type, or order differs</td></tr><tr><td><code>Return type alone</code></td><td>Cannot distinguish overloads</td></tr><tr><td><code>Resolution</code></td><td>Compiler chooses a matching overload</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class Calculator {
+        int add(int a, int b) { return a + b; }
+        int add(int a, int b, int c) { return a + b + c; }
+    }
+    public static void main(String[] args) {
+        Calculator c = new Calculator();
+        System.out.println(c.add(2, 3));
+        System.out.println(c.add(2, 3, 4));
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Calculator {
+        int add(int a, int b) { return a + b; }
+        int add(int a, int b, int c) { return a + b + c; }
+    }
+    public static void main(String[] args) {
+        Calculator c = new Calculator();
+        System.out.println(c.add(2, 3));
+        System.out.println(c.add(2, 3, 4));
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>Output — Example 1</h2><pre class="output">5
+9</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class Printer {
+        void show(int n) { System.out.println(n); }
+        void show(String s) { System.out.println(s); }
+    }
+    public static void main(String[] args) {
+        Printer p = new Printer();
+        p.show(8);
+        p.show(&quot;Java&quot;);
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Printer {
+        void show(int n) { System.out.println(n); }
+        void show(String s) { System.out.println(s); }
+    }
+    public static void main(String[] args) {
+        Printer p = new Printer();
+        p.show(8);
+        p.show(&quot;Java&quot;);
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>Output — Example 2</h2><pre class="output">8
+Java</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static class Area {
+        int area(int side) { return side * side; }
+        int area(int length, int width) { return length * width; }
+    }
+    public static void main(String[] args) {
+        Area a = new Area();
+        System.out.println(a.area(4));
+        System.out.println(a.area(4, 5));
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Area {
+        int area(int side) { return side * side; }
+        int area(int length, int width) { return length * width; }
+    }
+    public static void main(String[] args) {
+        Area a = new Area();
+        System.out.println(a.area(4));
+        System.out.println(a.area(4, 5));
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>Output — Example 3</h2><pre class="output">16
+20</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Overload area() for a square and rectangle.</div><div class="exercise"><strong>2.</strong> Create display() overloads for int and String.</div><div class="exercise"><strong>3.</strong> Explain why changing only the return type is insufficient.</div></section>
+<section class="slide "><div class="kicker">Method Overloading</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Name</td><td>Same</td></tr><tr><td>Parameters</td><td>Must differ</td></tr><tr><td>Decision</td><td>Compile time</td></tr><tr><td>Benefit</td><td>Readable, convenient APIs</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">06 · Module 3 concept</div><div class="title">METHOD OVERRIDING</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>Definition</h2><p class="definition">Overriding occurs when a subclass provides a new implementation of an inherited instance method with the same signature.</p></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>In simple words</h2><p class="definition">The child class changes what an inherited method does while keeping the same method signature.</p><div class="diagram-row"><div class="diagram-card">The child class changes what an inherited method does while keeping the same method signature.</div></div></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>General syntax</h2><pre class="code"><code>class Child extends Parent {
+    @Override
+    void display() {
+        // child-specific behaviour
+    }
+}</code></pre></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>@Override</code></td><td>Asks the compiler to verify the override</td></tr><tr><td><code>Same signature</code></td><td>Same method name and parameter list</td></tr><tr><td><code>Subclass</code></td><td>Provides a new implementation</td></tr><tr><td><code>Purpose</code></td><td>Specializes inherited behaviour</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class Animal { void sound() { System.out.println(&quot;Sound&quot;); } }
+    static class Cat extends Animal {
+        @Override void sound() { System.out.println(&quot;Meow&quot;); }
+    }
+    public static void main(String[] args) { new Cat().sound(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Animal { void sound() { System.out.println(&quot;Sound&quot;); } }
+    static class Cat extends Animal {
+        @Override void sound() { System.out.println(&quot;Meow&quot;); }
+    }
+    public static void main(String[] args) { new Cat().sound(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>Output — Example 1</h2><pre class="output">Meow</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class Employee { void role() { System.out.println(&quot;Employee&quot;); } }
+    static class Manager extends Employee {
+        @Override void role() { System.out.println(&quot;Manager&quot;); }
+    }
+    public static void main(String[] args) { new Manager().role(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Employee { void role() { System.out.println(&quot;Employee&quot;); } }
+    static class Manager extends Employee {
+        @Override void role() { System.out.println(&quot;Manager&quot;); }
+    }
+    public static void main(String[] args) { new Manager().role(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>Output — Example 2</h2><pre class="output">Manager</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static class Shape { void draw() { System.out.println(&quot;Shape&quot;); } }
+    static class Circle extends Shape {
+        @Override void draw() { System.out.println(&quot;Circle&quot;); }
+    }
+    public static void main(String[] args) { new Circle().draw(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Shape { void draw() { System.out.println(&quot;Shape&quot;); } }
+    static class Circle extends Shape {
+        @Override void draw() { System.out.println(&quot;Circle&quot;); }
+    }
+    public static void main(String[] args) { new Circle().draw(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>Output — Example 3</h2><pre class="output">Circle</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Override display() in a Student subclass.</div><div class="exercise"><strong>2.</strong> Override sound() in Dog and Cow.</div><div class="exercise"><strong>3.</strong> Use @Override and explain what it checks.</div></section>
+<section class="slide "><div class="kicker">Method Overriding</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Where</td><td>Subclass</td></tr><tr><td>Signature</td><td>Same as inherited method</td></tr><tr><td>Purpose</td><td>Specialize behaviour</td></tr><tr><td>Good practice</td><td>Use @Override</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">07 · Module 3 concept</div><div class="title">DYNAMIC METHOD DISPATCH</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>Definition</h2><p class="definition">Dynamic method dispatch selects an overridden instance method at runtime according to the actual object&#x27;s class.</p></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>In simple words</h2><p class="definition">A parent reference can hold a child object. The child&#x27;s overridden method runs.</p><div class="diagram-row"><div class="diagram-card">A parent reference can hold a child object. The child&#x27;s overridden method runs.</div></div></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>General syntax</h2><pre class="code"><code>Parent ref = new Child();
+ref.display();</code></pre></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>Parent</code></td><td>Reference type</td></tr><tr><td><code>new Child()</code></td><td>Actual object type</td></tr><tr><td><code>display()</code></td><td>Runtime selects the overridden implementation</td></tr><tr><td><code>Scope</code></td><td>Overridden instance methods</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class Animal { void sound() { System.out.println(&quot;Animal&quot;); } }
+    static class Dog extends Animal {
+        @Override void sound() { System.out.println(&quot;Dog barks&quot;); }
+    }
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.sound();
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Animal { void sound() { System.out.println(&quot;Animal&quot;); } }
+    static class Dog extends Animal {
+        @Override void sound() { System.out.println(&quot;Dog barks&quot;); }
+    }
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.sound();
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>Output — Example 1</h2><pre class="output">Dog barks</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class Shape { void draw() { System.out.println(&quot;Shape&quot;); } }
+    static class Circle extends Shape {
+        @Override void draw() { System.out.println(&quot;Circle&quot;); }
+    }
+    static class Square extends Shape {
+        @Override void draw() { System.out.println(&quot;Square&quot;); }
+    }
+    public static void main(String[] args) {
+        Shape s = new Circle(); s.draw();
+        s = new Square(); s.draw();
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Shape { void draw() { System.out.println(&quot;Shape&quot;); } }
+    static class Circle extends Shape {
+        @Override void draw() { System.out.println(&quot;Circle&quot;); }
+    }
+    static class Square extends Shape {
+        @Override void draw() { System.out.println(&quot;Square&quot;); }
+    }
+    public static void main(String[] args) {
+        Shape s = new Circle(); s.draw();
+        s = new Square(); s.draw();
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>Output — Example 2</h2><pre class="output">Circle
+Square</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static class Employee { void role() { System.out.println(&quot;Employee&quot;); } }
+    static class Manager extends Employee {
+        @Override void role() { System.out.println(&quot;Manager&quot;); }
+    }
+    public static void main(String[] args) {
+        Employee e = new Manager();
+        e.role();
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Employee { void role() { System.out.println(&quot;Employee&quot;); } }
+    static class Manager extends Employee {
+        @Override void role() { System.out.println(&quot;Manager&quot;); }
+    }
+    public static void main(String[] args) {
+        Employee e = new Manager();
+        e.role();
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>Output — Example 3</h2><pre class="output">Manager</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Use one Shape reference for Circle and Rectangle objects.</div><div class="exercise"><strong>2.</strong> Predict output when the reference is reassigned.</div><div class="exercise"><strong>3.</strong> Explain reference type versus actual object type.</div></section>
+<section class="slide "><div class="kicker">Dynamic Method Dispatch</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Reference type</td><td>Controls accessible members</td></tr><tr><td>Object type</td><td>Selects overridden method</td></tr><tr><td>When</td><td>Runtime</td></tr><tr><td>Benefit</td><td>Flexible, extensible code</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">08 · Module 3 concept</div><div class="title">ABSTRACT CLASSES</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>Definition</h2><p class="definition">An abstract class is declared with abstract and cannot be instantiated directly.</p></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>In simple words</h2><p class="definition">It is a base blueprint that can contain shared code and leave some behaviour for subclasses.</p><div class="diagram-row concept-diagram multilevel-diagram"><div class="diagram-node parent-node"><strong>abstract class Shape</strong><span>Shared contract</span><small>abstract area()</small></div><div class="diagram-arrow">↓ extends</div><div class="diagram-row concept-diagram"><div class="diagram-node child-node"><strong>Circle</strong><span>Concrete class</span><small>area() implemented</small></div><div class="diagram-node child-node"><strong>Rectangle</strong><span>Concrete class</span><small>area() implemented</small></div></div></div></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>General syntax</h2><pre class="code"><code>abstract class Shape {
+    void describe() {
+        System.out.println(&quot;Shape&quot;);
+    }
+}</code></pre></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>abstract</code></td><td>Marks the class as abstract</td></tr><tr><td><code>Shared methods</code></td><td>May have method bodies</td></tr><tr><td><code>new Shape()</code></td><td>Not allowed</td></tr><tr><td><code>Subclass</code></td><td>Can extend the abstract class</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    abstract static class Animal {
+        void eat() { System.out.println(&quot;Eating&quot;); }
+    }
+    static class Dog extends Animal { }
+    public static void main(String[] args) { new Dog().eat(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    abstract static class Animal {
+        void eat() { System.out.println(&quot;Eating&quot;); }
+    }
+    static class Dog extends Animal { }
+    public static void main(String[] args) { new Dog().eat(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>Output — Example 1</h2><pre class="output">Eating</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    abstract static class Shape {
+        void label() { System.out.println(&quot;2D shape&quot;); }
+    }
+    static class Circle extends Shape { }
+    public static void main(String[] args) { new Circle().label(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    abstract static class Shape {
+        void label() { System.out.println(&quot;2D shape&quot;); }
+    }
+    static class Circle extends Shape { }
+    public static void main(String[] args) { new Circle().label(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>Output — Example 2</h2><pre class="output">2D shape</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    abstract static class Machine {
+        void start() { System.out.println(&quot;Starting&quot;); }
+    }
+    static class Robot extends Machine { }
+    public static void main(String[] args) { new Robot().start(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    abstract static class Machine {
+        void start() { System.out.println(&quot;Starting&quot;); }
+    }
+    static class Robot extends Machine { }
+    public static void main(String[] args) { new Robot().start(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>Output — Example 3</h2><pre class="output">Starting</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Create abstract Appliance with a concrete turnOn() method.</div><div class="exercise"><strong>2.</strong> Try instantiating an abstract class and observe the compiler error.</div><div class="exercise"><strong>3.</strong> Explain when an abstract class is useful.</div></section>
+<section class="slide "><div class="kicker">Abstract Classes</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Declaration</td><td>abstract class</td></tr><tr><td>Instantiation</td><td>Not directly allowed</td></tr><tr><td>Methods</td><td>Can include concrete methods</td></tr><tr><td>Role</td><td>Shared base blueprint</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">09 · Module 3 concept</div><div class="title">ABSTRACT METHODS</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>Definition</h2><p class="definition">An abstract method is declared without a body and must be implemented by a concrete subclass.</p></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>In simple words</h2><p class="definition">The parent declares what must be done; the child supplies how it is done.</p><div class="diagram-row"><div class="diagram-card">The parent declares what must be done; the child supplies how it is done.</div></div></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>General syntax</h2><pre class="code"><code>abstract class Shape {
+    abstract double area();
+}
+class Circle extends Shape {
+    @Override double area() { return 12.56; }
+}</code></pre></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>abstract double area();</code></td><td>Declaration only; no body</td></tr><tr><td><code>extends Shape</code></td><td>Subclass inherits the requirement</td></tr><tr><td><code>area() { ... }</code></td><td>Concrete implementation</td></tr><tr><td><code>Concrete class</code></td><td>Must implement inherited abstract methods</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    abstract static class Animal { abstract void sound(); }
+    static class Cat extends Animal {
+        @Override void sound() { System.out.println(&quot;Meow&quot;); }
+    }
+    public static void main(String[] args) { new Cat().sound(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    abstract static class Animal { abstract void sound(); }
+    static class Cat extends Animal {
+        @Override void sound() { System.out.println(&quot;Meow&quot;); }
+    }
+    public static void main(String[] args) { new Cat().sound(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>Output — Example 1</h2><pre class="output">Meow</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    abstract static class Shape { abstract int sides(); }
+    static class Triangle extends Shape {
+        @Override int sides() { return 3; }
+    }
+    public static void main(String[] args) {
+        System.out.println(new Triangle().sides());
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    abstract static class Shape { abstract int sides(); }
+    static class Triangle extends Shape {
+        @Override int sides() { return 3; }
+    }
+    public static void main(String[] args) {
+        System.out.println(new Triangle().sides());
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>Output — Example 2</h2><pre class="output">3</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    abstract static class Payment { abstract void pay(); }
+    static class Cash extends Payment {
+        @Override void pay() { System.out.println(&quot;Cash payment&quot;); }
+    }
+    public static void main(String[] args) { new Cash().pay(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    abstract static class Payment { abstract void pay(); }
+    static class Cash extends Payment {
+        @Override void pay() { System.out.println(&quot;Cash payment&quot;); }
+    }
+    public static void main(String[] args) { new Cash().pay(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>Output — Example 3</h2><pre class="output">Cash payment</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Implement area() in Circle and Rectangle.</div><div class="exercise"><strong>2.</strong> Create abstract pay() and implement it in CashPayment.</div><div class="exercise"><strong>3.</strong> Identify the compile-time error if a concrete subclass omits an abstract method.</div></section>
+<section class="slide "><div class="kicker">Abstract Methods</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Body</td><td>Absent in abstract declaration</td></tr><tr><td>Terminator</td><td>Semicolon</td></tr><tr><td>Subclass</td><td>Implements the method</td></tr><tr><td>Purpose</td><td>Enforce a common contract</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">10 · Module 3 concept</div><div class="title">THE FINAL KEYWORD</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>Definition</h2><p class="definition">final restricts reassignment of variables, overriding of methods, and inheritance of classes.</p></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>In simple words</h2><p class="definition">Use final when a value, method behaviour, or class should not be changed in the specified way.</p><div class="diagram-row"><div class="diagram-card">Use final when a value, method behaviour, or class should not be changed in the specified way.</div></div></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>General syntax</h2><pre class="code"><code>final int LIMIT = 100;
+final void show() { }
+final class Utility { }</code></pre></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>final variable</code></td><td>Cannot be reassigned after initialization</td></tr><tr><td><code>final method</code></td><td>Cannot be overridden</td></tr><tr><td><code>final class</code></td><td>Cannot be subclassed</td></tr><tr><td><code>Use</code></td><td>Make constraints explicit</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class Demo {
+        final int LIMIT = 100;
+        void show() { System.out.println(LIMIT); }
+    }
+    public static void main(String[] args) { new Demo().show(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Demo {
+        final int LIMIT = 100;
+        void show() { System.out.println(LIMIT); }
+    }
+    public static void main(String[] args) { new Demo().show(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>Output — Example 1</h2><pre class="output">100</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class Parent {
+        final void greet() { System.out.println(&quot;Hello&quot;); }
+    }
+    static class Child extends Parent { }
+    public static void main(String[] args) { new Child().greet(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Parent {
+        final void greet() { System.out.println(&quot;Hello&quot;); }
+    }
+    static class Child extends Parent { }
+    public static void main(String[] args) { new Child().greet(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>Output — Example 2</h2><pre class="output">Hello</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static final class Utility {
+        void run() { System.out.println(&quot;Running&quot;); }
+    }
+    public static void main(String[] args) { new Utility().run(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static final class Utility {
+        void run() { System.out.println(&quot;Running&quot;); }
+    }
+    public static void main(String[] args) { new Utility().run(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>Output — Example 3</h2><pre class="output">Running</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Try changing a final variable and observe the error.</div><div class="exercise"><strong>2.</strong> Try overriding a final method and observe the error.</div><div class="exercise"><strong>3.</strong> Explain why a final class cannot be extended.</div></section>
+<section class="slide "><div class="kicker">The final Keyword</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Variable</td><td>No reassignment</td></tr><tr><td>Method</td><td>No overriding</td></tr><tr><td>Class</td><td>No subclassing</td></tr><tr><td>Use</td><td>Make constraints explicit</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">11 · Module 3 concept</div><div class="title">THE OBJECT CLASS</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>Definition</h2><p class="definition">Object is the root superclass of Java classes; classes inherit its methods unless they override them.</p></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>In simple words</h2><p class="definition">Every ordinary Java class gets common object behaviour such as toString() and equals().</p><div class="diagram-row"><div class="diagram-card">Every ordinary Java class gets common object behaviour such as toString() and equals().</div></div></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>General syntax</h2><pre class="code"><code>class Student {
+    @Override
+    public String toString() {
+        return &quot;Student&quot;;
+    }
+}</code></pre></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>Object</code></td><td>Root class in java.lang</td></tr><tr><td><code>toString()</code></td><td>Text representation</td></tr><tr><td><code>equals()</code></td><td>Equality check; often overridden</td></tr><tr><td><code>Override</code></td><td>Customize inherited behaviour</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class Student {
+        int id = 25;
+        @Override public String toString() { return &quot;ID=&quot; + id; }
+    }
+    public static void main(String[] args) {
+        System.out.println(new Student());
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Student {
+        int id = 25;
+        @Override public String toString() { return &quot;ID=&quot; + id; }
+    }
+    public static void main(String[] args) {
+        System.out.println(new Student());
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>Output — Example 1</h2><pre class="output">ID=25</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class Book {
+        @Override public String toString() { return &quot;Java Book&quot;; }
+    }
+    public static void main(String[] args) {
+        System.out.println(new Book().toString());
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Book {
+        @Override public String toString() { return &quot;Java Book&quot;; }
+    }
+    public static void main(String[] args) {
+        System.out.println(new Book().toString());
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>Output — Example 2</h2><pre class="output">Java Book</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static class Item { }
+    public static void main(String[] args) {
+        Item item = new Item();
+        System.out.println(item instanceof Object);
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Item { }
+    public static void main(String[] args) {
+        Item item = new Item();
+        System.out.println(item instanceof Object);
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>Output — Example 3</h2><pre class="output">true</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Override toString() in a Book class.</div><div class="exercise"><strong>2.</strong> Check whether a custom class object is an Object.</div><div class="exercise"><strong>3.</strong> Discuss why equals() should be overridden carefully.</div></section>
+<section class="slide "><div class="kicker">The Object Class</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Hierarchy</td><td>Root superclass</td></tr><tr><td>Package</td><td>java.lang</td></tr><tr><td>Methods</td><td>toString(), equals(), getClass()</td></tr><tr><td>Use</td><td>Common behaviour for objects</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">12 · Module 3 concept</div><div class="title">INTERFACE DEFAULT METHODS</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>Definition</h2><p class="definition">A default method is an interface method with a body that implementing classes inherit unless they override it.</p></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>In simple words</h2><p class="definition">An interface can provide ready-made instance behaviour while still defining a contract.</p><div class="diagram-row"><div class="diagram-card">An interface can provide ready-made instance behaviour while still defining a contract.</div></div></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>General syntax</h2><pre class="code"><code>interface Greeting {
+    default void hello() {
+        System.out.println(&quot;Hello&quot;);
+    }
+}</code></pre></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>default</code></td><td>Keyword for an interface method with a body</td></tr><tr><td><code>Method body</code></td><td>Provides ready-made behaviour</td></tr><tr><td><code>Implementing class</code></td><td>Can use or override the method</td></tr><tr><td><code>Call</code></td><td>Through an implementing object</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    interface Greeting {
+        default void hello() { System.out.println(&quot;Hello&quot;); }
+    }
+    static class Student implements Greeting { }
+    public static void main(String[] args) { new Student().hello(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    interface Greeting {
+        default void hello() { System.out.println(&quot;Hello&quot;); }
+    }
+    static class Student implements Greeting { }
+    public static void main(String[] args) { new Student().hello(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>Output — Example 1</h2><pre class="output">Hello</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    interface Welcome {
+        default void message() { System.out.println(&quot;Welcome&quot;); }
+    }
+    static class Guest implements Welcome {
+        @Override public void message() { System.out.println(&quot;Good to see you&quot;); }
+    }
+    public static void main(String[] args) { new Guest().message(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    interface Welcome {
+        default void message() { System.out.println(&quot;Welcome&quot;); }
+    }
+    static class Guest implements Welcome {
+        @Override public void message() { System.out.println(&quot;Good to see you&quot;); }
+    }
+    public static void main(String[] args) { new Guest().message(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>Output — Example 2</h2><pre class="output">Good to see you</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    interface Device {
+        default void status() { System.out.println(&quot;Ready&quot;); }
+    }
+    static class Phone implements Device { }
+    public static void main(String[] args) {
+        Device d = new Phone();
+        d.status();
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    interface Device {
+        default void status() { System.out.println(&quot;Ready&quot;); }
+    }
+    static class Phone implements Device { }
+    public static void main(String[] args) {
+        Device d = new Phone();
+        d.status();
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>Output — Example 3</h2><pre class="output">Ready</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Create an interface with a default start() method.</div><div class="exercise"><strong>2.</strong> Override a default method in a class.</div><div class="exercise"><strong>3.</strong> Explain how default methods support interface evolution.</div></section>
+<section class="slide "><div class="kicker">Interface Default Methods</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Keyword</td><td>default</td></tr><tr><td>Has body</td><td>Yes</td></tr><tr><td>Call style</td><td>Through implementing object</td></tr><tr><td>Override</td><td>Optional</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">13 · Module 3 concept</div><div class="title">STATIC INTERFACE METHODS</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>Definition</h2><p class="definition">A static interface method belongs to the interface itself and is called using the interface name.</p></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>In simple words</h2><p class="definition">It is a utility method for the interface; it is not called through an implementing object.</p><div class="diagram-row"><div class="diagram-card">It is a utility method for the interface; it is not called through an implementing object.</div></div></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>General syntax</h2><pre class="code"><code>interface MathTools {
+    static int square(int n) {
+        return n * n;
+    }
+}</code></pre></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>static</code></td><td>Belongs to the interface</td></tr><tr><td><code>Return type</code></td><td>Type of result</td></tr><tr><td><code>MathTools.square(5)</code></td><td>Call using the interface name</td></tr><tr><td><code>Object needed</code></td><td>No</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    interface MathInfo {
+        static int square(int n) { return n * n; }
+    }
+    public static void main(String[] args) {
+        System.out.println(MathInfo.square(5));
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    interface MathInfo {
+        static int square(int n) { return n * n; }
+    }
+    public static void main(String[] args) {
+        System.out.println(MathInfo.square(5));
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>Output — Example 1</h2><pre class="output">25</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    interface Converter {
+        static double toKm(double miles) { return miles * 1.609; }
+    }
+    public static void main(String[] args) {
+        System.out.println(Converter.toKm(2));
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    interface Converter {
+        static double toKm(double miles) { return miles * 1.609; }
+    }
+    public static void main(String[] args) {
+        System.out.println(Converter.toKm(2));
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>Output — Example 2</h2><pre class="output">3.218</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    interface Checker {
+        static boolean isAdult(int age) { return age &gt;= 18; }
+    }
+    public static void main(String[] args) {
+        System.out.println(Checker.isAdult(20));
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    interface Checker {
+        static boolean isAdult(int age) { return age &gt;= 18; }
+    }
+    public static void main(String[] args) {
+        System.out.println(Checker.isAdult(20));
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>Output — Example 3</h2><pre class="output">true</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Create static max(a, b) in an interface.</div><div class="exercise"><strong>2.</strong> Call the method without creating an object.</div><div class="exercise"><strong>3.</strong> Explain why the interface name is used for the call.</div></section>
+<section class="slide "><div class="kicker">Static Interface Methods</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Keyword</td><td>static</td></tr><tr><td>Belongs to</td><td>Interface</td></tr><tr><td>Call</td><td>InterfaceName.method()</td></tr><tr><td>Object needed</td><td>No</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">14 · Module 3 concept</div><div class="title">PRIVATE INTERFACE METHODS</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>Definition</h2><p class="definition">A private interface method is an internal helper used by other methods inside the same interface.</p></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>In simple words</h2><p class="definition">It avoids repeating shared code inside an interface&#x27;s default or static methods.</p><div class="diagram-row"><div class="diagram-card">It avoids repeating shared code inside an interface&#x27;s default or static methods.</div></div></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>General syntax</h2><pre class="code"><code>interface Message {
+    private void log() {
+        System.out.println(&quot;Logging&quot;);
+    }
+    default void send() { log(); }
+}</code></pre></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>private</code></td><td>Accessible only inside the interface</td></tr><tr><td><code>Helper body</code></td><td>Contains reusable internal logic</td></tr><tr><td><code>send()</code></td><td>Can call the private helper</td></tr><tr><td><code>External class</code></td><td>Cannot call log() directly</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    interface Message {
+        private void log() { System.out.println(&quot;Logging&quot;); }
+        default void send() {
+            log();
+            System.out.println(&quot;Sent&quot;);
+        }
+    }
+    static class App implements Message { }
+    public static void main(String[] args) { new App().send(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    interface Message {
+        private void log() { System.out.println(&quot;Logging&quot;); }
+        default void send() {
+            log();
+            System.out.println(&quot;Sent&quot;);
+        }
+    }
+    static class App implements Message { }
+    public static void main(String[] args) { new App().send(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>Output — Example 1</h2><pre class="output">Logging
+Sent</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    interface Alert {
+        private String label() { return &quot;Alert:&quot;; }
+        default void show() { System.out.println(label() + &quot; Check&quot;); }
+    }
+    static class Screen implements Alert { }
+    public static void main(String[] args) { new Screen().show(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    interface Alert {
+        private String label() { return &quot;Alert:&quot;; }
+        default void show() { System.out.println(label() + &quot; Check&quot;); }
+    }
+    static class Screen implements Alert { }
+    public static void main(String[] args) { new Screen().show(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>Output — Example 2</h2><pre class="output">Alert: Check</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    interface Report {
+        private void header() { System.out.println(&quot;Report&quot;); }
+        default void print() {
+            header();
+            System.out.println(&quot;Done&quot;);
+        }
+    }
+    static class Summary implements Report { }
+    public static void main(String[] args) { new Summary().print(); }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    interface Report {
+        private void header() { System.out.println(&quot;Report&quot;); }
+        default void print() {
+            header();
+            System.out.println(&quot;Done&quot;);
+        }
+    }
+    static class Summary implements Report { }
+    public static void main(String[] args) { new Summary().print(); }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>Output — Example 3</h2><pre class="output">Report
+Done</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Create a private helper used by two default methods.</div><div class="exercise"><strong>2.</strong> Try calling the private interface method from an implementing class.</div><div class="exercise"><strong>3.</strong> Explain why private helpers improve code reuse.</div></section>
+<section class="slide "><div class="kicker">Private Interface Methods</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Keyword</td><td>private</td></tr><tr><td>Purpose</td><td>Internal reuse</td></tr><tr><td>Called by</td><td>Methods inside the interface</td></tr><tr><td>External access</td><td>Not allowed</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">15 · Module 3 concept</div><div class="title">COMPILE-TIME POLYMORPHISM</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>Definition</h2><p class="definition">Compile-time polymorphism occurs when the compiler chooses an overloaded method based on the argument list.</p></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>In simple words</h2><p class="definition">The compiler can choose the matching overload before the program runs.</p><div class="diagram-row concept-diagram"><div class="diagram-node parent-node"><strong>add(...)</strong><span>Same method name</span></div><div class="diagram-arrow">argument list →</div><div class="diagram-node child-node"><strong>add(int, int)</strong><span>Selected for 2 integers</span><small>compile time</small></div><div class="diagram-node child-node"><strong>add(double, double)</strong><span>Selected for 2 decimals</span><small>compile time</small></div></div></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>General syntax</h2><pre class="code"><code>void show(int n) { ... }
+void show(String text) { ... }
+show(5);</code></pre></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>Same name</code></td><td>Overloaded methods</td></tr><tr><td><code>Argument types</code></td><td>Help determine the matching overload</td></tr><tr><td><code>Decision time</code></td><td>Compile time</td></tr><tr><td><code>Mechanism</code></td><td>Method overloading</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class Printer {
+        void show(int n) { System.out.println(n); }
+        void show(String s) { System.out.println(s); }
+    }
+    public static void main(String[] args) {
+        Printer p = new Printer();
+        p.show(8);
+        p.show(&quot;Java&quot;);
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Printer {
+        void show(int n) { System.out.println(n); }
+        void show(String s) { System.out.println(s); }
+    }
+    public static void main(String[] args) {
+        Printer p = new Printer();
+        p.show(8);
+        p.show(&quot;Java&quot;);
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>Output — Example 1</h2><pre class="output">8
+Java</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class Sum {
+        int add(int a, int b) { return a + b; }
+        double add(double a, double b) { return a + b; }
+    }
+    public static void main(String[] args) {
+        Sum s = new Sum();
+        System.out.println(s.add(2, 3));
+        System.out.println(s.add(2.5, 1.5));
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Sum {
+        int add(int a, int b) { return a + b; }
+        double add(double a, double b) { return a + b; }
+    }
+    public static void main(String[] args) {
+        Sum s = new Sum();
+        System.out.println(s.add(2, 3));
+        System.out.println(s.add(2.5, 1.5));
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>Output — Example 2</h2><pre class="output">5
+4.0</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static class Display {
+        void print(char c) { System.out.println(c); }
+        void print(int n) { System.out.println(n); }
+    }
+    public static void main(String[] args) {
+        Display d = new Display();
+        d.print(&#x27;A&#x27;);
+        d.print(65);
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Display {
+        void print(char c) { System.out.println(c); }
+        void print(int n) { System.out.println(n); }
+    }
+    public static void main(String[] args) {
+        Display d = new Display();
+        d.print(&#x27;A&#x27;);
+        d.print(65);
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>Output — Example 3</h2><pre class="output">A
+65</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Write overloaded multiply() methods.</div><div class="exercise"><strong>2.</strong> Explain which overload is selected for int and String arguments.</div><div class="exercise"><strong>3.</strong> Classify examples as compile-time or runtime polymorphism.</div></section>
+<section class="slide "><div class="kicker">Compile-Time Polymorphism</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Mechanism</td><td>Overloading</td></tr><tr><td>Decision</td><td>Compiler</td></tr><tr><td>Basis</td><td>Parameter list and argument match</td></tr><tr><td>When</td><td>Before runtime</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">16 · Module 3 concept</div><div class="title">RUNTIME POLYMORPHISM</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>Definition</h2><p class="definition">Runtime polymorphism occurs when an overridden instance method is selected according to the actual object&#x27;s type.</p></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>In simple words</h2><p class="definition">The same parent reference can produce different behaviour for different child objects.</p><div class="diagram-row concept-diagram multilevel-diagram"><div class="diagram-node parent-node"><strong>Animal a</strong><span>Parent reference</span><small>a.sound()</small></div><div class="diagram-arrow">↓ refers to one chosen object at runtime</div><div class="diagram-row concept-diagram"><div class="diagram-node child-node"><strong>Dog object</strong><span>Overridden sound()</span><small>prints "Bark"</small></div><div class="diagram-node child-node"><strong>Cat object</strong><span>Overridden sound()</span><small>prints "Meow"</small></div></div></div></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>General syntax</h2><pre class="code"><code>Parent ref = new Child();
+ref.display();</code></pre></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>Parent reference</code></td><td>Common reference type</td></tr><tr><td><code>Child object</code></td><td>Actual implementation</td></tr><tr><td><code>Overridden method</code></td><td>Chosen at runtime</td></tr><tr><td><code>Mechanism</code></td><td>Dynamic method dispatch</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class Animal { void sound() { System.out.println(&quot;Sound&quot;); } }
+    static class Cow extends Animal {
+        @Override void sound() { System.out.println(&quot;Moo&quot;); }
+    }
+    public static void main(String[] args) {
+        Animal a = new Cow();
+        a.sound();
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Animal { void sound() { System.out.println(&quot;Sound&quot;); } }
+    static class Cow extends Animal {
+        @Override void sound() { System.out.println(&quot;Moo&quot;); }
+    }
+    public static void main(String[] args) {
+        Animal a = new Cow();
+        a.sound();
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>Output — Example 1</h2><pre class="output">Moo</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class Shape { void draw() { System.out.println(&quot;Shape&quot;); } }
+    static class Circle extends Shape {
+        @Override void draw() { System.out.println(&quot;Circle&quot;); }
+    }
+    static class Square extends Shape {
+        @Override void draw() { System.out.println(&quot;Square&quot;); }
+    }
+    public static void main(String[] args) {
+        Shape s = new Circle(); s.draw();
+        s = new Square(); s.draw();
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Shape { void draw() { System.out.println(&quot;Shape&quot;); } }
+    static class Circle extends Shape {
+        @Override void draw() { System.out.println(&quot;Circle&quot;); }
+    }
+    static class Square extends Shape {
+        @Override void draw() { System.out.println(&quot;Square&quot;); }
+    }
+    public static void main(String[] args) {
+        Shape s = new Circle(); s.draw();
+        s = new Square(); s.draw();
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>Output — Example 2</h2><pre class="output">Circle
+Square</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static class Payment { void pay() { System.out.println(&quot;Generic payment&quot;); } }
+    static class CardPayment extends Payment {
+        @Override void pay() { System.out.println(&quot;Card payment&quot;); }
+    }
+    public static void main(String[] args) {
+        Payment p = new CardPayment();
+        p.pay();
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Payment { void pay() { System.out.println(&quot;Generic payment&quot;); } }
+    static class CardPayment extends Payment {
+        @Override void pay() { System.out.println(&quot;Card payment&quot;); }
+    }
+    public static void main(String[] args) {
+        Payment p = new CardPayment();
+        p.pay();
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>Output — Example 3</h2><pre class="output">Card payment</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Use a parent reference to call Dog and Cat sound() methods.</div><div class="exercise"><strong>2.</strong> Predict output after changing the assigned object.</div><div class="exercise"><strong>3.</strong> Explain why runtime polymorphism improves extensibility.</div></section>
+<section class="slide "><div class="kicker">Runtime Polymorphism</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Mechanism</td><td>Overriding</td></tr><tr><td>Decision</td><td>Runtime</td></tr><tr><td>Basis</td><td>Actual object type</td></tr><tr><td>Benefit</td><td>One reference, many behaviours</td></tr></tbody></table></div></section>
+<section class="slide center cover"><div class="kicker">17 · Module 3 concept</div><div class="title">ENCAPSULATION</div><div class="accent"></div></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>Definition</h2><p class="definition">Encapsulation bundles data and methods in a class and controls access to the object&#x27;s internal state.</p></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>In simple words</h2><p class="definition">Keep fields private and use public methods to read or update them safely.</p><div class="diagram-row concept-diagram"><div class="diagram-node parent-node"><strong>Private data</strong><span>balance</span><small>not accessed directly</small></div><div class="diagram-arrow">↔ controlled access</div><div class="diagram-node child-node"><strong>Public methods</strong><span>deposit() · getBalance()</span><small>validation + safe access</small></div></div></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>General syntax</h2><pre class="code"><code>class Account {
+    private int balance;
+    public int getBalance() {
+        return balance;
+    }
+}</code></pre></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>Syntax breakdown</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Code element</th><th>Meaning</th></tr></thead><tbody><tr><td><code>private field</code></td><td>Hides internal data</td></tr><tr><td><code>public method</code></td><td>Controlled access point</td></tr><tr><td><code>Validation</code></td><td>Rejects invalid changes</td></tr><tr><td><code>Benefit</code></td><td>Protects data integrity</td></tr></tbody></table></div></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>Example program 1</h2><pre class="code"><code>class Main {
+    static class Student {
+        private int age;
+        public void setAge(int a) { if (a &gt;= 0) age = a; }
+        public int getAge() { return age; }
+    }
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.setAge(20);
+        System.out.println(s.getAge());
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Student {
+        private int age;
+        public void setAge(int a) { if (a &gt;= 0) age = a; }
+        public int getAge() { return age; }
+    }
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.setAge(20);
+        System.out.println(s.getAge());
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>Output — Example 1</h2><pre class="output">20</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>Example program 2</h2><pre class="code"><code>class Main {
+    static class Account {
+        private int balance = 100;
+        public void deposit(int amount) {
+            if (amount &gt; 0) balance += amount;
+        }
+        public int getBalance() { return balance; }
+    }
+    public static void main(String[] args) {
+        Account a = new Account();
+        a.deposit(50);
+        System.out.println(a.getBalance());
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Account {
+        private int balance = 100;
+        public void deposit(int amount) {
+            if (amount &gt; 0) balance += amount;
+        }
+        public int getBalance() { return balance; }
+    }
+    public static void main(String[] args) {
+        Account a = new Account();
+        a.deposit(50);
+        System.out.println(a.getBalance());
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>Output — Example 2</h2><pre class="output">150</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>Example program 3</h2><pre class="code"><code>class Main {
+    static class Temperature {
+        private double celsius;
+        public void setCelsius(double c) {
+            if (c &gt;= -273.15) celsius = c;
+        }
+        public double getCelsius() { return celsius; }
+    }
+    public static void main(String[] args) {
+        Temperature t = new Temperature();
+        t.setCelsius(25.0);
+        System.out.println(t.getCelsius());
+    }
+}</code></pre><button class="run-example-btn" type="button" data-java-code="class Main {
+    static class Temperature {
+        private double celsius;
+        public void setCelsius(double c) {
+            if (c &gt;= -273.15) celsius = c;
+        }
+        public double getCelsius() { return celsius; }
+    }
+    public static void main(String[] args) {
+        Temperature t = new Temperature();
+        t.setCelsius(25.0);
+        System.out.println(t.getCelsius());
+    }
+}">▶ Open in Java Code Lab</button></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>Output — Example 3</h2><pre class="output">25.0</pre><div class="note-strip">Verified by compiling and running with OpenJDK 21.</div></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>Practice exercises</h2><div class="exercise"><strong>1.</strong> Create a BankAccount with private balance and validated deposit().</div><div class="exercise"><strong>2.</strong> Create private marks with getter and setter methods.</div><div class="exercise"><strong>3.</strong> Explain why public fields weaken encapsulation.</div></section>
+<section class="slide "><div class="kicker">Encapsulation</div><h2>Concept at a glance</h2><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Key idea</th><th>Remember</th></tr></thead><tbody><tr><td>Bundle</td><td>Data and methods</td></tr><tr><td>Hide</td><td>private fields</td></tr><tr><td>Control</td><td>Public methods + validation</td></tr><tr><td>Goal</td><td>Protect object state</td></tr></tbody></table></div></section>
+<section class="slide"><div class="kicker">Quality check</div><h2>Java Program Verification</h2><p class="definition">All 51 example programs were compiled with javac and executed with java (OpenJDK 21). Their actual console output matched the output shown on the slides.</p><div class="learning-table-wrap"><table class="learning-table"><thead><tr><th>Concept</th><th>Programs tested</th><th>Status</th></tr></thead><tbody><tr><td>Inheritance</td><td>3</td><td class="pass">PASS</td></tr><tr><td>The super Keyword</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Multilevel Inheritance</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Order of Constructor Execution</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Method Overloading</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Method Overriding</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Dynamic Method Dispatch</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Abstract Classes</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Abstract Methods</td><td>3</td><td class="pass">PASS</td></tr><tr><td>The final Keyword</td><td>3</td><td class="pass">PASS</td></tr><tr><td>The Object Class</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Interface Default Methods</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Static Interface Methods</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Private Interface Methods</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Compile-Time Polymorphism</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Runtime Polymorphism</td><td>3</td><td class="pass">PASS</td></tr><tr><td>Encapsulation</td><td>3</td><td class="pass">PASS</td></tr></tbody></table></div></section>
+<div id="javaCodeLab" aria-hidden="true"><div class="code-lab-window">
+<div class="code-lab-header"><div><div class="code-lab-kicker">VISUAL STUDIO–STYLE JAVA EDITOR</div><div class="code-lab-title">Java Code Lab</div></div><div class="code-lab-actions"><button class="lab-btn secondary" id="codeLabReset">↻ Reset</button><button class="lab-btn run" id="codeLabRun">▶ Run</button><button class="lab-btn close" id="codeLabClose">✕ Close</button></div></div>
+<div class="code-lab-toolbar"><span class="lab-pill">Java · OpenJDK</span><span class="lab-hint">Ctrl + Enter to run · Internet required for live execution</span><div class="zoom-controls"><button id="labZoomOut" type="button" title="Zoom out">A−</button><button id="labZoomReset" type="button" title="Reset zoom">100%</button><button id="labZoomIn" type="button" title="Zoom in">A+</button><button id="labExpand" type="button" title="Expand code lab">⛶ Expand</button><button id="labToolbarRun" class="lab-btn run" type="button" title="Compile and run Java program">▶ Run</button><button id="labToolbarClose" class="lab-btn close" type="button" title="Close Java Code Lab">✕ Close</button></div></div>
+<div class="code-lab-body"><div class="editor-panel"><div class="editor-titlebar">Source Code <span class="editor-status" id="codeLabStatus">Ready</span></div><div class="editor-wrap"><div class="line-numbers" id="codeLineNumbers">1</div><div class="editor-surface"><pre id="javaSyntaxLayer" aria-hidden="true"><code id="javaSyntaxCode"></code></pre><textarea id="javaCodeEditor" spellcheck="false" wrap="off" aria-label="Editable Java source code"></textarea></div></div></div>
+<div class="io-panel"><div class="io-box"><div class="io-title">INPUT (optional)</div><textarea id="javaStdin" placeholder="Enter Scanner input here..."></textarea></div><div class="io-box output-box"><div class="io-title">OUTPUT</div><pre class="java-output" id="javaOutput">Run the Java program to see the output.</pre></div></div></div><div class="code-lab-footer">Light theme · Java syntax colours · Zoom controls · Scroll for long programs</div></div></div>
+<div id="codeFocus" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Large Java code view">
+  <header class="code-focus-header"><div class="code-focus-heading"><div class="code-focus-eyebrow">CLASSROOM CODE VIEW</div><div class="code-focus-title" id="focusCodeTitle">Java Example</div></div>
+    <div class="code-focus-actions"><button class="focus-btn" id="focusZoomOut" type="button" aria-label="Zoom code out">A− Zoom out</button><button class="focus-btn" id="focusZoomReset" type="button">100% Reset</button><button class="focus-btn" id="focusZoomIn" type="button" aria-label="Zoom code in">A+ Zoom in</button><button class="focus-btn" id="focusFit" type="button">Fit code</button><button class="focus-btn" id="focusCopy" type="button">Copy code</button><button class="focus-btn primary" id="focusOpenLab" type="button">Open Code Lab</button><button class="focus-btn close" id="focusClose" type="button">✕ Close</button></div>
+  </header>
+  <div class="code-focus-meta"><span>Java · High-contrast projection mode</span><span class="grow"></span><span id="focusZoomLabel">100%</span><span>Scroll for long programs · Zoom controls remain available</span></div>
+  <div id="focusCodeViewport" tabindex="0"><pre id="focusCodeText"></pre></div>
+  <footer class="code-focus-footer"><span>Tip: use A+ / A− while explaining each statement.</span><span>Esc closes this view · Code remains unchanged</span></footer>
+</div>
+<script>
+(function(){
+const slides=Array.from(document.querySelectorAll('body > .slide'));slides.forEach(s=>{const h=s.querySelector('h2');if(h&&/^Example program/i.test(h.textContent.trim())){const b=document.createElement('button');b.type='button';b.className='code-focus-btn';b.textContent='⛶ Large Code View';s.insertBefore(b,s.querySelector('.run-example-btn'));}});const stage=document.getElementById('slideStage'),frame=document.getElementById('slideFrame');
+const counter=document.getElementById('slideCounter'),progress=document.getElementById('slideProgress');let current=0;
+const clones=slides.map(s=>s.cloneNode(true));clones.forEach(c=>frame.appendChild(c));
+function show(n){current=Math.max(0,Math.min(clones.length-1,n));clones.forEach((s,i)=>s.classList.toggle('presentation-current',i===current));counter.textContent=(current+1)+' / '+clones.length;progress.style.width=((current+1)/clones.length*100)+'%';}
+function start(){stage.classList.add('active');document.body.style.overflow='hidden';show(current);if(stage.requestFullscreen)stage.requestFullscreen().catch(()=>{});}
+function stop(){stage.classList.remove('active');document.body.style.overflow='';if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});}
+document.getElementById('presentButton').onclick=()=>stage.classList.contains('active')?stop():start();
+document.getElementById('prevSlide').onclick=()=>show(current-1);document.getElementById('nextSlide').onclick=()=>show(current+1);document.getElementById('slideExit').onclick=stop;
+document.addEventListener('keydown',e=>{if(stage.classList.contains('active')&&!document.getElementById('javaCodeLab').classList.contains('open')){if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();show(current+1)}else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(current-1)}else if(e.key==='Home'){show(0)}else if(e.key==='End'){show(clones.length-1)}else if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)stage.requestFullscreen?.().catch(()=>{});else document.exitFullscreen?.().catch(()=>{})}else if(e.key==='Escape'){stop()}}});
+const sidebar=document.getElementById('topicSidebar'),backdrop=document.getElementById('topicBackdrop'),topicList=document.getElementById('topicList');
+const seen=new Set();slides.forEach((s,i)=>{const k=s.querySelector('.kicker')?.textContent.trim()||'';if(!k||seen.has(k))return;seen.add(k);const b=document.createElement('button');b.className='topic-btn';b.innerHTML='<span class="topic-num">'+String(i+1).padStart(3,'0')+'</span><span class="topic-name"></span>';b.querySelector('.topic-name').textContent=k;b.onclick=()=>{if(stage.classList.contains('active'))show(i);else slides[i].scrollIntoView({behavior:'smooth'});sidebar.classList.remove('open');backdrop.classList.remove('show')};topicList.appendChild(b)});
+document.getElementById('topicToggle').onclick=()=>{sidebar.classList.toggle('open');backdrop.classList.toggle('show')};backdrop.onclick=()=>{sidebar.classList.remove('open');backdrop.classList.remove('show')};
+})();
+</script>
+<script>
+(function(){
+const q=id=>document.getElementById(id),panel=q('codeFocus'),pre=q('focusCodeText'),viewport=q('focusCodeViewport');let fontSize=27,source='';
+function setZoom(n){fontSize=Math.max(14,Math.min(44,n));pre.style.fontSize=fontSize+'px';q('focusZoomLabel').textContent=Math.round(fontSize/27*100)+'%';}
+function classroomFormat(src){let out='',line='',depth=0,paren=0,quote='',escape=false,lineComment=false,blockComment=false;const flush=()=>{const t=line.trim();if(t)out+='    '.repeat(Math.max(0,depth))+t+'\n';line='';};for(let i=0;i<src.length;i++){const c=src[i],n=src[i+1];if(lineComment){if(c==='\n'){flush();lineComment=false;}else line+=c;continue;}if(blockComment){line+=c;if(c==='*'&&n==='/'){line+='/';i++;blockComment=false;}continue;}if(quote){line+=c;if(escape)escape=false;else if(c==='\\')escape=true;else if(c===quote)quote='';continue;}if(c==='/'&&n==='/'){if(line.trim())line+=' ';line+='//';i++;lineComment=true;continue;}if(c==='/'&&n==='*'){if(line.trim())line+=' ';line+='/*';i++;blockComment=true;continue;}if(c==='\"'||c==="'"){quote=c;line+=c;continue;}if(c==='('||c==='[')paren++;if(c===')'||c===']')paren=Math.max(0,paren-1);if(c==='{'){if(line.trim()&&!/\s$/.test(line))line+=' ';line+='{';flush();depth++;continue;}if(c==='}'){flush();depth=Math.max(0,depth-1);line='}';flush();continue;}if(c===';'&&paren===0){line+=';';flush();continue;}if(c==='\n'){flush();continue;}if(/\s/.test(c)){if(line&&!/\s$/.test(line))line+=' ';continue;}line+=c;}flush();return out.trimEnd();}
+function openFocus(button){const slide=button.closest('.slide');const codeNode=slide?.querySelector('pre.code code');source=button.getAttribute('data-java-code')||codeNode?.textContent||'';if(!source.trim())return;source=classroomFormat(source);q('focusCodeTitle').textContent=(slide?.querySelector('h2')?.textContent||'Java Example')+' · '+(slide?.querySelector('.kicker')?.textContent||'');pre.textContent=source;setZoom(27);panel.classList.add('open');panel.setAttribute('aria-hidden','false');viewport.scrollTop=0;viewport.scrollLeft=0;q('focusZoomIn').focus();}
+function closeFocus(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');}
+document.addEventListener('click',e=>{const b=e.target.closest('.code-focus-btn');if(b)openFocus(b);});
+q('focusZoomIn').onclick=()=>setZoom(fontSize+2);q('focusZoomOut').onclick=()=>setZoom(fontSize-2);q('focusZoomReset').onclick=()=>setZoom(27);
+q('focusFit').onclick=()=>{const lines=source.split('\n'),longest=Math.max(1,...lines.map(x=>x.length));const byHeight=Math.floor((window.innerHeight-180)/(Math.max(1,lines.length)*1.55));const byWidth=Math.floor((window.innerWidth-100)/(longest*.61));setZoom(Math.max(14,Math.min(32,byHeight,byWidth))); viewport.scrollTop=0;viewport.scrollLeft=0;};
+q('focusCopy').onclick=async()=>{try{await navigator.clipboard.writeText(source);q('focusCopy').textContent='Copied ✓';setTimeout(()=>q('focusCopy').textContent='Copy code',1200);}catch(e){q('focusCopy').textContent='Select code to copy';}};
+q('focusOpenLab').onclick=()=>{closeFocus();const fake=document.createElement('button');fake.className='run-example-btn';fake.setAttribute('data-java-code',source);document.body.appendChild(fake);fake.click();fake.remove();};q('focusClose').onclick=closeFocus;
+document.addEventListener('keydown',e=>{if(panel.classList.contains('open')){if(e.key==='Escape')closeFocus();else if((e.ctrlKey||e.metaKey)&&e.key==='+'){e.preventDefault();setZoom(fontSize+2)}else if((e.ctrlKey||e.metaKey)&&e.key==='-'){e.preventDefault();setZoom(fontSize-2)}}});
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+<script>
+(function(){
+const TIO_API='https://tio.run/cgi-bin/run/api/no-cache/';
+const DEFAULT_CODE=`public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java!");
+    }
+}`;
+const q=id=>document.getElementById(id), normalise=s=>(s||'').replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+// Whitespace-only formatter: expands compact one-line methods/blocks without changing tokens or literals.
+function formatJavaForClassroom(src){let out='',line='',depth=0,paren=0,quote='',escape=false,lineComment=false,blockComment=false;const flush=()=>{const t=line.trim();if(t)out+='    '.repeat(Math.max(0,depth))+t+'\n';line='';};for(let i=0;i<src.length;i++){const c=src[i],n=src[i+1];if(lineComment){if(c==='\n'){flush();lineComment=false;}else line+=c;continue;}if(blockComment){line+=c;if(c==='*'&&n==='/'){line+='/';i++;blockComment=false;}continue;}if(quote){line+=c;if(escape)escape=false;else if(c==='\\')escape=true;else if(c===quote)quote='';continue;}if(c==='/'&&n==='/'){if(line.trim())line+=' ';line+='//';i++;lineComment=true;continue;}if(c==='/'&&n==='*'){if(line.trim())line+=' ';line+='/*';i++;blockComment=true;continue;}if(c==='\"'||c==="'"){quote=c;line+=c;continue;}if(c==='('||c==='[')paren++;if(c===')'||c===']')paren=Math.max(0,paren-1);if(c==='{'){if(line.trim()&&!/\s$/.test(line))line+=' ';line+='{';flush();depth++;continue;}if(c==='}'){flush();depth=Math.max(0,depth-1);line='}';flush();continue;}if(c===';'&&paren===0){line+=';';flush();continue;}if(c==='\n'){flush();continue;}if(/\s/.test(c)){if(line&&!/\s$/.test(line))line+=' ';continue;}line+=c;}flush();return out.trimEnd();}
+function highlightJava(src){let out='',i=0;const token=/\/\*[\s\S]*?\*\/|\/\/[^\n]*|\"(?:\\.|[^\"\\])*\"|'(?:\\.|[^'\\])*'|@[A-Za-z_$][\w$]*|\b(?:abstract|assert|boolean|break|byte|case|catch|char|class|const|continue|default|do|double|else|enum|extends|final|finally|float|for|if|implements|import|instanceof|int|interface|long|native|new|package|private|protected|public|return|short|static|strictfp|super|switch|synchronized|this|throw|throws|transient|try|void|volatile|while|var|record|yield)\b|\b(?:true|false|null)\b|\b[A-Z][A-Za-z0-9_$]*\b|\b\d+(?:\.\d+)?[fFdDlL]?\b/g;let m;while((m=token.exec(src))){out+=escHtml(src.slice(i,m.index));const t=m[0],e=escHtml(t);let cls='';if(t.startsWith('//')||t.startsWith('/*'))cls='tok-comment';else if(t.startsWith('\"')||t.startsWith("'"))cls='tok-string';else if(t.startsWith('@'))cls='tok-annotation';else if(/^\d/.test(t))cls='tok-number';else if(/^(true|false|null)$/.test(t))cls='tok-keyword';else if(/^[A-Z][A-Za-z0-9_$]*$/.test(t))cls='tok-type';else cls='tok-keyword';out+='<span class="'+cls+'">'+e+'</span>';i=token.lastIndex;}out+=escHtml(src.slice(i));return out+'\n';}
+function updateLines(){const ed=q('javaCodeEditor'),ln=q('codeLineNumbers'),syntax=q('javaSyntaxCode'),layer=q('javaSyntaxLayer');ln.textContent=ed.value.split('\n').map((_,i)=>i+1).join('\n');ln.scrollTop=ed.scrollTop;syntax.innerHTML=highlightJava(ed.value);layer.scrollTop=ed.scrollTop;layer.scrollLeft=ed.scrollLeft;}
+function openLab(code){q('javaCodeEditor').value=formatJavaForClassroom(normalise(code||DEFAULT_CODE));q('javaOutput').textContent='Run the Java program to see the output.';q('javaStdin').value='';q('codeLabStatus').textContent='Ready';q('javaCodeLab').classList.add('open');q('javaCodeLab').setAttribute('aria-hidden','false');updateLines();}
+function closeLab(){q('javaCodeLab').classList.remove('open');q('javaCodeLab').setAttribute('aria-hidden','true');}
+function wrapCode(code){let t=normalise(code).trim();if(!t)return DEFAULT_CODE;if(/\b(class|interface|enum|record)\s+\w+/.test(t))return t;return `public class Main {\n public static void main(String[] args) {\n${t.split('\n').map(x=>'  '+x).join('\n')}\n }\n}`;}
+function buildRequest(code,input){const a=[],txt=s=>new TextEncoder().encode(s).forEach(b=>a.push(b)),nul=()=>a.push(0);txt('Vlang');nul();txt('1');nul();txt('java-openjdk');nul();const c=new TextEncoder().encode(code);txt('F.code.tio');nul();txt(String(c.length));nul();c.forEach(b=>a.push(b));nul();const i=new TextEncoder().encode(input||'');txt('F.input.tio');nul();txt(String(i.length));nul();i.forEach(b=>a.push(b));nul();txt('Vargs');nul();txt('0');nul();a.push(82);return new Uint8Array(a);}
+async function run(){const code=q('javaCodeEditor').value.trim(),out=q('javaOutput'),status=q('codeLabStatus'),btn=q('codeLabRun');if(!code)return;status.textContent='Running…';out.textContent='Compiling and running Java…';btn.disabled=true;try{if(!window.pako)throw new Error('Execution library is loading. Try again in a moment.');const body=pako.deflateRaw(buildRequest(wrapCode(code),q('javaStdin').value),{level:9});const r=await fetch(TIO_API,{method:'POST',mode:'cors',headers:{'Content-Type':'text/plain;charset=UTF-8'},body});if(!r.ok)throw new Error('Execution service returned HTTP '+r.status);let bytes=new Uint8Array(await r.arrayBuffer());if(bytes[0]===31&&bytes[1]===139){const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));bytes=new Uint8Array(await new Response(stream).arrayBuffer())}const txt=new TextDecoder().decode(bytes),del=txt.slice(0,16);out.textContent=del.length===16?(txt.split(del)[1]||'').replace(/\r/g,'').trimEnd():txt.trimEnd();if(!out.textContent)out.textContent='Program completed with no console output.';status.textContent='Finished';}catch(e){out.textContent='Could not run the code in the online runner.\n\n'+e.message+'\n\nThe displayed examples were independently compiled and run with OpenJDK 21 before this file was generated.';status.textContent='Runner unavailable';}finally{btn.disabled=false;}}
+document.getElementById('codeLabButton').onclick=()=>openLab();document.getElementById('codeLabClose').onclick=closeLab;document.getElementById('labToolbarClose').onclick=closeLab;document.getElementById('codeLabRun').onclick=run;document.getElementById('labToolbarRun').onclick=run;document.getElementById('codeLabReset').onclick=()=>{q('javaCodeEditor').value=DEFAULT_CODE;q('javaStdin').value='';q('javaOutput').textContent='Reset complete. Press Run.';q('codeLabStatus').textContent='Ready';updateLines()};q('javaCodeEditor').addEventListener('input',updateLines);q('javaCodeEditor').addEventListener('scroll',()=>{const ed=q('javaCodeEditor'),layer=q('javaSyntaxLayer');layer.scrollTop=ed.scrollTop;layer.scrollLeft=ed.scrollLeft;updateLines()});q('javaCodeEditor').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();run()}if(e.key==='Tab'){e.preventDefault();const a=e.target.selectionStart,b=e.target.selectionEnd;e.target.setRangeText('    ',a,b,'end');updateLines()}});
+let labFont=19;function setLabFont(n){labFont=Math.max(12,Math.min(34,n));q('javaCodeEditor').style.fontSize=labFont+'px';q('codeLineNumbers').style.fontSize=labFont+'px';q('labZoomReset').textContent=Math.round(labFont/19*100)+'%';}q('labZoomIn').onclick=()=>setLabFont(labFont+2);q('labZoomOut').onclick=()=>setLabFont(labFont-2);q('labZoomReset').onclick=()=>setLabFont(19);q('labExpand').onclick=()=>{const w=document.querySelector('.code-lab-window');w.classList.toggle('expanded');q('labExpand').textContent=w.classList.contains('expanded')?'⤢ Restore':'⛶ Expand';};
+document.addEventListener('click',e=>{const b=e.target.closest('.run-example-btn');if(b)openLab(b.getAttribute('data-java-code'))});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&q('javaCodeLab').classList.contains('open'))closeLab()});
+})();
+</script>
+</body></html>
